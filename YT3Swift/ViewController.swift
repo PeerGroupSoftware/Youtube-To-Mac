@@ -20,7 +20,7 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var mainProgressBar: NSProgressIndicator!
     
-    dynamic var isRunning = false
+    var isRunning = false
     var outputPipe:Pipe!
     var buildTask:Process!
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
@@ -78,7 +78,7 @@ class ViewController: NSViewController {
                 print("animate showing")
                 NSAnimationContext.runAnimationGroup({_ in
                     //Indicate the duration of the animation
-                    NSAnimationContext.current().duration = 0.25
+                    NSAnimationContext.current.duration = 0.25
                     self.URLField.animator().isHidden = true
                     self.audioBox.animator().isHidden = true
                     self.formatPopup.animator().isHidden = true
@@ -94,7 +94,7 @@ class ViewController: NSViewController {
                 print("animate hiding")
                 NSAnimationContext.runAnimationGroup({_ in
                     //Indicate the duration of the animation
-                    NSAnimationContext.current().duration = 0.25
+                    NSAnimationContext.current.duration = 0.25
                     self.URLField.animator().isHidden = false
                     self.audioBox.animator().isHidden = false
                     self.formatPopup.animator().isHidden = false
