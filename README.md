@@ -1,5 +1,5 @@
 # YoutubeToMac
-Cocoa Interface for youtube-dl
+Cocoa Interface for a YouTube music and video downloader.
 
 This project is still in development. It's expected that things won't work or are missing. This should be in a more stable and compelte state soon.
 
