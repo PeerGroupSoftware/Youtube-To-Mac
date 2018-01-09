@@ -13,6 +13,7 @@
 		B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */; };
 		B79127C620042F5D003E2F70 /* youtubedl2.sh in Resources */ = {isa = PBXBuildFile; fileRef = B79127C520042F5D003E2F70 /* youtubedl2.sh */; };
 		B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C45E1920044C7400473CF8 /* MainWindowController.swift */; };
+		B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B77E6A6D1E9BCEFC001CFE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B79127C520042F5D003E2F70 /* youtubedl2.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl2.sh; sourceTree = "<group>"; };
 		B7C45E1920044C7400473CF8 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */,
 				B7C45E1920044C7400473CF8 /* MainWindowController.swift */,
+				B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */,
 				B77E6A661E9BCEFC001CFE77 /* ViewController.swift */,
 				B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */,
 				B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */,
@@ -94,7 +97,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Jake Spann";
 				TargetAttributes = {
 					B77E6A601E9BCEFC001CFE77 = {
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */,
 				B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */,
 				B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */,
 				B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */,
@@ -171,7 +175,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -179,7 +185,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -221,7 +231,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -229,7 +241,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -261,6 +277,7 @@
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				INFOPLIST_FILE = YT3Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jakespann.YT3Swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -276,6 +293,7 @@
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				INFOPLIST_FILE = YT3Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jakespann.YT3Swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;

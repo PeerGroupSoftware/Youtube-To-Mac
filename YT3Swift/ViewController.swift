@@ -8,6 +8,8 @@
 
 import Cocoa
 
+let previousVideosTableController = PreviousTableViewController()
+
 class ViewController: NSViewController {
     @IBOutlet weak var URLField: NSTextField!
     @IBOutlet weak var nameLabel: NSTextField!
@@ -15,12 +17,16 @@ class ViewController: NSViewController {
     @IBOutlet weak var formatPopup: NSPopUpButton!
     @IBOutlet weak var downloadButton: NSButton!
     @IBOutlet weak var stopButton: NSButton!
+    @IBOutlet weak var downloadLocationButton: NSButton!
+    @IBOutlet weak var previousVideosTableView: NSTableView!
     
     
     
     @IBOutlet weak var mainProgressBar: NSProgressIndicator!
     
     var isRunning = false
+    var videoID = ""
+    var videoTitle = ""
     var outputPipe:Pipe!
     var buildTask:Process!
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
@@ -29,22 +35,49 @@ class ViewController: NSViewController {
     
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        //buildTask.terminate()
+        /*let passwordBorder = CALayer()
+        let passwordWidth = CGFloat(2.0)
+        passwordBorder.borderColor = UIColor.lightGray.cgColor
+        passwordBorder.frame = CGRect(x: 0, y: passwordField.frame.size.height - passwordWidth, width:  passwordField.frame.size.width, height: passwordField.frame.size.height)
+        
+        passwordBorder.borderWidth = passwordWidth
+        passwordField.layer.addSublayer(passwordBorder)
+        passwordField.layer.masksToBounds = true*/
+    }
+    override func viewDidLoad() {
+        URLField.focusRingType = .none
+        let border = CALayer()
+        let width = CGFloat(1.2)
+        border.borderColor = NSColor.lightGray.cgColor
+        border.frame = CGRect(x: 0, y: URLField.frame.size.height - width, width:  URLField.frame.size.width, height: URLField.frame.size.height)
+        
+        border.borderWidth = width
+        URLField.wantsLayer = true
+        URLField.layer?.addSublayer(border)
+        URLField.layer?.masksToBounds = true
+        
+        let buttonBorder = CALayer()
+        buttonBorder.borderColor = NSColor.lightGray.cgColor
+        buttonBorder.frame = CGRect(x: 0, y: (downloadLocationButton.frame.size.height - width)-1, width:  downloadLocationButton.frame.size.width, height: width)
+        
+        buttonBorder.borderWidth = width
+        downloadLocationButton.wantsLayer = true
+        downloadLocationButton.layer?.addSublayer(buttonBorder)
+        downloadLocationButton.layer?.masksToBounds = true
+        
+        previousVideosTableView.delegate = previousVideosTableController
+        previousVideosTableView.dataSource = previousVideosTableController
+        
+        //URLField.beginDocument()
+        
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
     @IBAction func startTasks(_ sender: NSButton) {
-        switch sender.integerValue {
-        case 1:
             // print("1")
             if !URLField.stringValue.isEmpty{runScript([""])}
-            
-        default:
-            //print("2")
-            buildTask.terminate()
-        }
     }
     
     
@@ -79,15 +112,16 @@ class ViewController: NSViewController {
                 NSAnimationContext.runAnimationGroup({_ in
                     //Indicate the duration of the animation
                     NSAnimationContext.current.duration = 0.25
-                    self.URLField.animator().isHidden = true
+                    self.URLField.isEditable = false
                     self.audioBox.animator().isHidden = true
                     self.formatPopup.animator().isHidden = true
-                    self.downloadButton.animator().isHidden = true
-                    self.nameLabel.animator().isHidden = false
+                    self.downloadButton.isEnabled = false
+                    self.downloadLocationButton.isEnabled = false
+                    //self.nameLabel.animator().isHidden = false
                     
                     self.mainProgressBar.animator().isHidden = false
                     self.stopButton.animator().isHidden = false
-                    self.nameLabel.animator().isHidden = false
+                   // self.nameLabel.animator().isHidden = false
                 }, completionHandler:{
                 })
             case false:
@@ -95,15 +129,16 @@ class ViewController: NSViewController {
                 NSAnimationContext.runAnimationGroup({_ in
                     //Indicate the duration of the animation
                     NSAnimationContext.current.duration = 0.25
-                    self.URLField.animator().isHidden = false
+                    self.URLField.isEditable = false
                     self.audioBox.animator().isHidden = false
+                    self.downloadLocationButton.isEnabled = true
                     self.formatPopup.animator().isHidden = false
-                    self.downloadButton.animator().isHidden = false
+                    self.downloadButton.isEnabled = true
                     
                     
                     self.mainProgressBar.animator().isHidden = true
                     self.stopButton.animator().isHidden = true
-                    self.nameLabel.animator().isHidden = true
+                   // self.nameLabel.animator().isHidden = true
                 }, completionHandler:{
                 })
             }
@@ -147,6 +182,7 @@ class ViewController: NSViewController {
                     // self.buildButton.isEnabled = true
                     // self.spinner.stopAnimation(self)
                     print("Stopped")
+                    self.updateDownloadProgressBar(progress: 0.0)
                     self.toggleDownloadInterface(to: false)
                     if self.outputPipe.description.contains("must provide") {
                         print("123354657")
@@ -185,7 +221,7 @@ class ViewController: NSViewController {
             print(outputString)
             if outputString.contains("fulltitle") {
                 for i in (outputString.split(separator: ":")) {
-                   print(i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
+                   (i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
                 }
             }
             if outputString.range(of:"100%: Done") != nil {
@@ -196,12 +232,24 @@ class ViewController: NSViewController {
             } else if outputString.range(of:"must provide") != nil {
                 print("There was some kind of error")
             } else if outputString.contains("[download]") {
+                if outputString.contains("Destination:") {
+                    var videonameString = (outputString.replacingOccurrences(of: "[download] Destination: ", with: ""))
+                    
+                    print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
+                    
+                    videonameString.removeSubrange((videonameString.range(of: ("-" + self.videoID))?.lowerBound)!..<videonameString.endIndex)
+                    self.videoTitle = (videonameString)
+                    DispatchQueue.main.async {self.URLField.stringValue = videonameString}
+                } else {
                 print("download update")
                 for i in (outputString.split(separator: " ")) {
                     if i.contains("%") {
                         self.updateDownloadProgressBar(progress:(Double(i.replacingOccurrences(of: "%", with: "")))!)
                     }
                 }
+                }
+            } else if outputString.contains("[youtube]") && outputString.contains("Downloading webpage") {
+            self.videoID = ((outputString.split(separator: " "))[1].replacingOccurrences(of: ":", with: ""))
             }
             
             //5.
