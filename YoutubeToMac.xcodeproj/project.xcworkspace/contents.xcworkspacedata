@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:YT3Swift.xcodeproj">
+      location = "self:/Users/SpannJa/Xcode Projects/YT3Swift/YoutubeToMac.xcodeproj">
    </FileRef>
 </Workspace>

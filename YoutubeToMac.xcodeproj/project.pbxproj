@@ -11,15 +11,21 @@
 		B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A661E9BCEFC001CFE77 /* ViewController.swift */; };
 		B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */; };
 		B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */; };
+		B77E6A741E9BCF4F001CFE77 /* youtubedl.sh in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A731E9BCF4F001CFE77 /* youtubedl.sh */; };
+		B79127C620042F5D003E2F70 /* youtubedl2.sh in Resources */ = {isa = PBXBuildFile; fileRef = B79127C520042F5D003E2F70 /* youtubedl2.sh */; };
+		B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C45E1920044C7400473CF8 /* MainWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B77E6A611E9BCEFC001CFE77 /* YT3Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YT3Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeToMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B77E6A661E9BCEFC001CFE77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B77E6A6B1E9BCEFC001CFE77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B77E6A6D1E9BCEFC001CFE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B77E6A731E9BCF4F001CFE77 /* youtubedl.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = youtubedl.sh; path = ../youtubedl.sh; sourceTree = "<group>"; };
+		B79127C520042F5D003E2F70 /* youtubedl2.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl2.sh; sourceTree = "<group>"; };
+		B7C45E1920044C7400473CF8 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +50,7 @@
 		B77E6A621E9BCEFC001CFE77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B77E6A611E9BCEFC001CFE77 /* YT3Swift.app */,
+				B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,10 +59,13 @@
 			isa = PBXGroup;
 			children = (
 				B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */,
+				B7C45E1920044C7400473CF8 /* MainWindowController.swift */,
 				B77E6A661E9BCEFC001CFE77 /* ViewController.swift */,
 				B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */,
 				B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */,
 				B77E6A6D1E9BCEFC001CFE77 /* Info.plist */,
+				B77E6A731E9BCF4F001CFE77 /* youtubedl.sh */,
+				B79127C520042F5D003E2F70 /* youtubedl2.sh */,
 			);
 			path = YT3Swift;
 			sourceTree = "<group>";
@@ -64,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B77E6A601E9BCEFC001CFE77 /* YT3Swift */ = {
+		B77E6A601E9BCEFC001CFE77 /* YoutubeToMac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B77E6A701E9BCEFC001CFE77 /* Build configuration list for PBXNativeTarget "YT3Swift" */;
+			buildConfigurationList = B77E6A701E9BCEFC001CFE77 /* Build configuration list for PBXNativeTarget "YoutubeToMac" */;
 			buildPhases = (
 				B77E6A5D1E9BCEFC001CFE77 /* Sources */,
 				B77E6A5E1E9BCEFC001CFE77 /* Frameworks */,
@@ -76,9 +85,9 @@
 			);
 			dependencies = (
 			);
-			name = YT3Swift;
+			name = YoutubeToMac;
 			productName = YT3Swift;
-			productReference = B77E6A611E9BCEFC001CFE77 /* YT3Swift.app */;
+			productReference = B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +107,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B77E6A5C1E9BCEFC001CFE77 /* Build configuration list for PBXProject "YT3Swift" */;
+			buildConfigurationList = B77E6A5C1E9BCEFC001CFE77 /* Build configuration list for PBXProject "YoutubeToMac" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -111,7 +120,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B77E6A601E9BCEFC001CFE77 /* YT3Swift */,
+				B77E6A601E9BCEFC001CFE77 /* YoutubeToMac */,
 			);
 		};
 /* End PBXProject section */
@@ -122,6 +131,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */,
+				B79127C620042F5D003E2F70 /* youtubedl2.sh in Resources */,
+				B77E6A741E9BCF4F001CFE77 /* youtubedl.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,6 +146,7 @@
 			files = (
 				B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */,
 				B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */,
+				B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +264,7 @@
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				INFOPLIST_FILE = YT3Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jakeSpann.YT3Swift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakespann.YT3Swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -266,7 +278,7 @@
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				INFOPLIST_FILE = YT3Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jakeSpann.YT3Swift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakespann.YT3Swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -275,7 +287,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B77E6A5C1E9BCEFC001CFE77 /* Build configuration list for PBXProject "YT3Swift" */ = {
+		B77E6A5C1E9BCEFC001CFE77 /* Build configuration list for PBXProject "YoutubeToMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B77E6A6E1E9BCEFC001CFE77 /* Debug */,
@@ -284,13 +296,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B77E6A701E9BCEFC001CFE77 /* Build configuration list for PBXNativeTarget "YT3Swift" */ = {
+		B77E6A701E9BCEFC001CFE77 /* Build configuration list for PBXNativeTarget "YoutubeToMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B77E6A711E9BCEFC001CFE77 /* Debug */,
 				B77E6A721E9BCEFC001CFE77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
