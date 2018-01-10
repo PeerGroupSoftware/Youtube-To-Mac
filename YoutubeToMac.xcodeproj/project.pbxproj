@@ -15,6 +15,7 @@
 		B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C45E1920044C7400473CF8 /* MainWindowController.swift */; };
 		B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */; };
 		C818431B200669860080D441 /* OneLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C818431A200669860080D441 /* OneLineTextField.swift */; };
+		C87CB87520066C90008AA662 /* ButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CB87420066C90008AA662 /* ButtonExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B7C45E1920044C7400473CF8 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousTableViewController.swift; sourceTree = "<group>"; };
 		C818431A200669860080D441 /* OneLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneLineTextField.swift; sourceTree = "<group>"; };
+		C87CB87420066C90008AA662 /* ButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				B77E6A6D1E9BCEFC001CFE77 /* Info.plist */,
 				B79127C520042F5D003E2F70 /* youtubedl2.sh */,
 				C818431A200669860080D441 /* OneLineTextField.swift */,
+				C87CB87420066C90008AA662 /* ButtonExtensions.swift */,
 			);
 			path = YT3Swift;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 				B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */,
 				C818431B200669860080D441 /* OneLineTextField.swift in Sources */,
 				B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */,
+				C87CB87520066C90008AA662 /* ButtonExtensions.swift in Sources */,
 				B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */,
 				B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */,
 			);

@@ -13,8 +13,8 @@ class MainWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         
-        //window?.backgroundColor = NSColor.white
-        //Why must we make our UI look bad. It makes it too bright and hard on the eyes.
+        window?.backgroundColor = NSColor.white
+        
         
         
         
