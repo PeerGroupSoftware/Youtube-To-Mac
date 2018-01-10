@@ -712,6 +712,9 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="formatSelectionChanged:" target="XfG-lQ-9wD" id="wrD-L6-wXQ"/>
+                                </connections>
                             </popUpButton>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X32-ag-MBc">
                                 <rect key="frame" x="18" y="236" width="444" height="17"/>
@@ -751,6 +754,9 @@
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlayButton" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9s2-YI-9dk">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="startTasks:" target="XfG-lQ-9wD" id="rn2-i3-Bam"/>
@@ -763,6 +769,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="audioToggle:" target="XfG-lQ-9wD" id="WYG-Dk-a9C"/>
+                                </connections>
                             </button>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPs-0d-v9U">
                                 <rect key="frame" x="20" y="9" width="378" height="166"/>
@@ -791,7 +800,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="VJ8-HU-EXo">
+                                                        <tableCellView id="VJ8-HU-EXo" customClass="previousVideoCellView" customModule="YoutubeToMac" customModuleProvider="target">
                                                             <rect key="frame" x="1" y="1" width="373" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -822,6 +831,9 @@
                                                                 <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="fKt-px-QHx" secondAttribute="centerY" id="ji2-do-yNq"/>
                                                                 <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="VJ8-HU-EXo" secondAttribute="centerY" id="tfg-gV-5lb"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outlet property="videoNameLabel" destination="EEb-cm-utk" id="cpk-OO-Uah"/>
+                                                            </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>

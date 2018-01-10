@@ -26,6 +26,7 @@
 		B77E6A6B1E9BCEFC001CFE77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B77E6A6D1E9BCEFC001CFE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B79127C520042F5D003E2F70 /* youtubedl2.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl2.sh; sourceTree = "<group>"; };
+		B79FF90D2006C02500D28394 /* YoutubeToMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YoutubeToMac.entitlements; sourceTree = "<group>"; };
 		B7C45E1920044C7400473CF8 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousTableViewController.swift; sourceTree = "<group>"; };
 		C818431A200669860080D441 /* OneLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneLineTextField.swift; sourceTree = "<group>"; };
@@ -46,6 +47,7 @@
 		B77E6A581E9BCEFC001CFE77 = {
 			isa = PBXGroup;
 			children = (
+				B79FF90D2006C02500D28394 /* YoutubeToMac.entitlements */,
 				B77E6A631E9BCEFC001CFE77 /* YT3Swift */,
 				B77E6A621E9BCEFC001CFE77 /* Products */,
 			);
@@ -111,6 +113,11 @@
 						DevelopmentTeam = 9W7546BN3K;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

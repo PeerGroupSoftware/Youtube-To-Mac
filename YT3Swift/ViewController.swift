@@ -26,9 +26,13 @@ class ViewController: NSViewController {
     
     var isRunning = false
     var videoID = ""
+    var fileFormat = "mp4"
     var videoTitle = ""
+    var currentVideo = YTVideo()
     var outputPipe:Pipe!
     var buildTask:Process!
+    let videoFormats = ["Auto", "mp4", "flv", "webm"]
+    let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
     
     @IBOutlet weak var actionButton: NSButton!
@@ -46,26 +50,11 @@ class ViewController: NSViewController {
     }
     override func viewDidLoad() {
         URLField.focusRingType = .none
-        //let border = CALayer()
-        let width = CGFloat(1.2)
-        /*border.borderColor = NSColor.lightGray.cgColor
-        border.frame = CGRect(x: 0, y: URLField.frame.size.height - width, width:  URLField.frame.size.width, height: URLField.frame.size.height)
-        
-        border.borderWidth = width
-        URLField.wantsLayer = true
-        URLField.layer?.addSublayer(border)
-        URLField.layer?.masksToBounds = true */
         URLField.underlined()
-        /*
-        let buttonBorder = CALayer()
-        buttonBorder.borderColor = NSColor.lightGray.cgColor
-        buttonBorder.frame = CGRect(x: 0, y: (downloadLocationButton.frame.size.height - width)-1, width:  downloadLocationButton.frame.size.width, height: width)
         
-        buttonBorder.borderWidth = width
-        downloadLocationButton.wantsLayer = true
-        downloadLocationButton.layer?.addSublayer(buttonBorder)
-        downloadLocationButton.layer?.masksToBounds = true
-        */
+        print("set video formats")
+        formatPopup.removeAllItems()
+        formatPopup.addItems(withTitles: videoFormats)
         
         downloadLocationButton.folderButton()
         
@@ -80,6 +69,36 @@ class ViewController: NSViewController {
         
         
     }
+    @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
+        if sender.selectedItem?.title != "Auto" {
+            fileFormat = (sender.selectedItem?.title)!
+        } else {
+            switch audioBox.integerValue {
+            case 1:
+                fileFormat = "m4a"
+            case 0:
+                fileFormat = "mp4"
+            default:
+                print("audio box error")
+            }
+            
+        }
+    }
+    @IBAction func audioToggle(_ sender: NSButton) {
+        switch sender.integerValue {
+        case 1:
+            print("set audio formats")
+            formatPopup.removeAllItems()
+            formatPopup.addItems(withTitles: audioFormats)
+        case 0:
+            print("set video formats")
+            formatPopup.removeAllItems()
+            formatPopup.addItems(withTitles: videoFormats)
+        default:
+                ("Audio button error")
+        }
+    }
+    
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
@@ -138,7 +157,7 @@ class ViewController: NSViewController {
                 NSAnimationContext.runAnimationGroup({_ in
                     //Indicate the duration of the animation
                     NSAnimationContext.current.duration = 0.25
-                    self.URLField.isEditable = false
+                    self.URLField.isEditable = true
                     self.audioBox.animator().isHidden = false
                     self.downloadLocationButton.isEnabled = true
                     self.formatPopup.animator().isHidden = false
@@ -157,12 +176,24 @@ class ViewController: NSViewController {
         print("progress update \(progress)")
         DispatchQueue.main.async {
         self.mainProgressBar.doubleValue = progress
-            if progress == 100 {self.toggleDownloadInterface(to: false)}
+            if progress == 100 {
+                print("progressUpate")
+                self.toggleDownloadInterface(to: false)
+                print(previousVideos.first?.name ?? "")
+                print(self.currentVideo.name)
+                if previousVideos.last?.name ?? "" != self.currentVideo.name {
+                    print("adding to list")
+                    print(self.currentVideo.name)
+                previousVideos.append(self.currentVideo)
+                    self.previousVideosTableView.insertRows(at: IndexSet(integer:(previousVideos.count)-1), withAnimation: NSTableView.AnimationOptions.slideDown)
+                }
+            }
         }
     }
     
     func runScript(_ arguments:[String]) {
         let targetURL = URLField.stringValue
+        currentVideo.URL = targetURL
         
         //1.
         isRunning = true
@@ -182,7 +213,7 @@ class ViewController: NSViewController {
             //2.
             self.buildTask = Process()
             self.buildTask.launchPath = path
-            self.buildTask.arguments = [targetURL]
+            self.buildTask.arguments = ["-f \(self.fileFormat)", targetURL]
             self.buildTask.currentDirectoryPath = "~/Desktop"
             self.buildTask.terminationHandler = {
                 
@@ -193,6 +224,7 @@ class ViewController: NSViewController {
                     print("Stopped")
                     self.updateDownloadProgressBar(progress: 0.0)
                     self.toggleDownloadInterface(to: false)
+                    self.URLField.stringValue = ""
                     if self.outputPipe.description.contains("must provide") {
                         print("123354657")
                     }
@@ -247,8 +279,12 @@ class ViewController: NSViewController {
                     print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
                     
                     videonameString.removeSubrange((videonameString.range(of: ("-" + self.videoID))?.lowerBound)!..<videonameString.endIndex)
-                    self.videoTitle = (videonameString)
-                    DispatchQueue.main.async {self.URLField.stringValue = videonameString}
+                    //self.videoTitle = (videonameString)
+                    self.currentVideo.name = videonameString
+                    DispatchQueue.main.async {
+                        self.URLField.stringValue = self.currentVideo.name
+                        print("adding name to field")
+                    }
                 } else {
                 print("download update")
                 for i in (outputString.split(separator: " ")) {
