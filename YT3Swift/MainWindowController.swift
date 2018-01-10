@@ -13,7 +13,12 @@ class MainWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         
-        window?.backgroundColor = NSColor.white
+        //window?.backgroundColor = NSColor.white
+        //Why must we make our UI look bad. It makes it too bright and hard on the eyes.
+        
+        
+        
+        
        self.window?.appearance = NSAppearance(named: NSAppearance.Name.vibrantLight)
         window?.titlebarAppearsTransparent = true
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.

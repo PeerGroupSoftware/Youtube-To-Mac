@@ -48,13 +48,14 @@ class ViewController: NSViewController {
         URLField.focusRingType = .none
         let border = CALayer()
         let width = CGFloat(1.2)
-        border.borderColor = NSColor.lightGray.cgColor
+        /*border.borderColor = NSColor.lightGray.cgColor
         border.frame = CGRect(x: 0, y: URLField.frame.size.height - width, width:  URLField.frame.size.width, height: URLField.frame.size.height)
         
         border.borderWidth = width
         URLField.wantsLayer = true
         URLField.layer?.addSublayer(border)
-        URLField.layer?.masksToBounds = true
+        URLField.layer?.masksToBounds = true */
+        URLField.underlined()
         
         let buttonBorder = CALayer()
         buttonBorder.borderColor = NSColor.lightGray.cgColor
@@ -69,6 +70,11 @@ class ViewController: NSViewController {
         previousVideosTableView.dataSource = previousVideosTableController
         
         //URLField.beginDocument()
+        
+        
+        
+        
+        
         
     }
     
@@ -269,6 +275,7 @@ class ViewController: NSViewController {
             
         }
     }
+    
     
     
 }
