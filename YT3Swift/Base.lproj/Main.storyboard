@@ -747,6 +747,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="changeDownloadLocation:" target="XfG-lQ-9wD" id="AU2-9j-0bZ"/>
+                                </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Px7-yg-8H1">
                                 <rect key="frame" x="364" y="228" width="34" height="32"/>

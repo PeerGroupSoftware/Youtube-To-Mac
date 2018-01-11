@@ -28,6 +28,7 @@ class ViewController: NSViewController {
     var videoID = ""
     var fileFormat = "mp4"
     var videoTitle = ""
+    var saveLocation = "~/Desktop"
     var currentVideo = YTVideo()
     var outputPipe:Pipe!
     var buildTask:Process!
@@ -68,6 +69,25 @@ class ViewController: NSViewController {
         
         
         
+    }
+    @IBAction func changeDownloadLocation(_ sender: NSButton) {
+            let locationSelectPanel = NSOpenPanel()
+           // openPanel.title = ""
+           // openPanel.message = ""
+            locationSelectPanel.showsResizeIndicator=true
+            locationSelectPanel.canChooseDirectories = true
+            locationSelectPanel.canChooseFiles = false
+            locationSelectPanel.allowsMultipleSelection = false
+            locationSelectPanel.canCreateDirectories = true
+            
+        locationSelectPanel.begin { (result) -> Void in
+            if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
+                let path = locationSelectPanel.url!.path
+                    print("selected folder is \(path)")
+                self.saveLocation = path
+                }
+            
+        }
     }
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
         if sender.selectedItem?.title != "Auto" {
@@ -229,7 +249,7 @@ class ViewController: NSViewController {
             self.buildTask = Process()
             self.buildTask.launchPath = path
             self.buildTask.arguments = ["-f \(self.fileFormat)", targetURL]
-            self.buildTask.currentDirectoryPath = "~/Desktop"
+            self.buildTask.currentDirectoryPath = self.saveLocation
             self.buildTask.terminationHandler = {
                 
                 task in
