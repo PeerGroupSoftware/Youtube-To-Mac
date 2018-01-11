@@ -76,8 +76,10 @@ class ViewController: NSViewController {
             switch audioBox.integerValue {
             case 1:
                 fileFormat = "m4a"
+                print("set to audio")
             case 0:
                 fileFormat = "mp4"
+                print("set to video")
             default:
                 print("audio box error")
             }
@@ -96,6 +98,19 @@ class ViewController: NSViewController {
             formatPopup.addItems(withTitles: videoFormats)
         default:
                 ("Audio button error")
+        }
+        if formatPopup.selectedItem?.title == "Auto" {
+            switch sender.integerValue {
+            case 1:
+                fileFormat = "m4a"
+                print("set to audio")
+            case 0:
+                fileFormat = "mp4"
+                print("set to video")
+            default:
+                print("audio box error")
+            }
+            
         }
     }
     
