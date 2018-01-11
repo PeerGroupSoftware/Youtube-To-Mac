@@ -181,11 +181,11 @@ class ViewController: NSViewController {
                 self.toggleDownloadInterface(to: false)
                 print(previousVideos.first?.name ?? "")
                 print(self.currentVideo.name)
-                if previousVideos.last?.name ?? "" != self.currentVideo.name {
+                if previousVideos.first?.name ?? "" != self.currentVideo.name {
                     print("adding to list")
                     print(self.currentVideo.name)
-                previousVideos.append(self.currentVideo)
-                    self.previousVideosTableView.insertRows(at: IndexSet(integer:(previousVideos.count)-1), withAnimation: NSTableView.AnimationOptions.slideDown)
+                previousVideos.insert(self.currentVideo, at: 0)
+                    self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
                 }
             }
         }
@@ -224,6 +224,7 @@ class ViewController: NSViewController {
                     print("Stopped")
                     self.updateDownloadProgressBar(progress: 0.0)
                     self.toggleDownloadInterface(to: false)
+                    self.currentVideo = YTVideo()
                     self.URLField.stringValue = ""
                     if self.outputPipe.description.contains("must provide") {
                         print("123354657")
