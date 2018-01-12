@@ -19,6 +19,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var stopButton: NSButton!
     @IBOutlet weak var downloadLocationButton: NSButton!
     @IBOutlet weak var previousVideosTableView: NSTableView!
+    @IBOutlet weak var recentVideosLabel: NSTextField!
+    @IBOutlet weak var recentVideosDisclosureTriangle: NSButton!
     
     
     
@@ -69,6 +71,19 @@ class ViewController: NSViewController {
         
         
         
+    }
+    @IBAction func toggleWindowSize(_ sender: NSButton) {
+        //print(view.window?.frame.height)
+        switch (sender.integerValue) {
+        case 1:
+             let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
+            view.window?.setFrame(newWindowFrame, display: true, animate: true)
+        case 0:
+            let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
+            view.window?.setFrame(newWindowFrame, display: true, animate: true)
+        default:
+            print("discosure arrow error")
+        }
     }
     @IBAction func changeDownloadLocation(_ sender: NSButton) {
             let locationSelectPanel = NSOpenPanel()
@@ -177,6 +192,8 @@ class ViewController: NSViewController {
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
                     self.audioBox.animator().isHidden = true
+                    self.recentVideosLabel.animator().isHidden = true
+                    self.recentVideosDisclosureTriangle.animator().isHidden = true
                     self.formatPopup.animator().isHidden = true
                     self.downloadButton.isEnabled = false
                     self.downloadLocationButton.isEnabled = false
@@ -195,6 +212,8 @@ class ViewController: NSViewController {
                     self.URLField.isEditable = true
                     self.audioBox.animator().isHidden = false
                     self.downloadLocationButton.isEnabled = true
+                    self.recentVideosLabel.animator().isHidden = false
+                    self.recentVideosDisclosureTriangle.animator().isHidden = false
                     self.formatPopup.animator().isHidden = false
                     self.downloadButton.isEnabled = true
                     
