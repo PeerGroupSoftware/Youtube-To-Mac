@@ -132,7 +132,7 @@ class ViewController: NSViewController {
             formatPopup.removeAllItems()
             formatPopup.addItems(withTitles: videoFormats)
         default:
-                ("Audio button error")
+                print("Audio button error")
         }
         if formatPopup.selectedItem?.title == "Auto" {
             switch sender.integerValue {
@@ -160,7 +160,7 @@ class ViewController: NSViewController {
     
     
     func shell(_ args: String...) -> Int32 {
-        let bundle = Bundle.main
+        //let bundle = Bundle.main
       //  let path = bundle.path(forResource: "tor", ofType: "real")
         //let libpath = bundle.path(forResource: "libevent-2.0.5", ofType: "dylib")
         let task = Process()
@@ -257,13 +257,13 @@ class ViewController: NSViewController {
         
         //2.
         taskQueue.async {
-            let bundle = Bundle.main
+            //let bundle = Bundle.main
             //1.
             //guard let path = bundle.path(forResource: "tor.command", ofType: "command") else {
             //  print("Unable to locate BuildScript.command")
             //     return
             // }
-            let path = bundle.path(forResource: "youtubedl2", ofType: "sh")
+            let path = Bundle.main.path(forResource: "youtubedl2", ofType: "sh")
             //2.
             self.buildTask = Process()
             self.buildTask.launchPath = path
