@@ -28,12 +28,13 @@ class ViewController: NSViewController {
     
     var isRunning = false
     var videoID = ""
-    var fileFormat = "mp4"
+    var fileFormat = "best" // Default file format
     var videoTitle = ""
     var saveLocation = "~/Desktop"
     var currentVideo = YTVideo()
     var outputPipe:Pipe!
     var buildTask:Process!
+    var formatTask:Process!
     let videoFormats = ["Auto", "mp4", "flv", "webm"]
     let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
@@ -113,10 +114,10 @@ class ViewController: NSViewController {
         } else {
             switch audioBox.integerValue {
             case 1:
-                fileFormat = "m4a"
+                fileFormat = "bestaudio"
                 print("set to audio")
             case 0:
-                fileFormat = "mp4"
+                fileFormat = "best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -140,10 +141,10 @@ class ViewController: NSViewController {
         if formatPopup.selectedItem?.title == "Auto" {
             switch sender.integerValue {
             case 1:
-                fileFormat = "m4a"
+                fileFormat = "bestaudio"
                 print("set to audio")
             case 0:
-                fileFormat = "mp4"
+                fileFormat = "best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -164,8 +165,7 @@ class ViewController: NSViewController {
     
     func shell(_ args: String...) -> Int32 {
         //let bundle = Bundle.main
-      //  let path = bundle.path(forResource: "tor", ofType: "real")
-        //let libpath = bundle.path(forResource: "libevent-2.0.5", ofType: "dylib")
+
         let task = Process()
      //   task.launchPath = path
         //task.arguments = args
@@ -258,45 +258,83 @@ class ViewController: NSViewController {
         let taskQueue = DispatchQueue.global(qos: defaultQOS)
         
         
-        //2.
-        taskQueue.async {
-            //let bundle = Bundle.main
-            //1.
-            //guard let path = bundle.path(forResource: "tor.command", ofType: "command") else {
-            //  print("Unable to locate BuildScript.command")
-            //     return
-            // }
+        taskQueue.async { // Get file formats
+            
             let path = Bundle.main.path(forResource: "youtubedl2", ofType: "sh")
             //2.
-            self.buildTask = Process()
-            self.buildTask.launchPath = path
-            self.buildTask.arguments = ["-f \(self.fileFormat)", targetURL]
-            self.buildTask.currentDirectoryPath = self.saveLocation
-            self.buildTask.terminationHandler = {
-                
-                task in
-                DispatchQueue.main.async(execute: {
-                    // self.buildButton.isEnabled = true
-                    // self.spinner.stopAnimation(self)
-                    print("Stopped")
-                    self.updateDownloadProgressBar(progress: 0.0)
-                    self.toggleDownloadInterface(to: false)
-                    self.currentVideo = YTVideo()
-                    self.URLField.stringValue = ""
-                    if self.outputPipe.description.contains("must provide") {
-                        print("123354657")
+            self.formatTask = Process()
+//            self.formatTask.launchPath = path
+//            //  print("using file format \(self.fileFormat)")
+//            self.formatTask.arguments = ["--dump-json", targetURL]
+//            self.formatTask.currentDirectoryPath = self.saveLocation
+//            self.formatTask.terminationHandler = {
+//
+//                task in
+//                DispatchQueue.main.async(execute: {
+//                    // self.buildButton.isEnabled = true
+//                    // self.spinner.stopAnimation(self)
+//                    print("Stopped")
+//                    //self.updateDownloadProgressBar(progress: 0.0)
+//                   // self.toggleDownloadInterface(to: false)
+//                    self.currentVideo = YTVideo()
+//                   // self.URLField.stringValue = ""
+//                    if self.outputPipe.description.contains("must provide") {
+//                        print("123354657")
+//                    }
+//                    //self.isRunning = false
+            
+                    taskQueue.async {
+                        
+                        let path = Bundle.main.path(forResource: "youtubedl2", ofType: "sh")
+                        //2.
+                        self.buildTask = Process()
+                        self.buildTask.launchPath = path
+                        print("using file format \(self.fileFormat)")
+                        self.buildTask.arguments = ["-f \(self.fileFormat)", targetURL]
+                        self.buildTask.currentDirectoryPath = self.saveLocation
+                        self.buildTask.terminationHandler = {
+                            
+                            task in
+                            DispatchQueue.main.async(execute: {
+                                // self.buildButton.isEnabled = true
+                                // self.spinner.stopAnimation(self)
+                                print("Stopped")
+                                self.updateDownloadProgressBar(progress: 0.0)
+                                self.toggleDownloadInterface(to: false)
+                                self.currentVideo = YTVideo()
+                                self.URLField.stringValue = ""
+                                if self.outputPipe.description.contains("must provide") {
+                                    print("123354657")
+                                }
+                                self.isRunning = false
+                            })
+                            
+                        }
+                        
+                        self.captureStandardOutputAndRouteToTextView(self.buildTask)
+                        self.toggleDownloadInterface(to: true)
+                        self.buildTask.launch()
+                        self.buildTask.waitUntilExit()
+                        
                     }
-                    self.isRunning = false
-                })
+                    
+              //  })
                 
-            }
+          //  }
             
-            self.captureStandardOutputAndRouteToTextView(self.buildTask)
-            self.toggleDownloadInterface(to: true)
-            self.buildTask.launch()
-            self.buildTask.waitUntilExit()
-            
+//            self.captureStandardOutputAndRouteToTextView(self.formatTask)
+//            self.toggleDownloadInterface(to: true)
+//            self.formatTask.launch()
+//            self.formatTask.waitUntilExit()
+    
         }
+        
+        
+        
+        //2.
+        
+        
+        
         
     }
     
