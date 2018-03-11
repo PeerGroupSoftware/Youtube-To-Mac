@@ -94,15 +94,18 @@ class ViewController: NSViewController {
             locationSelectPanel.canChooseFiles = false
             locationSelectPanel.allowsMultipleSelection = false
             locationSelectPanel.canCreateDirectories = true
-            
-        locationSelectPanel.begin { (result) -> Void in
+        locationSelectPanel.beginSheetModal(for: view.window!, completionHandler: {(result) in
             if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
                 let path = locationSelectPanel.url!.path
-                    print("selected folder is \(path)")
+                print("selected folder is \(path)")
                 self.saveLocation = path
-                }
-            
         }
+        })
+       /* locationSelectPanel.begin { (result) -> Void in
+ 
+                }*/
+            
+        
     }
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
         if sender.selectedItem?.title != "Auto" {
