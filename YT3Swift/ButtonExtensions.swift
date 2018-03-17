@@ -3,7 +3,7 @@
 //  YoutubeToMac
 //
 //  Created by PhenicieWi on 1/10/18.
-//  Copyright © 2018 Jake Spann. All rights reserved.
+//  Copyright © 2018 Peer Group. All rights reserved.
 //
 
 import Foundation

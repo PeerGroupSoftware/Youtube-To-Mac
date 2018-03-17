@@ -3,7 +3,7 @@
 //  YT3Swift
 //
 //  Created by Jake Spann on 4/10/17.
-//  Copyright © 2017 Jake Spann. All rights reserved.
+//  Copyright © 2017 Peer Group. All rights reserved.
 //
 
 import Cocoa
