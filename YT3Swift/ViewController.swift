@@ -28,7 +28,7 @@ class ViewController: NSViewController {
     
     var isRunning = false
     var videoID = ""
-    var fileFormat = "best" // Default file format
+    var fileFormat = "mp4/flv/best" // Default video file format
     var videoTitle = ""
     var saveLocation = "~/Desktop"
     var currentVideo = YTVideo()
@@ -114,10 +114,10 @@ class ViewController: NSViewController {
         } else {
             switch audioBox.integerValue {
             case 1:
-                fileFormat = "bestaudio"
+                fileFormat = "wav/m4a/mp3/bestaudio"
                 print("set to audio")
             case 0:
-                fileFormat = "best"
+                fileFormat = "mp4/flv/best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -141,10 +141,10 @@ class ViewController: NSViewController {
         if formatPopup.selectedItem?.title == "Auto" {
             switch sender.integerValue {
             case 1:
-                fileFormat = "bestaudio"
+                fileFormat = "wav/m4a/mp3/bestaudio"
                 print("set to audio")
             case 0:
-                fileFormat = "best"
+                fileFormat = "mp4/flv/best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -413,4 +413,14 @@ class ViewController: NSViewController {
     
     
     
+}
+
+class URLFieldCell: NSTextFieldCell {
+    
+    @IBInspectable var rightPadding: CGFloat = 10.0
+    
+    override func drawingRect(forBounds rect: NSRect) -> NSRect {
+        let rectInset = NSMakeRect(rect.origin.x + rightPadding, rect.origin.y, rect.size.width - rightPadding, rect.size.height)
+        return super.drawingRect(forBounds: rectInset)
+    }
 }
