@@ -115,7 +115,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -288,6 +288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = YoutubeToMac;
+				CODE_SIGN_ENTITLEMENTS = YoutubeToMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				INFOPLIST_FILE = YT3Swift/Info.plist;
@@ -304,6 +305,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = YoutubeToMac;
+				CODE_SIGN_ENTITLEMENTS = YoutubeToMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				INFOPLIST_FILE = YT3Swift/Info.plist;
