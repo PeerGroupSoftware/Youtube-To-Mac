@@ -14,10 +14,7 @@ class MainWindowController: NSWindowController {
         super.windowDidLoad()
         
         window?.backgroundColor = NSColor.white
-        
-        
-        
-        
+        window?.isMovableByWindowBackground = true
         
        self.window?.appearance = NSAppearance(named: NSAppearance.Name.vibrantLight)
         window?.titlebarAppearsTransparent = true
