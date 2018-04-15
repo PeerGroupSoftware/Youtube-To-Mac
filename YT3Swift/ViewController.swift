@@ -234,7 +234,30 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
         self.mainProgressBar.doubleValue = progress
             if progress == 100 {
-                print("progressUpate")
+                var downloadNotification = NSUserNotification()
+                var formatType = ""
+                switch self.audioBox.integerValue {
+                case 1:
+                    formatType = "Audio"
+                case 0:
+                    formatType = "Video"
+                default:
+                    break
+                }
+                var informativeText = ""
+                if self.saveLocation == "~/Desktop" {
+                  informativeText = "Saved \(formatType) to Desktop"
+                } else {
+                    informativeText = "Saved \(formatType)"
+                }
+                downloadNotification.title = "Downloaded \(formatType)"
+                downloadNotification.informativeText = informativeText
+                //downloadNotification.contentImage = NSImage(named: NSImage.Name.applicationIcon)
+                downloadNotification.soundName = NSUserNotificationDefaultSoundName
+                if self.downloadButton.isEnabled {
+                NSUserNotificationCenter.default.deliver(downloadNotification)
+                }
+                print("progressUpdate")
                 self.toggleDownloadInterface(to: false)
                 print(previousVideos.first?.name ?? "")
                 print(self.currentVideo.name)
