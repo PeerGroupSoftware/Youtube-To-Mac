@@ -31,7 +31,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide YT3Swift" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide YoutubeToMac" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -57,7 +57,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" id="dMs-cI-mzQ">
+                            <menuItem title="File" hidden="YES" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
@@ -120,7 +120,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Edit" id="5QF-Oa-p0T">
+                            <menuItem title="Edit" hidden="YES" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" id="W48-6f-4Dl">
                                     <items>
@@ -339,7 +339,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Format" id="jxT-CU-nIS">
+                            <menuItem title="Format" hidden="YES" id="jxT-CU-nIS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Format" id="GEO-Iw-cKr">
                                     <items>
@@ -585,13 +585,13 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
+                                        <menuItem title="Show Toolbar" enabled="NO" keyEquivalent="t" id="snW-S8-Cw5">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
+                                        <menuItem title="Customize Toolbar…" enabled="NO" id="1UK-8n-QPP">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>

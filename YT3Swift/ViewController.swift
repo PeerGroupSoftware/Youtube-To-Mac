@@ -43,14 +43,7 @@ class ViewController: NSViewController {
     
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        /*let passwordBorder = CALayer()
-        let passwordWidth = CGFloat(2.0)
-        passwordBorder.borderColor = UIColor.lightGray.cgColor
-        passwordBorder.frame = CGRect(x: 0, y: passwordField.frame.size.height - passwordWidth, width:  passwordField.frame.size.width, height: passwordField.frame.size.height)
         
-        passwordBorder.borderWidth = passwordWidth
-        passwordField.layer.addSublayer(passwordBorder)
-        passwordField.layer.masksToBounds = true*/
     }
     override func viewDidLoad() {
         URLField.focusRingType = .none
