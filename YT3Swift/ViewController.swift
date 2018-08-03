@@ -66,7 +66,7 @@ class ViewController: NSViewController {
         //URLField.beginDocument()
         // UserDefaults().set(nil, forKey: "YTVideoHistory")
         //UserDefaults().set(["test":["apple.com":"disklocation"]], forKey: "YTVideoHistory")
-        let videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory") as! [String:[String:String]]).reversed()
+        let videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory") as? [String:[String:String]] ?? [String:[String:String]]()).reversed()
         for item in videoHistory {
             let newVideo = YTVideo()
             newVideo.name = item.key
@@ -86,7 +86,7 @@ class ViewController: NSViewController {
     }
     
     func saveVideoToHistory(video targetVideo: YTVideo) {
-        var videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory")) as! [String:[String:String]]
+        var videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory")) as? [String:[String:String]] ?? [String:[String:String]]()
         videoHistory.updateValue([targetVideo.URL:targetVideo.diskPath], forKey: targetVideo.name)
         UserDefaults().set(videoHistory, forKey: "YTVideoHistory")
         
