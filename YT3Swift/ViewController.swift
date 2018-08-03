@@ -9,6 +9,7 @@
 import Cocoa
 
 let previousVideosTableController = PreviousTableViewController()
+var mainViewController = ViewController()
 
 class ViewController: NSViewController {
     @IBOutlet weak var URLField: NSTextField!
@@ -17,6 +18,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var formatPopup: NSPopUpButton!
     @IBOutlet weak var downloadButton: NSButton!
     @IBOutlet weak var stopButton: NSButton!
+    @IBOutlet weak var clearTableViewButton: NSButton!
     @IBOutlet weak var downloadLocationButton: NSButton!
     @IBOutlet weak var previousVideosTableView: NSTableView!
     @IBOutlet weak var recentVideosLabel: NSTextField!
@@ -48,6 +50,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         URLField.focusRingType = .none
         URLField.underlined()
+        mainViewController = self
         
         print("set video formats")
         formatPopup.removeAllItems()
@@ -58,25 +61,56 @@ class ViewController: NSViewController {
         previousVideosTableView.delegate = previousVideosTableController
         previousVideosTableView.dataSource = previousVideosTableController
         
+        //URLField.alignmentRectInsets.right = 5 This doesnt work
+        
         //URLField.beginDocument()
-        
-        
-        
-        
+        // UserDefaults().set(nil, forKey: "YTVideoHistory")
+        //UserDefaults().set(["test":["apple.com":"disklocation"]], forKey: "YTVideoHistory")
+        let videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory") as! [String:[String:String]]).reversed()
+        for item in videoHistory {
+            let newVideo = YTVideo()
+            newVideo.name = item.key
+            newVideo.URL = (item.value.first?.key)!
+            newVideo.diskPath = (item.value.first?.value)!
+            previousVideos.append(newVideo)
+        }
+        previousVideosTableView.reloadData()
         
         
     }
+    
+    @IBAction func clearRecentVideos(_ sender: NSButton) {
+         UserDefaults().set([String:[String:String]](), forKey: "YTVideoHistory")
+    }
+    
+    func saveVideoToHistory(video targetVideo: YTVideo) {
+        var videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory")) as! [String:[String:String]]
+        videoHistory.updateValue([targetVideo.URL:targetVideo.diskPath], forKey: targetVideo.name)
+        UserDefaults().set(videoHistory, forKey: "YTVideoHistory")
+        
+    }
+    
     @IBAction func toggleWindowSize(_ sender: NSButton) {
         //print(view.window?.frame.height)
         switch (sender.integerValue) {
         case 1:
+            NSAnimationContext.runAnimationGroup({_ in
+                NSAnimationContext.current.duration = 0.5
+                if previousVideosTableView.numberOfRows != 0 {clearTableViewButton.animator().isHidden = false}
+            }, completionHandler:{
+            })
              let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
             view.window?.setFrame(newWindowFrame, display: true, animate: true)
         case 0:
             let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
             view.window?.setFrame(newWindowFrame, display: true, animate: true)
+            NSAnimationContext.runAnimationGroup({_ in
+                NSAnimationContext.current.duration = 0.2
+                clearTableViewButton.animator().isHidden = true
+            }, completionHandler:{
+            })
         default:
-            print("discosure arrow error")
+            print("disclosure arrow error")
         }
     }
     @IBAction func changeDownloadLocation(_ sender: NSButton) {
@@ -153,6 +187,7 @@ class ViewController: NSViewController {
     @IBAction func startTasks(_ sender: NSButton) {
             // print("1")
             if !URLField.stringValue.isEmpty{runScript([""])}
+        if audioBox.integerValue == 1 {currentVideo.isAudioOnly = true}
     }
     
     
@@ -225,7 +260,10 @@ class ViewController: NSViewController {
     func updateDownloadProgressBar(progress: Double) {
         print("progress update \(progress)")
         DispatchQueue.main.async {
-        self.mainProgressBar.doubleValue = progress
+            NSAnimationContext.runAnimationGroup({_ in
+        self.mainProgressBar.increment(by: progress-self.mainProgressBar.doubleValue)
+            }, completionHandler:{
+            })
             if progress == 100 {
                 var downloadNotification = NSUserNotification()
                 var formatType = ""
@@ -257,9 +295,18 @@ class ViewController: NSViewController {
                 if previousVideos.first?.name ?? "" != self.currentVideo.name {
                     print("adding to list")
                     print(self.currentVideo.name)
+                    self.saveVideoToHistory(video: self.currentVideo)
                 previousVideos.insert(self.currentVideo, at: 0)
                     self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
-                }
+                    print("wfh: \(self.view.window?.frame.height)")
+                    if self.view.window?.frame.height != 106 {
+                        NSAnimationContext.runAnimationGroup({_ in
+                            NSAnimationContext.current.duration = 0.5
+                            if self.previousVideosTableView.numberOfRows != 0 {self.clearTableViewButton.animator().isHidden = false}
+                        }, completionHandler:{
+                        })
+                    }
+               }
             }
         }
     }
@@ -268,7 +315,6 @@ class ViewController: NSViewController {
         let targetURL = URLField.stringValue
         currentVideo.URL = targetURL
         
-        //1.
         isRunning = true
         
         let taskQueue = DispatchQueue.global(qos: defaultQOS)
@@ -344,27 +390,19 @@ class ViewController: NSViewController {
 //            self.formatTask.waitUntilExit()
     
         }
-        
-        
-        
-        //2.
-        
-        
-        
-        
+    
     }
     
     
     func captureStandardOutputAndRouteToTextView(_ task:Process) {
         
-        //1.
         outputPipe = Pipe()
         task.standardOutput = outputPipe
         
-        //2.
+        
         outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
         
-        //3.
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading , queue: nil) {
             notification in
             
@@ -379,9 +417,17 @@ class ViewController: NSViewController {
             }
             if outputString.range(of:"100%: Done") != nil {
                 self.buildTask.qualityOfService = .background
-                print("Successfully established circut. Set QOS to background")
-                NSAppleScript(source: "do shell script \"sudo say hi\" with administrator " +
-                    "privileges")!.executeAndReturnError(nil)
+                
+            } else if outputString.contains("requested format not available") {
+                    print("format not available")
+            } else if outputString.contains("has already been downloaded") {
+                DispatchQueue.main.async {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Video could not be saved"
+                alert.informativeText = "A file with the same name and extension exists at the selected path."
+                alert.runModal()
+                }
             } else if outputString.range(of:"must provide") != nil {
                 print("There was some kind of error")
             } else if outputString.contains("[download]") {
@@ -409,6 +455,7 @@ class ViewController: NSViewController {
             self.videoID = ((outputString.split(separator: " "))[1].replacingOccurrences(of: ":", with: ""))
             }
             
+        
             //5.
             DispatchQueue.main.async(execute: {
                 // let previousOutput = self.outputText.string ?? ""

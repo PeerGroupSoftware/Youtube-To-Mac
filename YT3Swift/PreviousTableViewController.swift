@@ -18,14 +18,30 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
     }
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let newCell = tableView.makeView(withIdentifier: (tableColumn?.identifier)!, owner: self) as! previousVideoCellView
+        let newVideo = YTVideo()
+        newVideo.name = (previousVideos[row].name)
+        newVideo.URL = (previousVideos[row].URL)
+        newCell.video = newVideo
         newCell.videoNameLabel.stringValue = previousVideos[row].name
+        
+        if previousVideos[row].isAudioOnly {
+           // newCell.microphoneIcon.isHidden = false
+        }
         return newCell
     }
     
 }
 
 class previousVideoCellView: NSTableCellView {
+    var video = YTVideo()
     @IBOutlet weak var videoNameLabel: NSTextField!
+    @IBOutlet weak var microphoneIcon: NSImageView!
+    
+    @IBAction func openVideoLink(_ sender: NSButton) {
+        NSWorkspace.shared.open(URL(string: self.video.URL)!)
+            //print("default browser was successfully opened")
+        
+    }
     
 }
 
@@ -33,4 +49,5 @@ class YTVideo {
     var name = ""
     var URL = ""
     var diskPath = ""
+    var isAudioOnly = false
 }

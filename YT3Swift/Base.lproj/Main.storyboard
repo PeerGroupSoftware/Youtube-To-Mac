@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
@@ -25,6 +26,9 @@
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Check for Updates" hidden="YES" id="fyx-ST-EXj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -120,7 +124,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Edit" hidden="YES" id="5QF-Oa-p0T">
+                            <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" id="W48-6f-4Dl">
                                     <items>
@@ -809,7 +813,7 @@ DQ
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EEb-cm-utk">
-                                                                    <rect key="frame" x="1" y="11" width="338" height="17"/>
+                                                                    <rect key="frame" x="1" y="11" width="310" height="17"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JAKE PAUL IS NUMBER ONE" id="2Rq-gZ-CDs">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -826,16 +830,53 @@ DQ
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
                                                                 </button>
+                                                                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="okO-yc-pZK">
+                                                                    <rect key="frame" x="347" y="11" width="14" height="13"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OrangeDot" id="3XU-5T-7a7"/>
+                                                                </imageView>
+                                                                <button toolTip="Open in Web Browser" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RaQ-9x-MdW">
+                                                                    <rect key="frame" x="342" y="7" width="24" height="26"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="26" id="1Tp-6i-1HE"/>
+                                                                    </constraints>
+                                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarOpenInBrowserTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="skp-G7-Yxb">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="openVideoLink:" target="VJ8-HU-EXo" id="eB7-jY-E3C"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button toolTip="Open Save Location" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hDs-6V-a3V">
+                                                                    <rect key="frame" x="317" y="8" width="23" height="23"/>
+                                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarFolderTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="UaY-Gf-jDQ">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                </button>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="fKt-px-QHx" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="8" symbolic="YES" id="8vG-wa-TlB"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="leading" secondItem="VJ8-HU-EXo" secondAttribute="leading" constant="3" id="Ed3-Ll-3jq"/>
+                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="leading" secondItem="hDs-6V-a3V" secondAttribute="trailing" constant="2" id="4Ns-Qn-Z2D"/>
+                                                                <constraint firstAttribute="bottom" secondItem="okO-yc-pZK" secondAttribute="bottom" constant="11" id="6u7-9N-M1T"/>
+                                                                <constraint firstItem="hDs-6V-a3V" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="8" symbolic="YES" id="8p6-IR-sU4"/>
+                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="centerY" secondItem="EEb-cm-utk" secondAttribute="centerY" id="A3l-Jj-8hT"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="VJ8-HU-EXo" secondAttribute="centerY" id="JtX-pU-lF9"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="fKt-px-QHx" secondAttribute="centerY" id="KEa-v1-ANZ"/>
                                                                 <constraint firstAttribute="trailing" secondItem="fKt-px-QHx" secondAttribute="trailing" constant="10" id="O7H-sM-ehR"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="top" secondItem="fKt-px-QHx" secondAttribute="top" id="P5g-K3-9kF"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="fKt-px-QHx" secondAttribute="centerY" id="ji2-do-yNq"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="VJ8-HU-EXo" secondAttribute="centerY" id="tfg-gV-5lb"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="top" secondItem="fKt-px-QHx" secondAttribute="top" id="QEn-3i-xbA"/>
+                                                                <constraint firstItem="okO-yc-pZK" firstAttribute="bottom" secondItem="EEb-cm-utk" secondAttribute="bottom" id="T5y-uP-1MW"/>
+                                                                <constraint firstItem="hDs-6V-a3V" firstAttribute="firstBaseline" secondItem="RaQ-9x-MdW" secondAttribute="firstBaseline" constant="2" id="W5Q-zS-OZG"/>
+                                                                <constraint firstItem="okO-yc-pZK" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="38" id="X5r-Ep-LUz"/>
+                                                                <constraint firstItem="okO-yc-pZK" firstAttribute="top" secondItem="VJ8-HU-EXo" secondAttribute="top" constant="16" id="XEs-LK-Xa2"/>
+                                                                <constraint firstItem="okO-yc-pZK" firstAttribute="centerX" secondItem="fKt-px-QHx" secondAttribute="centerX" id="kDh-X0-21S"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="leading" secondItem="VJ8-HU-EXo" secondAttribute="leading" constant="3" id="n9p-a4-PAv"/>
+                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="33" id="rnI-cw-7Ow"/>
+                                                                <constraint firstItem="fKt-px-QHx" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="36" id="sqk-4b-Gba"/>
+                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="centerX" secondItem="okO-yc-pZK" secondAttribute="centerX" id="x4J-5P-JdS"/>
+                                                                <constraint firstItem="hDs-6V-a3V" firstAttribute="centerY" secondItem="RaQ-9x-MdW" secondAttribute="centerY" id="zQu-tG-BTl"/>
                                                             </constraints>
                                                             <connections>
+                                                                <outlet property="microphoneIcon" destination="okO-yc-pZK" id="0B0-Bk-e01"/>
                                                                 <outlet property="videoNameLabel" destination="EEb-cm-utk" id="cpk-OO-Uah"/>
                                                             </connections>
                                                         </tableCellView>
@@ -875,11 +916,23 @@ DQ
                                     <action selector="toggleWindowSize:" target="XfG-lQ-9wD" id="6Uq-du-i5r"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-fv-edg">
+                                <rect key="frame" x="356" y="-16" width="42" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="inline" title="Clear" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="fDW-6B-BOK">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clearRecentVideos:" target="XfG-lQ-9wD" id="0XB-16-TpT"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="URLField" destination="bjC-oJ-pVm" id="DdT-sg-uAk"/>
                         <outlet property="audioBox" destination="tDR-8e-DwU" id="Ok3-TO-gmS"/>
+                        <outlet property="clearTableViewButton" destination="2fg-fv-edg" id="PoO-6J-y9k"/>
                         <outlet property="downloadButton" destination="Px7-yg-8H1" id="BQJ-ac-dUz"/>
                         <outlet property="downloadLocationButton" destination="OBh-TZ-Kob" id="BTc-YN-euz"/>
                         <outlet property="formatPopup" destination="XHB-NN-yC5" id="mCQ-LV-4Gz"/>
@@ -893,13 +946,15 @@ DQ
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46" y="562"/>
+            <point key="canvasLocation" x="46" y="622.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="NSShareTemplate" width="11" height="16"/>
-        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
+        <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
         <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
+        <image name="NSTouchBarOpenInBrowserTemplate" width="18" height="30"/>
+        <image name="OrangeDot" width="180" height="180"/>
         <image name="PlayButton" width="2400" height="1675"/>
     </resources>
 </document>
