@@ -81,6 +81,8 @@ class ViewController: NSViewController {
     
     @IBAction func clearRecentVideos(_ sender: NSButton) {
          UserDefaults().set([String:[String:String]](), forKey: "YTVideoHistory")
+        previousVideos = []
+        previousVideosTableView.reloadData()
     }
     
     func saveVideoToHistory(video targetVideo: YTVideo) {
