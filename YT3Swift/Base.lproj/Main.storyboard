@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14306.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.3.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -811,8 +811,11 @@ DQ
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EEb-cm-utk">
-                                                                    <rect key="frame" x="1" y="11" width="310" height="18"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JAKE PAUL IS NUMBER ONE" id="2Rq-gZ-CDs">
+                                                                    <rect key="frame" x="1" y="11" width="341" height="18"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="337" id="oxO-UQ-hhX"/>
+                                                                    </constraints>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="JAKE PAUL IS NUMBER ONE" id="2Rq-gZ-CDs">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -829,7 +832,7 @@ DQ
                                                                     </buttonCell>
                                                                 </button>
                                                                 <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="okO-yc-pZK">
-                                                                    <rect key="frame" x="347" y="11" width="14" height="13"/>
+                                                                    <rect key="frame" x="264" y="11" width="180" height="13"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OrangeDot" id="3XU-5T-7a7"/>
                                                                 </imageView>
                                                                 <button toolTip="Open in Web Browser" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RaQ-9x-MdW">
@@ -845,7 +848,7 @@ DQ
                                                                         <action selector="openVideoLink:" target="VJ8-HU-EXo" id="eB7-jY-E3C"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button toolTip="Open Save Location" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hDs-6V-a3V">
+                                                                <button hidden="YES" toolTip="Open Save Location" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDs-6V-a3V">
                                                                     <rect key="frame" x="317" y="9" width="23" height="22"/>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarFolderTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="UaY-Gf-jDQ">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -854,24 +857,20 @@ DQ
                                                                 </button>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="leading" secondItem="hDs-6V-a3V" secondAttribute="trailing" constant="2" id="4Ns-Qn-Z2D"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="bottom" secondItem="fKt-px-QHx" secondAttribute="bottom" id="5Cn-b1-o1T"/>
                                                                 <constraint firstAttribute="bottom" secondItem="okO-yc-pZK" secondAttribute="bottom" constant="11" id="6u7-9N-M1T"/>
-                                                                <constraint firstItem="hDs-6V-a3V" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="8" symbolic="YES" id="8p6-IR-sU4"/>
-                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="centerY" secondItem="EEb-cm-utk" secondAttribute="centerY" id="A3l-Jj-8hT"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="VJ8-HU-EXo" secondAttribute="centerY" id="JtX-pU-lF9"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="fKt-px-QHx" secondAttribute="centerY" id="KEa-v1-ANZ"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="RaQ-9x-MdW" secondAttribute="centerY" id="Cr5-QO-Oa2"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="VJ8-HU-EXo" secondAttribute="centerY" id="MuS-1T-W4B"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="top" secondItem="fKt-px-QHx" secondAttribute="top" id="NRq-l6-Acw"/>
                                                                 <constraint firstAttribute="trailing" secondItem="fKt-px-QHx" secondAttribute="trailing" constant="10" id="O7H-sM-ehR"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="top" secondItem="fKt-px-QHx" secondAttribute="top" id="QEn-3i-xbA"/>
-                                                                <constraint firstItem="okO-yc-pZK" firstAttribute="bottom" secondItem="EEb-cm-utk" secondAttribute="bottom" id="T5y-uP-1MW"/>
-                                                                <constraint firstItem="hDs-6V-a3V" firstAttribute="firstBaseline" secondItem="RaQ-9x-MdW" secondAttribute="firstBaseline" constant="2" id="W5Q-zS-OZG"/>
-                                                                <constraint firstItem="okO-yc-pZK" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="38" id="X5r-Ep-LUz"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="leading" secondItem="VJ8-HU-EXo" secondAttribute="leading" constant="3" id="Owy-LF-w5f"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="bottom" secondItem="okO-yc-pZK" secondAttribute="bottom" id="PcZ-NF-mja"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="centerY" secondItem="hDs-6V-a3V" secondAttribute="centerY" id="VhY-Y3-Wmd"/>
                                                                 <constraint firstItem="okO-yc-pZK" firstAttribute="top" secondItem="VJ8-HU-EXo" secondAttribute="top" constant="16" id="XEs-LK-Xa2"/>
+                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="trailing" secondItem="hDs-6V-a3V" secondAttribute="trailing" id="hpR-j5-QRV"/>
                                                                 <constraint firstItem="okO-yc-pZK" firstAttribute="centerX" secondItem="fKt-px-QHx" secondAttribute="centerX" id="kDh-X0-21S"/>
-                                                                <constraint firstItem="EEb-cm-utk" firstAttribute="leading" secondItem="VJ8-HU-EXo" secondAttribute="leading" constant="3" id="n9p-a4-PAv"/>
-                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="33" id="rnI-cw-7Ow"/>
-                                                                <constraint firstItem="fKt-px-QHx" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="36" id="sqk-4b-Gba"/>
+                                                                <constraint firstItem="RaQ-9x-MdW" firstAttribute="leading" secondItem="EEb-cm-utk" secondAttribute="trailing" constant="2" id="oyY-lR-Uc7"/>
                                                                 <constraint firstItem="RaQ-9x-MdW" firstAttribute="centerX" secondItem="okO-yc-pZK" secondAttribute="centerX" id="x4J-5P-JdS"/>
-                                                                <constraint firstItem="hDs-6V-a3V" firstAttribute="centerY" secondItem="RaQ-9x-MdW" secondAttribute="centerY" id="zQu-tG-BTl"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="microphoneIcon" destination="okO-yc-pZK" id="0B0-Bk-e01"/>
@@ -885,11 +884,11 @@ DQ
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="n2Z-BL-dJM">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="n2Z-BL-dJM">
                                     <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="IqT-aE-MPs">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="IqT-aE-MPs">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -944,7 +943,7 @@ DQ
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46" y="622.5"/>
+            <point key="canvasLocation" x="46" y="622"/>
         </scene>
     </scenes>
     <resources>

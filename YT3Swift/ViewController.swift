@@ -294,7 +294,7 @@ class ViewController: NSViewController {
                 self.toggleDownloadInterface(to: false)
                 print(previousVideos.first?.name ?? "")
                 print(self.currentVideo.name)
-                if previousVideos.first?.name ?? "" != self.currentVideo.name {
+                if (previousVideos.first?.name ?? "" != self.currentVideo.name) && self.currentVideo.name != "" {
                     print("adding to list")
                     print(self.currentVideo.name)
                     self.saveVideoToHistory(video: self.currentVideo)
