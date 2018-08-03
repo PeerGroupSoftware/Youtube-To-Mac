@@ -15,6 +15,8 @@ class MainWindowController: NSWindowController {
         
         if #available(OSX 10.13, *) {
             window?.backgroundColor = NSColor(named: NSColor.Name(rawValue: "WindowBackground"))
+        } else {
+            window?.backgroundColor = .white
         }
         window?.isMovableByWindowBackground = true
         
