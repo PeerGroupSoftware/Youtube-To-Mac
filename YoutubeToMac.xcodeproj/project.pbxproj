@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7976DBB4214D385500762A1E /* youtubedl3.sh in Resources */ = {isa = PBXBuildFile; fileRef = 7976DBB3214D385500762A1E /* youtubedl3.sh */; };
+		B7509EA22176AF9F00E283EE /* youtubedl4.sh in Resources */ = {isa = PBXBuildFile; fileRef = B7509EA12176AF9F00E283EE /* youtubedl4.sh */; };
 		B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */; };
 		B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A661E9BCEFC001CFE77 /* ViewController.swift */; };
 		B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		7976DBB3214D385500762A1E /* youtubedl3.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl3.sh; sourceTree = "<group>"; };
+		B7509EA12176AF9F00E283EE /* youtubedl4.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl4.sh; sourceTree = "<group>"; };
 		B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeToMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B77E6A661E9BCEFC001CFE77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				B77E6A6D1E9BCEFC001CFE77 /* Info.plist */,
 				B79127C520042F5D003E2F70 /* youtubedl2.sh */,
 				7976DBB3214D385500762A1E /* youtubedl3.sh */,
+				B7509EA12176AF9F00E283EE /* youtubedl4.sh */,
 				C818431A200669860080D441 /* OneLineTextField.swift */,
 				C87CB87420066C90008AA662 /* ButtonExtensions.swift */,
 			);
@@ -166,6 +169,7 @@
 				B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */,
 				B79127C620042F5D003E2F70 /* youtubedl2.sh in Resources */,
 				7976DBB4214D385500762A1E /* youtubedl3.sh in Resources */,
+				B7509EA22176AF9F00E283EE /* youtubedl4.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

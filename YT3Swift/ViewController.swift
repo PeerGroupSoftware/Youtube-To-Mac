@@ -324,7 +324,7 @@ class ViewController: NSViewController {
         
         taskQueue.async { // Get file formats
             
-            let path = Bundle.main.path(forResource: "youtubedl3", ofType: "sh")
+            let path = Bundle.main.path(forResource: "youtubedl4", ofType: "sh")
             //2.
             self.formatTask = Process()
 //            self.formatTask.launchPath = path
@@ -349,7 +349,7 @@ class ViewController: NSViewController {
             
                     taskQueue.async {
                         
-                        let path = Bundle.main.path(forResource: "youtubedl3", ofType: "sh")
+                        let path = Bundle.main.path(forResource: "youtubedl4", ofType: "sh")
                         //2.
                         self.buildTask = Process()
                         self.buildTask.launchPath = path
