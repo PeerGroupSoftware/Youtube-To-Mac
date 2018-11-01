@@ -330,7 +330,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks $(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12.2;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jakespann.YoutubeToMac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PeerGroupSoftware.YoutubeToMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -356,7 +356,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks $(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12.2;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jakespann.YoutubeToMac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PeerGroupSoftware.YoutubeToMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
