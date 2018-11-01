@@ -125,7 +125,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = "Jake Spann";
+				ORGANIZATIONNAME = "Peer Group Software";
 				TargetAttributes = {
 					B77E6A601E9BCEFC001CFE77 = {
 						CreatedOnToolsVersion = 8.3.1;
