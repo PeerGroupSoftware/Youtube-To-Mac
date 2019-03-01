@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7976DBB4214D385500762A1E /* youtubedl3.sh in Resources */ = {isa = PBXBuildFile; fileRef = 7976DBB3214D385500762A1E /* youtubedl3.sh */; };
 		B7509EA22176AF9F00E283EE /* youtubedl4.sh in Resources */ = {isa = PBXBuildFile; fileRef = B7509EA12176AF9F00E283EE /* youtubedl4.sh */; };
+		B76C3995222984D900752464 /* youtubedl6.sh in Resources */ = {isa = PBXBuildFile; fileRef = B76C3994222984D900752464 /* youtubedl6.sh */; };
 		B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */; };
 		B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A661E9BCEFC001CFE77 /* ViewController.swift */; };
 		B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */; };
 		B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */; };
 		B78360B921B96D8400BB6082 /* youtubedl5.sh in Resources */ = {isa = PBXBuildFile; fileRef = B732C74A21B7233400AC7095 /* youtubedl5.sh */; };
-		B79127C620042F5D003E2F70 /* youtubedl2.sh in Resources */ = {isa = PBXBuildFile; fileRef = B79127C520042F5D003E2F70 /* youtubedl2.sh */; };
 		B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C45E1920044C7400473CF8 /* MainWindowController.swift */; };
 		B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */; };
 		C818431B200669860080D441 /* OneLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C818431A200669860080D441 /* OneLineTextField.swift */; };
@@ -34,16 +33,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7976DBB3214D385500762A1E /* youtubedl3.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl3.sh; sourceTree = "<group>"; };
 		B732C74A21B7233400AC7095 /* youtubedl5.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = youtubedl5.sh; sourceTree = "<group>"; };
 		B7509EA12176AF9F00E283EE /* youtubedl4.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl4.sh; sourceTree = "<group>"; };
+		B76C3994222984D900752464 /* youtubedl6.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl6.sh; sourceTree = "<group>"; };
 		B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeToMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B77E6A661E9BCEFC001CFE77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B77E6A6B1E9BCEFC001CFE77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B77E6A6D1E9BCEFC001CFE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B79127C520042F5D003E2F70 /* youtubedl2.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl2.sh; sourceTree = "<group>"; };
 		B79FF90D2006C02500D28394 /* YoutubeToMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YoutubeToMac.entitlements; sourceTree = "<group>"; };
 		B7C45E1920044C7400473CF8 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousTableViewController.swift; sourceTree = "<group>"; };
@@ -89,10 +87,9 @@
 				B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */,
 				B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */,
 				B77E6A6D1E9BCEFC001CFE77 /* Info.plist */,
-				B79127C520042F5D003E2F70 /* youtubedl2.sh */,
-				7976DBB3214D385500762A1E /* youtubedl3.sh */,
 				B7509EA12176AF9F00E283EE /* youtubedl4.sh */,
 				B732C74A21B7233400AC7095 /* youtubedl5.sh */,
+				B76C3994222984D900752464 /* youtubedl6.sh */,
 				C818431A200669860080D441 /* OneLineTextField.swift */,
 				C87CB87420066C90008AA662 /* ButtonExtensions.swift */,
 			);
@@ -128,7 +125,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = "Jake Spann";
+				ORGANIZATIONNAME = "Peer Group Software";
 				TargetAttributes = {
 					B77E6A601E9BCEFC001CFE77 = {
 						CreatedOnToolsVersion = 8.3.1;
@@ -170,8 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */,
-				B79127C620042F5D003E2F70 /* youtubedl2.sh in Resources */,
-				7976DBB4214D385500762A1E /* youtubedl3.sh in Resources */,
+				B76C3995222984D900752464 /* youtubedl6.sh in Resources */,
 				B7509EA22176AF9F00E283EE /* youtubedl4.sh in Resources */,
 				B78360B921B96D8400BB6082 /* youtubedl5.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
