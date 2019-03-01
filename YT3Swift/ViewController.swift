@@ -40,6 +40,7 @@ class ViewController: NSViewController {
     let videoFormats = ["Auto", "mp4", "flv", "webm"]
     let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
+    let downloaderVersion = YoutubeDLVersion.version6
     
     @IBOutlet weak var actionButton: NSButton!
     
@@ -52,7 +53,7 @@ class ViewController: NSViewController {
         URLField.underlined()
         mainViewController = self
         
-        print("set video formats")
+        //set video formats in UI
         formatPopup.removeAllItems()
         formatPopup.addItems(withTitles: videoFormats)
         
@@ -61,11 +62,6 @@ class ViewController: NSViewController {
         previousVideosTableView.delegate = previousVideosTableController
         previousVideosTableView.dataSource = previousVideosTableController
         
-        //URLField.alignmentRectInsets.right = 5 This doesnt work
-        
-        //URLField.beginDocument()
-        // UserDefaults().set(nil, forKey: "YTVideoHistory")
-        //UserDefaults().set(["test":["apple.com":"disklocation"]], forKey: "YTVideoHistory")
         let videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory") as? [String:[String:String]] ?? [String:[String:String]]()).reversed()
         for item in videoHistory {
             let newVideo = YTVideo()
@@ -76,7 +72,17 @@ class ViewController: NSViewController {
         }
         previousVideosTableView.reloadData()
         
-        
+        let recentVideosLabelGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(changeWindowSizeLabel))
+        recentVideosLabel.addGestureRecognizer(recentVideosLabelGestureRecognizer)
+    }
+    
+    @objc func changeWindowSizeLabel() {
+        if recentVideosDisclosureTriangle.integerValue == 1 {
+            recentVideosDisclosureTriangle.integerValue = 0
+        } else {
+            recentVideosDisclosureTriangle.integerValue = 1
+        }
+        toggleWindowSize(recentVideosDisclosureTriangle)
     }
     
     @IBAction func clearRecentVideos(_ sender: NSButton) {
@@ -93,7 +99,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func toggleWindowSize(_ sender: NSButton) {
-        //print(view.window?.frame.height)
+        
         switch (sender.integerValue) {
         case 1:
             NSAnimationContext.runAnimationGroup({_ in
@@ -131,9 +137,6 @@ class ViewController: NSViewController {
                 self.saveLocation = path
         }
         })
-       /* locationSelectPanel.begin { (result) -> Void in
- 
-                }*/
             
         
     }
@@ -197,8 +200,6 @@ class ViewController: NSViewController {
         //let bundle = Bundle.main
 
         let task = Process()
-     //   task.launchPath = path
-        //task.arguments = args
         task.launch()
         task.waitUntilExit()
         return task.terminationStatus
@@ -266,7 +267,7 @@ class ViewController: NSViewController {
         self.mainProgressBar.increment(by: progress-self.mainProgressBar.doubleValue)
             }, completionHandler:{
             })
-            if progress == 100 {
+            if progress == 100.0 {
                 var downloadNotification = NSUserNotification()
                 var formatType = ""
                 switch self.audioBox.integerValue {
@@ -324,7 +325,7 @@ class ViewController: NSViewController {
         
         taskQueue.async { // Get file formats
             
-            let path = Bundle.main.path(forResource: "youtubedl4", ofType: "sh")
+            let path = Bundle.main.path(forResource: self.downloaderVersion.rawValue, ofType: "sh")
             //2.
             self.formatTask = Process()
 //            self.formatTask.launchPath = path
@@ -349,7 +350,7 @@ class ViewController: NSViewController {
             
                     taskQueue.async {
                         
-                        let path = Bundle.main.path(forResource: "youtubedl4", ofType: "sh")
+                        let path = Bundle.main.path(forResource: self.downloaderVersion.rawValue, ofType: "sh")
                         //2.
                         self.buildTask = Process()
                         self.buildTask.launchPath = path
@@ -488,4 +489,10 @@ class URLFieldCell: NSTextFieldCell {
         let rectInset = NSMakeRect(rect.origin.x + rightPadding, rect.origin.y, rect.size.width - rightPadding, rect.size.height)
         return super.drawingRect(forBounds: rectInset)
     }
+}
+
+enum YoutubeDLVersion: String {
+    case version4 = "youtubedl4"
+    case version5 = "youtubedl5"
+    case version6 = "youtubedl6"
 }
