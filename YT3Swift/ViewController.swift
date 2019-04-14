@@ -40,7 +40,7 @@ class ViewController: NSViewController {
     let videoFormats = ["Auto", "mp4", "flv", "webm"]
     let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
-    let downloaderVersion = YoutubeDLVersion.version6
+    let downloaderVersion = YoutubeDLVersion.version7
     
     @IBOutlet weak var actionButton: NSButton!
     
@@ -492,7 +492,8 @@ class URLFieldCell: NSTextFieldCell {
 }
 
 enum YoutubeDLVersion: String {
-    case version4 = "youtubedl4"
-    case version5 = "youtubedl5"
-    case version6 = "youtubedl6"
+    @available(*, deprecated) case version4 = "youtubedl4"
+    @available(*, deprecated) case version5 = "youtubedl5"
+    @available(*, deprecated) case version6 = "youtubedl6"
+    case version7 = "youtube-dl-2019-04-07"
 }
