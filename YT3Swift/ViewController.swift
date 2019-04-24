@@ -40,7 +40,7 @@ class ViewController: NSViewController {
     let videoFormats = ["Auto", "mp4", "flv", "webm"]
     let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
-    let downloaderVersion = YoutubeDLVersion.version7
+    let downloaderVersion = YoutubeDLVersion.version8
     
     @IBOutlet weak var actionButton: NSButton!
     
@@ -268,6 +268,7 @@ class ViewController: NSViewController {
             }, completionHandler:{
             })
             if progress == 100.0 {
+                print("progress at 100")
                 var downloadNotification = NSUserNotification()
                 var formatType = ""
                 switch self.audioBox.integerValue {
@@ -301,7 +302,7 @@ class ViewController: NSViewController {
                     self.saveVideoToHistory(video: self.currentVideo)
                 previousVideos.insert(self.currentVideo, at: 0)
                     self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
-                    print("wfh: \(self.view.window?.frame.height)")
+                    //print("wfh: \(self.view.window?.frame.height)")
                     if self.view.window?.frame.height != 106 {
                         NSAnimationContext.runAnimationGroup({_ in
                             NSAnimationContext.current.duration = 0.5
@@ -496,4 +497,5 @@ enum YoutubeDLVersion: String {
     @available(*, deprecated) case version5 = "youtubedl5"
     @available(*, deprecated) case version6 = "youtubedl6"
     case version7 = "youtube-dl-2019-04-07"
+    case version8 = "youtube-dl-2019-04-24"
 }

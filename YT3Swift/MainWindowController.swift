@@ -14,7 +14,7 @@ class MainWindowController: NSWindowController {
         super.windowDidLoad()
         
         if #available(OSX 10.13, *) {
-            window?.backgroundColor = NSColor(named: NSColor.Name(rawValue: "WindowBackground"))
+            window?.backgroundColor = NSColor(named: "WindowBackground")
         } else {
             window?.backgroundColor = .white
         }

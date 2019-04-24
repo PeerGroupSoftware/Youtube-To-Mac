@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B708F1152270D145001E8C77 /* youtube-dl-2019-04-24.sh in Resources */ = {isa = PBXBuildFile; fileRef = B708F1142270D145001E8C77 /* youtube-dl-2019-04-24.sh */; };
 		B76C3995222984D900752464 /* youtubedl6.sh in Resources */ = {isa = PBXBuildFile; fileRef = B76C3994222984D900752464 /* youtubedl6.sh */; };
 		B773BB5C2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh in Resources */ = {isa = PBXBuildFile; fileRef = B773BB5B2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh */; };
 		B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B708F1142270D145001E8C77 /* youtube-dl-2019-04-24.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-04-24.sh"; sourceTree = "<group>"; };
 		B76C3994222984D900752464 /* youtubedl6.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl6.sh; sourceTree = "<group>"; };
 		B773BB5B2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-04-07.sh"; sourceTree = "<group>"; };
 		B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeToMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				B76C3994222984D900752464 /* youtubedl6.sh */,
+				B708F1142270D145001E8C77 /* youtube-dl-2019-04-24.sh */,
 				B773BB5B2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh */,
 			);
 			path = YoutubeDL;
@@ -126,13 +129,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Peer Group Software";
 				TargetAttributes = {
 					B77E6A601E9BCEFC001CFE77 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = YX8FW6TUR6;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
@@ -150,10 +153,9 @@
 			};
 			buildConfigurationList = B77E6A5C1E9BCEFC001CFE77 /* Build configuration list for PBXProject "YoutubeToMac" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -173,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */,
+				B708F1152270D145001E8C77 /* youtube-dl-2019-04-24.sh in Resources */,
 				B773BB5C2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh in Resources */,
 				B76C3995222984D900752464 /* youtubedl6.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
@@ -212,6 +215,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -270,6 +274,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -338,8 +343,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeerGroupSoftware.YoutubeToMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -365,8 +369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeerGroupSoftware.YoutubeToMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
