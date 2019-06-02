@@ -14,6 +14,7 @@
 		B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A661E9BCEFC001CFE77 /* ViewController.swift */; };
 		B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */; };
 		B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */; };
+		B7BCF19122A438CE00C1EE9E /* youtube-dl-2019-05-20.sh in Resources */ = {isa = PBXBuildFile; fileRef = B7BCF19022A438CE00C1EE9E /* youtube-dl-2019-05-20.sh */; };
 		B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C45E1920044C7400473CF8 /* MainWindowController.swift */; };
 		B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */; };
 		C87CB87520066C90008AA662 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CB87420066C90008AA662 /* Extensions.swift */; };
@@ -42,6 +43,7 @@
 		B77E6A6B1E9BCEFC001CFE77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B77E6A6D1E9BCEFC001CFE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B79FF90D2006C02500D28394 /* YoutubeToMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YoutubeToMac.entitlements; sourceTree = "<group>"; };
+		B7BCF19022A438CE00C1EE9E /* youtube-dl-2019-05-20.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-05-20.sh"; sourceTree = "<group>"; };
 		B7C45E1920044C7400473CF8 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousTableViewController.swift; sourceTree = "<group>"; };
 		C87CB87420066C90008AA662 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				B76C3994222984D900752464 /* youtubedl6.sh */,
 				B708F1142270D145001E8C77 /* youtube-dl-2019-04-24.sh */,
 				B773BB5B2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh */,
+				B7BCF19022A438CE00C1EE9E /* youtube-dl-2019-05-20.sh */,
 			);
 			path = YoutubeDL;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				B773BB5C2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh in Resources */,
 				B76C3995222984D900752464 /* youtubedl6.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
+				B7BCF19122A438CE00C1EE9E /* youtube-dl-2019-05-20.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
