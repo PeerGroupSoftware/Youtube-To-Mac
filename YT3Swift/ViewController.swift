@@ -57,7 +57,7 @@ class ViewController: NSViewController {
         formatPopup.removeAllItems()
         formatPopup.addItems(withTitles: videoFormats)
         
-        downloadLocationButton.folderButton()
+        downloadLocationButton.setAsFolderButton()
         
         previousVideosTableView.delegate = previousVideosTableController
         previousVideosTableView.dataSource = previousVideosTableController
@@ -121,6 +121,7 @@ class ViewController: NSViewController {
             print("disclosure arrow error")
         }
     }
+    
     @IBAction func changeDownloadLocation(_ sender: NSButton) {
             let locationSelectPanel = NSOpenPanel()
            // openPanel.title = ""
@@ -140,6 +141,7 @@ class ViewController: NSViewController {
             
         
     }
+    
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
         if sender.selectedItem?.title != "Auto" {
             fileFormat = (sender.selectedItem?.title)!
@@ -157,6 +159,7 @@ class ViewController: NSViewController {
             
         }
     }
+    
     @IBAction func audioToggle(_ sender: NSButton) {
         switch sender.integerValue {
         case 1:
@@ -170,6 +173,7 @@ class ViewController: NSViewController {
         default:
                 print("Audio button error")
         }
+        
         if formatPopup.selectedItem?.title == "Auto" {
             switch sender.integerValue {
             case 1:
@@ -189,21 +193,20 @@ class ViewController: NSViewController {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    
     @IBAction func startTasks(_ sender: NSButton) {
-            // print("1")
-            if !URLField.stringValue.isEmpty{runScript([""])}
+        if !URLField.stringValue.isEmpty{runScript([""])}
         if audioBox.integerValue == 1 {currentVideo.isAudioOnly = true}
     }
     
     
     func shell(_ args: String...) -> Int32 {
-        //let bundle = Bundle.main
-
         let task = Process()
         task.launch()
         task.waitUntilExit()
         return task.terminationStatus
     }
+    
     @IBAction func stopButton(_ sender: NSButton) {
         if buildTask.isRunning == true {
             buildTask.terminate()
@@ -216,13 +219,13 @@ class ViewController: NSViewController {
     func setDownloadTitleStatus(to downloadName: String) {
         
     }
+    
     func toggleDownloadInterface(to: Bool) {
         DispatchQueue.main.async {
             switch to {
             case true:
                 print("animate showing")
                 NSAnimationContext.runAnimationGroup({_ in
-                    //Indicate the duration of the animation
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
                     self.audioBox.animator().isHidden = true
@@ -235,7 +238,6 @@ class ViewController: NSViewController {
                     
                     self.mainProgressBar.animator().isHidden = false
                     self.stopButton.animator().isHidden = false
-                   // self.nameLabel.animator().isHidden = false
                 }, completionHandler:{
                 })
             case false:
@@ -260,6 +262,7 @@ class ViewController: NSViewController {
             }
         }
     }
+    
     func updateDownloadProgressBar(progress: Double) {
         print("progress update \(progress)")
         DispatchQueue.main.async {
@@ -269,7 +272,7 @@ class ViewController: NSViewController {
             })
             if progress == 100.0 {
                 print("progress at 100")
-                var downloadNotification = NSUserNotification()
+                let downloadNotification = NSUserNotification()
                 var formatType = ""
                 switch self.audioBox.integerValue {
                 case 1:
@@ -285,29 +288,32 @@ class ViewController: NSViewController {
                 } else {
                     informativeText = "Saved \(formatType)"
                 }
+                
                 downloadNotification.title = "Downloaded \(formatType)"
                 downloadNotification.informativeText = informativeText
-                //downloadNotification.contentImage = NSImage(named: NSImage.Name.applicationIcon)
                 downloadNotification.soundName = NSUserNotificationDefaultSoundName
+                
                 if self.downloadButton.isEnabled {
-                NSUserNotificationCenter.default.deliver(downloadNotification)
+                    NSUserNotificationCenter.default.deliver(downloadNotification)
                 }
+                
                 print("progressUpdate")
                 self.toggleDownloadInterface(to: false)
                 print(previousVideos.first?.name ?? "")
                 print(self.currentVideo.name)
+                
                 if (previousVideos.first?.name ?? "" != self.currentVideo.name) && self.currentVideo.name != "" {
                     print("adding to list")
                     print(self.currentVideo.name)
                     self.saveVideoToHistory(video: self.currentVideo)
-                previousVideos.insert(self.currentVideo, at: 0)
+                    previousVideos.insert(self.currentVideo, at: 0)
                     self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
                     //print("wfh: \(self.view.window?.frame.height)")
                     if self.view.window?.frame.height != 106 {
                         NSAnimationContext.runAnimationGroup({_ in
                             NSAnimationContext.current.duration = 0.5
                             if self.previousVideosTableView.numberOfRows != 0 {self.clearTableViewButton.animator().isHidden = false}
-                        }, completionHandler:{
+                        }, completionHandler: {
                         })
                     }
                }
@@ -327,11 +333,7 @@ class ViewController: NSViewController {
         taskQueue.async { // Get file formats
             
             let path = Bundle.main.path(forResource: self.downloaderVersion.rawValue, ofType: "sh")
-            //2.
             self.formatTask = Process()
-//            self.formatTask.launchPath = path
-//            //  print("using file format \(self.fileFormat)")
-//            self.formatTask.arguments = ["--dump-json", targetURL]
 //            self.formatTask.currentDirectoryPath = self.saveLocation
 //            self.formatTask.terminationHandler = {
 //
@@ -352,7 +354,6 @@ class ViewController: NSViewController {
                     taskQueue.async {
                         
                         let path = Bundle.main.path(forResource: self.downloaderVersion.rawValue, ofType: "sh")
-                        //2.
                         self.buildTask = Process()
                         self.buildTask.launchPath = path
                         print("using file format \(self.fileFormat)")
@@ -362,8 +363,6 @@ class ViewController: NSViewController {
                             
                             task in
                             DispatchQueue.main.async(execute: {
-                                // self.buildButton.isEnabled = true
-                                // self.spinner.stopAnimation(self)
                                 print("Stopped")
                                 self.updateDownloadProgressBar(progress: 0.0)
                                 self.toggleDownloadInterface(to: false)

@@ -24,9 +24,8 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
         newCell.video = newVideo
         newCell.videoNameLabel.stringValue = previousVideos[row].name
         
-        if previousVideos[row].isAudioOnly {
-           // newCell.microphoneIcon.isHidden = false
-        }
+//        if previousVideos[row].isAudioOnly {
+//        }
         return newCell
     }
     

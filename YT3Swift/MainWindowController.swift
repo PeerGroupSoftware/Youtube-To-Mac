@@ -19,10 +19,7 @@ class MainWindowController: NSWindowController {
             window?.backgroundColor = .white
         }
         window?.isMovableByWindowBackground = true
-        
-       //self.window?.appearance = NSAppearance(named: NSAppearance.Name.li)
         window?.titlebarAppearsTransparent = true
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
 
 }
