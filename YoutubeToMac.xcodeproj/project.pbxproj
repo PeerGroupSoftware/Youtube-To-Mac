@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7058DB622B6C76A001E818D /* youtube-dl-2019-06-08.sh in Resources */ = {isa = PBXBuildFile; fileRef = B7058DB522B6C76A001E818D /* youtube-dl-2019-06-08.sh */; };
 		B708F1152270D145001E8C77 /* youtube-dl-2019-04-24.sh in Resources */ = {isa = PBXBuildFile; fileRef = B708F1142270D145001E8C77 /* youtube-dl-2019-04-24.sh */; };
 		B76C3995222984D900752464 /* youtubedl6.sh in Resources */ = {isa = PBXBuildFile; fileRef = B76C3994222984D900752464 /* youtubedl6.sh */; };
 		B773BB5C2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh in Resources */ = {isa = PBXBuildFile; fileRef = B773BB5B2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh */; };
@@ -33,6 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B7058DB522B6C76A001E818D /* youtube-dl-2019-06-08.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-06-08.sh"; sourceTree = "<group>"; };
 		B708F1142270D145001E8C77 /* youtube-dl-2019-04-24.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-04-24.sh"; sourceTree = "<group>"; };
 		B76C3994222984D900752464 /* youtubedl6.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = youtubedl6.sh; sourceTree = "<group>"; };
 		B773BB5B2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-04-07.sh"; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				B708F1142270D145001E8C77 /* youtube-dl-2019-04-24.sh */,
 				B773BB5B2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh */,
 				B7BCF19022A438CE00C1EE9E /* youtube-dl-2019-05-20.sh */,
+				B7058DB522B6C76A001E818D /* youtube-dl-2019-06-08.sh */,
 			);
 			path = YoutubeDL;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				B708F1152270D145001E8C77 /* youtube-dl-2019-04-24.sh in Resources */,
 				B773BB5C2263E3EB00F24E37 /* youtube-dl-2019-04-07.sh in Resources */,
 				B76C3995222984D900752464 /* youtubedl6.sh in Resources */,
+				B7058DB622B6C76A001E818D /* youtube-dl-2019-06-08.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
 				B7BCF19122A438CE00C1EE9E /* youtube-dl-2019-05-20.sh in Resources */,
 			);

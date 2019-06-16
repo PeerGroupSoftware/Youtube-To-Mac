@@ -41,7 +41,7 @@ class ViewController: NSViewController {
     let videoFormats = ["Auto", "mp4", "flv", "webm"]
     let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     let defaultQOS = DispatchQoS.QoSClass.userInitiated
-    let downloaderVersion = YoutubeDLVersion.version9
+    let downloaderVersion = YoutubeDLVersion.version10
     
     @IBOutlet weak var actionButton: NSButton!
     
@@ -413,12 +413,12 @@ class ViewController: NSViewController {
             print(outputString)
             
             if outputString.contains("requested format not available") {
-                print("format not available1")
+                print("format not available")
                 DispatchQueue.main.async {
                     let alert = NSAlert()
                     alert.alertStyle = .critical
                     alert.messageText = "Video could not be saved"
-                    alert.informativeText = "The requested format is not available for this content. Use the automatic format selection."
+                    alert.informativeText = "The requested format is not available for this content, please use the automatic format selection."
                     alert.runModal()
                 }
             }
@@ -459,7 +459,7 @@ class ViewController: NSViewController {
                 let alert = NSAlert()
                 alert.alertStyle = .critical
                 alert.messageText = "Video could not be saved"
-                alert.informativeText = "A file with the same name and extension exists at the selected path."
+                alert.informativeText = "A file with the same name and extension exists at the download destination."
                 alert.runModal()
                 }
             } else if outputString.range(of:"must provide") != nil {
@@ -516,4 +516,5 @@ enum YoutubeDLVersion: String {
     @available(*, deprecated) case version7 = "youtube-dl-2019-04-07"
     case version8 = "youtube-dl-2019-04-24"
     case version9 = "youtube-dl-2019-05-20"
+    case version10 = "youtube-dl-2019-06-08"
 }
