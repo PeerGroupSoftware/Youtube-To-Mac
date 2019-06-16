@@ -35,6 +35,7 @@ class ViewController: NSViewController {
     var saveLocation = "~/Desktop"
     var currentVideo = YTVideo()
     var outputPipe:Pipe!
+    var errorPipe:Pipe!
     var buildTask:Process!
     var formatTask:Process!
     let videoFormats = ["Auto", "mp4", "flv", "webm"]
@@ -370,14 +371,15 @@ class ViewController: NSViewController {
                                 self.currentVideo = YTVideo()
                                 self.URLField.stringValue = ""
                                 if self.outputPipe.description.contains("must provide") {
-                                    print("123354657")
+                                    print("error")
                                 }
                                 self.isRunning = false
                             })
                             
                         }
                         
-                        self.captureStandardOutputAndRouteToTextView(self.buildTask)
+                        self.captureStandardOutput(self.buildTask)
+                        self.readError(self.buildTask)
                         self.toggleDownloadInterface(to: true)
                         self.buildTask.launch()
                         self.buildTask.waitUntilExit()
@@ -397,23 +399,51 @@ class ViewController: NSViewController {
     
     }
     
+    func readError(_ task:Process) {
+        errorPipe = Pipe()
+        task.standardError = errorPipe
+        errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: errorPipe.fileHandleForReading , queue: nil) {
+            notification in
+            
+            let output = self.errorPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            print("got error")
+            print(outputString)
+            
+            if outputString.contains("requested format not available") {
+                print("format not available1")
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.alertStyle = .critical
+                    alert.messageText = "Video could not be saved"
+                    alert.informativeText = "The requested format is not available for this content. Use the automatic format selection."
+                    alert.runModal()
+                }
+            }
+            
+            self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+            
+        }
+    }
     
-    func captureStandardOutputAndRouteToTextView(_ task:Process) {
+    
+    func captureStandardOutput(_ task:Process) {
         
         outputPipe = Pipe()
         task.standardOutput = outputPipe
         
-        
         outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
-        
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading , queue: nil) {
             notification in
             
-            //4.
             let output = self.outputPipe.fileHandleForReading.availableData
             let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
-            print(outputString)
+            //print("got output")
+            //print(outputString)
+            
             if outputString.contains("fulltitle") {
                 for i in (outputString.split(separator: ":")) {
                    (i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
@@ -422,8 +452,8 @@ class ViewController: NSViewController {
             if outputString.range(of:"100%: Done") != nil {
                 self.buildTask.qualityOfService = .background
                 
-            } else if outputString.contains("requested format not available") {
-                    print("format not available")
+         //   } else if outputString.contains("requested format not available") {
+
             } else if outputString.contains("has already been downloaded") {
                 DispatchQueue.main.async {
                 let alert = NSAlert()
@@ -459,19 +489,6 @@ class ViewController: NSViewController {
             self.videoID = ((outputString.split(separator: " "))[1].replacingOccurrences(of: ":", with: ""))
             }
             
-        
-            //5.
-            DispatchQueue.main.async(execute: {
-                // let previousOutput = self.outputText.string ?? ""
-                // let nextOutput = previousOutput + "\n" + outputString
-                // self.outputText.string = nextOutput
-                
-                // let range = NSRange(location:nextOutput.characters.count,length:0)
-                // self.outputText.scrollRangeToVisible(range)
-                
-            })
-            
-            //6.
             self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
             
             
