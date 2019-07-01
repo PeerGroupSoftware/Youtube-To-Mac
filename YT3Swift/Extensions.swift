@@ -46,3 +46,13 @@ extension NSTextField {
         self.layer?.masksToBounds = true
     }
 }
+
+class URLFieldCell: NSTextFieldCell {
+    
+    @IBInspectable var rightPadding: CGFloat = 10.0
+    
+    override func drawingRect(forBounds rect: NSRect) -> NSRect {
+        let rectInset = NSMakeRect(rect.origin.x + rightPadding, rect.origin.y, rect.size.width - rightPadding, rect.size.height)
+        return super.drawingRect(forBounds: rectInset)
+    }
+}

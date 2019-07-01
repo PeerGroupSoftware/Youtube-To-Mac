@@ -18,6 +18,7 @@ class MainWindowController: NSWindowController {
         } else {
             window?.backgroundColor = .white
         }
+        
         window?.isMovableByWindowBackground = true
         window?.titlebarAppearsTransparent = true
     }

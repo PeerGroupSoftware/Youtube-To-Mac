@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,10 +23,17 @@
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
-                                        <menuItem title="Check for Updates" hidden="YES" id="fyx-ST-EXj">
+                                        <menuItem title="Check for Updates" id="fyx-ST-EXj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="checkForUpdates:" target="Voe-Tx-rLC" id="MgA-wW-bVG"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="Mz7-na-eTT" kind="show" id="1hY-dy-5gT"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
@@ -644,6 +652,10 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
+                                        <menuItem title="Submit Feedback" enabled="NO" id="PpT-IW-yHF">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="THj-2E-ONn"/>
                                         <menuItem title="YoutubeToMac Help" enabled="NO" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
@@ -662,6 +674,100 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="gOI-0x-361">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="Mz7-na-eTT" customClass="PreferencesWindowController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="EJw-Z8-nUy">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="163" y="199" width="227" height="163"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                <color key="value" name="WindowBackground"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="titlebarAppearsTransparent" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="Mz7-na-eTT" id="cvh-sj-r7W"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="9Qq-ZI-MuQ" kind="relationship" relationship="window.shadowedContentViewController" id="xGR-P5-8Ao"/>
+                    </connections>
+                </windowController>
+                <customObject id="5gm-gx-7Za" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-356" y="-60"/>
+        </scene>
+        <!--Preferences View Controller-->
+        <scene sceneID="YEK-JV-CnS">
+            <objects>
+                <viewController id="9Qq-ZI-MuQ" customClass="PreferencesViewController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="SVD-hY-Ayz">
+                        <rect key="frame" x="0.0" y="0.0" width="287" height="141"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h5o-SK-PJf">
+                                <rect key="frame" x="18" y="102" width="235" height="19"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Default Download Destination" id="02i-kc-fVB">
+                                    <font key="font" metaFont="systemBold" size="16"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button identifier="DownloadsRadio" toolTip="User Downloads folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q6l-Lj-wyW">
+                                <rect key="frame" x="19" y="79" width="89" height="18"/>
+                                <buttonCell key="cell" type="radio" title="Downloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="a7e-QI-kCb">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setDownloadDestination:" target="9Qq-ZI-MuQ" id="yee-ZA-evf"/>
+                                </connections>
+                            </button>
+                            <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h5h-Jz-5qo">
+                                <rect key="frame" x="19" y="57" width="73" height="18"/>
+                                <buttonCell key="cell" type="radio" title="Desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zv1-z1-mgi">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setDownloadDestination:" target="9Qq-ZI-MuQ" id="t1K-uZ-RXN"/>
+                                </connections>
+                            </button>
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="d7N-Pp-qye">
+                                <rect key="frame" x="20" y="43" width="247" height="5"/>
+                            </box>
+                            <button toolTip="Check for updates at launch" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jm9-8x-pJW">
+                                <rect key="frame" x="18" y="18" width="221" height="18"/>
+                                <buttonCell key="cell" type="check" title="Automatically Check for Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Osc-MY-oXn">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="d7N-Pp-qye" firstAttribute="leading" secondItem="h5h-Jz-5qo" secondAttribute="leading" id="AaH-ae-Ddc"/>
+                            <constraint firstItem="h5h-Jz-5qo" firstAttribute="top" secondItem="Q6l-Lj-wyW" secondAttribute="bottom" constant="6" symbolic="YES" id="QQw-A5-CgY"/>
+                            <constraint firstItem="Q6l-Lj-wyW" firstAttribute="leading" secondItem="h5h-Jz-5qo" secondAttribute="leading" id="Qzo-t6-Uj0"/>
+                            <constraint firstItem="jm9-8x-pJW" firstAttribute="top" secondItem="d7N-Pp-qye" secondAttribute="bottom" constant="11" id="T1x-VI-FHM"/>
+                            <constraint firstItem="d7N-Pp-qye" firstAttribute="leading" secondItem="jm9-8x-pJW" secondAttribute="leading" id="TSJ-ET-VOy"/>
+                            <constraint firstItem="h5o-SK-PJf" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" symbolic="YES" id="dlo-Nh-1Th"/>
+                            <constraint firstAttribute="bottom" secondItem="jm9-8x-pJW" secondAttribute="bottom" constant="20" symbolic="YES" id="hPb-KI-MiS"/>
+                            <constraint firstItem="Q6l-Lj-wyW" firstAttribute="top" secondItem="h5o-SK-PJf" secondAttribute="bottom" constant="6" id="sHd-fw-gBQ"/>
+                            <constraint firstItem="h5o-SK-PJf" firstAttribute="leading" secondItem="Q6l-Lj-wyW" secondAttribute="leading" id="tjL-wT-Mai"/>
+                            <constraint firstItem="h5o-SK-PJf" firstAttribute="top" secondItem="SVD-hY-Ayz" secondAttribute="top" constant="20" id="vPq-xd-obG"/>
+                            <constraint firstAttribute="trailing" secondItem="d7N-Pp-qye" secondAttribute="trailing" constant="20" symbolic="YES" id="zhM-Hi-TPS"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="E8m-pT-dv6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-603.5" y="269.5"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -701,7 +807,7 @@
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton toolTip="Format" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XHB-NN-yC5">
+                            <popUpButton toolTip="Request format" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XHB-NN-yC5">
                                 <rect key="frame" x="325" y="5" width="76" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Khx-Cu-XqU" id="SHA-ev-XMS">
@@ -719,20 +825,11 @@
                                     <action selector="formatSelectionChanged:" target="XfG-lQ-9wD" id="wrD-L6-wXQ"/>
                                 </connections>
                             </popUpButton>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X32-ag-MBc">
-                                <rect key="frame" x="18" y="44" width="444" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="YoutubeToMac" id="2NX-wH-tdm">
-                                    <font key="font" metaFont="systemMedium" size="15"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <progressIndicator hidden="YES" wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="9jL-rL-s9k">
                                 <rect key="frame" x="20" y="8" width="352" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
-                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FpU-ta-yxo">
+                            <button hidden="YES" toolTip="Stop download" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FpU-ta-yxo">
                                 <rect key="frame" x="380" y="10" width="18" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="AE6-zX-I37">
@@ -743,7 +840,7 @@
                                     <action selector="stopButton:" target="XfG-lQ-9wD" id="G0T-gW-XCW"/>
                                 </connections>
                             </button>
-                            <button toolTip="Download Destination" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OBh-TZ-Kob">
+                            <button toolTip="Download destination" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OBh-TZ-Kob">
                                 <rect key="frame" x="332" y="41" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarFolderTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qqU-od-VLy">
@@ -754,7 +851,7 @@
                                     <action selector="changeDownloadLocation:" target="XfG-lQ-9wD" id="AU2-9j-0bZ"/>
                                 </connections>
                             </button>
-                            <button toolTip="Start Download" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Px7-yg-8H1">
+                            <button toolTip="Start download" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Px7-yg-8H1">
                                 <rect key="frame" x="364" y="36" width="34" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlayButton" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9s2-YI-9dk">
@@ -815,7 +912,7 @@ DQ
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="337" id="oxO-UQ-hhX"/>
                                                                     </constraints>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="JAKE PAUL IS NUMBER ONE" id="2Rq-gZ-CDs">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Content Name" id="2Rq-gZ-CDs">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -934,7 +1031,6 @@ DQ
                         <outlet property="downloadLocationButton" destination="OBh-TZ-Kob" id="BTc-YN-euz"/>
                         <outlet property="formatPopup" destination="XHB-NN-yC5" id="mCQ-LV-4Gz"/>
                         <outlet property="mainProgressBar" destination="9jL-rL-s9k" id="qGx-5u-uoU"/>
-                        <outlet property="nameLabel" destination="X32-ag-MBc" id="c06-iS-4ha"/>
                         <outlet property="previousVideosTableView" destination="D2B-YN-MLg" id="Na0-Dv-E2F"/>
                         <outlet property="recentVideosDisclosureTriangle" destination="yAQ-wh-GkQ" id="OcR-EN-w8P"/>
                         <outlet property="recentVideosLabel" destination="C0x-o8-4go" id="56T-ag-dKa"/>
@@ -943,7 +1039,7 @@ DQ
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46" y="622"/>
+            <point key="canvasLocation" x="46" y="674.5"/>
         </scene>
     </scenes>
     <resources>
@@ -953,5 +1049,8 @@ DQ
         <image name="NSTouchBarOpenInBrowserTemplate" width="18" height="30"/>
         <image name="OrangeDot" width="180" height="180"/>
         <image name="PlayButton" width="2400" height="1675"/>
+        <namedColor name="WindowBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
