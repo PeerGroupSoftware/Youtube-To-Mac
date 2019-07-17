@@ -311,15 +311,13 @@ class ViewController: NSViewController {
         } else if currentRequest.destination == "~/Downloads" {
             downloadDestination = "Downloads"
         }
-        
-        var informativeText = ""
+
+        var informativeText = URLField.stringValue
         if !downloadDestination.isEmpty {
-            informativeText = "Saved \(formatType) to \(downloadDestination)"
-        } else {
-            informativeText = "Saved \(formatType)"
+            informativeText += " to \(downloadDestination)"
         }
         
-        downloadNotification.title = "Downloaded \(formatType)"
+        downloadNotification.title = "Saved \(formatType)"
         downloadNotification.informativeText = informativeText
         downloadNotification.soundName = NSUserNotificationDefaultSoundName
         
