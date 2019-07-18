@@ -42,10 +42,7 @@ class Downloader {
         isRunning = true
         let taskQueue = DispatchQueue.global(qos: defaultQOS)
         
-        taskQueue.async { // Get file formats
-            
-            let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
-            
+        //taskQueue.async {
             taskQueue.async {
                 
                 let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
@@ -89,7 +86,7 @@ class Downloader {
                 
             }
             
-        }
+      //  }
     }
     
     private func readError(_ task:Process, errorHandler: @escaping (Error) -> Void) {
@@ -111,6 +108,7 @@ class Downloader {
             } else if outputString.contains("who has blocked it on copyright grounds") {
                 print("Video was blocked")
                 errorHandler(NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]))
+            } else if outputString.contains("writing DASH m4a") {
             } else if !outputString.isEmpty {
                 errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
             }
@@ -153,8 +151,9 @@ class Downloader {
             } else if outputString.contains("[download]") {
                 if outputString.contains("Destination:") {
                     var videonameString = (outputString.replacingOccurrences(of: "[download] Destination: ", with: ""))
+                   // print(videonameString)
                     
-                    print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
+                    //print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
                     
                     videonameString.removeSubrange((videonameString.range(of: ("-" + self.videoID))?.lowerBound)!..<videonameString.endIndex)
                     //self.videoTitle = (videonameString)
@@ -184,7 +183,7 @@ class Downloader {
     }
     
     func fetchJSON(from targetURL: URL, completion: @escaping ([String: Any]?, Error?) -> Void) {
-        var jsonRequest = URLRequest(url: targetURL)
+        let jsonRequest = URLRequest(url: targetURL)
         
         let task = URLSession.shared.dataTask(with: jsonRequest) { (data, response, error) in
             guard let dataResponse = data, error == nil else {

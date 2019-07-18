@@ -125,7 +125,6 @@ class ViewController: NSViewController {
             if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
                 let path = locationSelectPanel.url!.path
                 print("selected folder is \(path)")
-                //self.saveLocation = path
                 self.currentRequest.destination = path
         }
         })
@@ -192,10 +191,13 @@ class ViewController: NSViewController {
         currentRequest.contentURL = URLField.stringValue
         currentRequest.audioOnly = (audioBox.state == .on)
         
+        //print("destination: \(currentRequest.destination)")
+        if currentRequest.destination == "~/Desktop" || currentRequest.destination == "~/Downloads" {
         if (UserDefaults.standard.string(forKey: "DownloadDestination") ?? "") == "downloads" {
             currentRequest.destination = "~/Downloads"
         } else {
             currentRequest.destination = "~/Desktop"
+        }
         }
         
         if !currentRequest.contentURL.isEmpty {

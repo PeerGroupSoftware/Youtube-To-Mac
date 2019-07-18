@@ -29,6 +29,12 @@ class YTDownloadRequest {
 
 enum FileFormat: String {
     case mp4 = "mp4"
+    case flv = "flv"
+    case webm = "webm"
+    case m4a = "m4a"
+    case mp3 = "mp3"
+    case wav = "wav"
+    case aac = "aac"
     case defaultAudio = "wav/m4a/mp3/bestaudio"
     case defaultVideo = "mp4/flv/best"
 }

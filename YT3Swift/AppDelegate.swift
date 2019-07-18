@@ -16,7 +16,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSUserNotificationCenter.default.delegate = self
-        // Insert code here to initialize your application
+        if UserDefaults.standard.bool(forKey: "automaticUpdateCheck") != false || UserDefaults.standard.object(forKey: "automaticUpdateCheck") == nil {
+            checkForUpdates(sender: self)
+        }
     }
     
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -38,8 +40,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     @IBAction func checkForUpdates(_ sender: NSMenuItem) {
+        checkForUpdates(sender: sender)
+    }
+    
+    func checkForUpdates(sender: NSObject) {
+        print("Checking for updates...")
         let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         let releaseURL = URL(string: "https://api.github.com/repos/\(repoLocation)/releases/latest")!
+        
+        var updateStatus = -1
         
         Downloader().fetchJSON(from: releaseURL, completion: {(json, error) in
             DispatchQueue.main.async {
@@ -47,7 +56,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 if error == nil && json != nil && json!["message"] == nil {
                     let newestVersion = (json!["tag_name"] as! String)
                     let newestURL = URL(string: (json!["html_url"] as! String))!
-                    var updateStatus = -1
+                    //var updateStatus = -1
+                    
+                    //print(json)
                     
                     let versionCompare = currentVersion.compare(newestVersion, options: .numeric)
                     
@@ -72,14 +83,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                         alert.addButton(withTitle: "Ok")
                     }
                     
-                    let clickedButton = alert.runModal()
+                    var shouldAlert = true
+                    if sender == self && updateStatus != 1 {shouldAlert = false}
                     
-                    if clickedButton == .alertFirstButtonReturn {
-                        NSWorkspace.shared.open(newestURL)
+                    if shouldAlert {
+                        let clickedButton = alert.runModal()
+                        
+                        if clickedButton == .alertFirstButtonReturn {
+                            NSWorkspace.shared.open(newestURL)
+                        }
                     }
                     
+                    
                 } else {
-                    print("Could not check for updates: \(error)")
+                    print("Could not check for updates: \(String(describing: error))")
                     
                     let alert = NSAlert()
                     alert.alertStyle = .warning
@@ -87,7 +104,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     if error != nil && (error! as NSError).code == -1009 {
                         alert.informativeText = "There is no Internet connection."
                     }
-                    alert.runModal()
+                    
+                    var shouldAlert = true
+                    if sender == self && updateStatus != 1 {shouldAlert = false}
+                    
+                    if shouldAlert {alert.runModal()}
                 }
             }
         })

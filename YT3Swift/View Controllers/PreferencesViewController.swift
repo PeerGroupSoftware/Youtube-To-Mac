@@ -10,6 +10,8 @@ import Cocoa
 
 class PreferencesViewController: NSViewController {
 
+    @IBOutlet weak var automaticUpdatesBox: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let defaults = UserDefaults.standard
@@ -21,7 +23,21 @@ class PreferencesViewController: NSViewController {
         default:
             (view.subviews.first(where: {($0.identifier ?? NSUserInterfaceItemIdentifier(rawValue: "")).rawValue == "DesktopRadio"}) as! NSButton).state = .on
         }
-        //defaults.removeObject(forKey: "DownloadDestination") //Test Code
+        
+        if defaults.object(forKey: "automaticUpdateCheck") == nil || defaults.bool(forKey: "automaticUpdateCheck") == true {
+            automaticUpdatesBox.state = .on
+        }
+    }
+    
+    @IBAction func toggleAutoUpdates(_ sender: NSButton) {
+        switch sender.state {
+        case .on:
+            UserDefaults.standard.set(true, forKey: "automaticUpdateCheck")
+        case .off:
+            UserDefaults.standard.set(false, forKey: "automaticUpdateCheck")
+        default:
+            UserDefaults.standard.set(true, forKey: "automaticUpdateCheck")
+        }
     }
     
     @IBAction func setDownloadDestination(_ sender: NSButton) {
