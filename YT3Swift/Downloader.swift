@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 class Downloader {
     
@@ -27,14 +28,14 @@ class Downloader {
     }*/
     
     func downloadContent(with downloadRequest: YTDownloadRequest) {
-        downloadContent(from: downloadRequest.contentURL, toLocation: downloadRequest.destination, audioOnly: downloadRequest.audioOnly, fileFormat: downloadRequest.fileFormat, progress: downloadRequest.progressHandler!)
+        downloadContent(from: downloadRequest.contentURL, toLocation: downloadRequest.destination, audioOnly: downloadRequest.audioOnly, fileFormat: downloadRequest.fileFormat, progress: downloadRequest.progressHandler!, completionHandler: downloadRequest.completionHandler)
     }
     
     func terminateDownload() {
         downloadTask.terminate()
     }
     
-    func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void) {
+    func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?) -> Void) {
         let downloaderVersion = YoutubeDLVersion.latest//latestYTDLVersion()
         currentVideo.URL = targetURL
         currentVideo.isAudioOnly = audioOnly
@@ -46,18 +47,38 @@ class Downloader {
             taskQueue.async {
                 
                 let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
+               // print(path)
                 self.downloadTask = Process()
-                self.downloadTask.launchPath = path
+                if #available(OSX 10.13, *) {
+                    self.downloadTask.executableURL = URL(fileURLWithPath: path!)
+                } else {
+                    self.downloadTask.launchPath = path
+                }
                 print("using file format \(fileFormat.rawValue)")
-                self.downloadTask.arguments = ["-f \(fileFormat.rawValue)", targetURL]
+                self.downloadTask.arguments = ["-v", "-f \(fileFormat.rawValue)", targetURL]
                 self.downloadTask.currentDirectoryPath = downloadDestination
+                /*if #available(OSX 10.13, *) {
+                    self.downloadTask.currentDirectoryURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+                } else {
+                    // Fallback on earlier versions
+                }*/
+                //self.downloadTask.director
+                if #available(OSX 10.13, *) {
+                    //print(self.downloadTask.currentDirectoryURL)
+                    //print(self.downloadTask.currentDirectoryPath)
+                } else {
+                    // Fallback on earlier versions
+                }
+                
                 self.downloadTask.terminationHandler = {
                     
                     task in
                     DispatchQueue.main.async(execute: {
                         print("Stopped")
+                        print(self.downloadTask.terminationReason.rawValue)
                         //self.updateDownloadProgressBar(progress: 0.0)
-                        progressHandler(0, nil, nil)
+                        progressHandler(100, nil, nil)
+                        completionHandler(self.currentVideo)
                         //self.toggleDownloadInterface(to: false)
                         self.currentVideo = YTVideo()
                         //self.URLField.stringValue = ""
@@ -81,7 +102,11 @@ class Downloader {
                    progressHandler(100, error, self.currentVideo)
                 })
                 //self.toggleDownloadInterface(to: true)
-                self.downloadTask.launch()
+                if #available(OSX 10.13, *) {
+                    try! self.downloadTask.run()
+                } else {
+                    self.downloadTask.launch()
+                }
                 self.downloadTask.waitUntilExit()
                 
             }
@@ -110,7 +135,7 @@ class Downloader {
                 errorHandler(NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]))
             } else if outputString.contains("writing DASH m4a") {
             } else if !outputString.isEmpty {
-                errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
+                //errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
             }
             
             self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
@@ -134,11 +159,11 @@ class Downloader {
             //print("got output")
             //print(outputString)
             
-            if outputString.contains("fulltitle") {
+            /*if outputString.contains("fulltitle") {
                 for i in (outputString.split(separator: ":")) {
                     (i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
                 }
-            }
+            }*/
             if outputString.range(of:"100%: Done") != nil {
                 self.downloadTask.qualityOfService = .background
                 
@@ -209,13 +234,8 @@ class Downloader {
 }
 
 enum YoutubeDLVersion: String {
-    //@available(*, deprecated) case version4 = "youtubedl4"
-    //@available(*, deprecated) case version5 = "youtubedl5"
-    //@available(*, deprecated) case version6 = "youtubedl6"
-    //@available(*, deprecated) case version7 = "youtube-dl-2019-04-07"
-    //case version8 = "youtube-dl-2019-04-24"
     @available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
-    case version10 = "youtube-dl-2019-06-08"
+    @available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
     //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2019-10-22"
+    case latest = "youtube-dl-2020-03-24"
 }

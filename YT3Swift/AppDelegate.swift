@@ -58,8 +58,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     let newestURL = URL(string: (json!["html_url"] as! String))!
                     //var updateStatus = -1
                     
-                    //print(json)
-                    
                     let versionCompare = currentVersion.compare(newestVersion, options: .numeric)
                     
                     if versionCompare == .orderedSame { // Local version is current

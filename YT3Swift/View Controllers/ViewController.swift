@@ -225,28 +225,18 @@ class ViewController: NSViewController {
                         self.URLField.stringValue = videoInfo!.name
                 }
             }
+            currentRequest.completionHandler = { (video) in
+                self.URLField.stringValue = ""
+            }
         
             downloader.downloadContent(with: currentRequest)
         }
     }
     
     
-   /* func shell(_ args: String...) -> Int32 {
-        let task = Process()
-        task.launch()
-        task.waitUntilExit()
-        return task.terminationStatus
-    }*/
-    
     @IBAction func stopButton(_ sender: NSButton) {
         downloader.terminateDownload()
         setDownloadInterface(to: false)
-       /* if buildTask.isRunning == true {
-            buildTask.terminate()
-        } else {
-            print("thread not running")
-        }*/
-        
     }
     
     func setDownloadTitleStatus(to downloadName: String) {
@@ -276,7 +266,6 @@ class ViewController: NSViewController {
             case false:
                 //print("animate hiding")
                 NSAnimationContext.runAnimationGroup({_ in
-                    //Indicate the duration of the animation
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = true
                     self.audioBox.animator().isHidden = false
