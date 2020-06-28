@@ -24,8 +24,8 @@ class Downloader {
     private let defaultQOS = DispatchQoS.QoSClass.userInitiated
     
     /*func latestYTDLVersion() -> YoutubeDLVersion {
-        return .version10
-    }*/
+     return .version10
+     }*/
     
     func downloadContent(with downloadRequest: YTDownloadRequest) {
         downloadContent(from: downloadRequest.contentURL, toLocation: downloadRequest.destination, audioOnly: downloadRequest.audioOnly, fileFormat: downloadRequest.fileFormat, progress: downloadRequest.progressHandler!, completionHandler: downloadRequest.completionHandler)
@@ -43,75 +43,68 @@ class Downloader {
         isRunning = true
         let taskQueue = DispatchQueue.global(qos: defaultQOS)
         
-        //taskQueue.async {
-            taskQueue.async {
+        taskQueue.async {
+            
+            let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
+            // print(path)
+            self.downloadTask = Process()
+            if #available(OSX 10.13, *) {
+                self.downloadTask.executableURL = URL(fileURLWithPath: path!)
+            } else {
+                self.downloadTask.launchPath = path
+            }
+            print("using file format \(fileFormat.rawValue)")
+            self.downloadTask.arguments = ["-v", "-f \(fileFormat.rawValue)", targetURL]
+            self.downloadTask.currentDirectoryPath = downloadDestination
+            /*if #available(OSX 10.13, *) {
+                //print(self.downloadTask.currentDirectoryURL)
+                //print(self.downloadTask.currentDirectoryPath)
+            } else {
+                // Fallback on earlier versions
+            }*/
+            
+            self.downloadTask.terminationHandler = {
                 
-                let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
-               // print(path)
-                self.downloadTask = Process()
-                if #available(OSX 10.13, *) {
-                    self.downloadTask.executableURL = URL(fileURLWithPath: path!)
-                } else {
-                    self.downloadTask.launchPath = path
-                }
-                print("using file format \(fileFormat.rawValue)")
-                self.downloadTask.arguments = ["-v", "-f \(fileFormat.rawValue)", targetURL]
-                self.downloadTask.currentDirectoryPath = downloadDestination
-                /*if #available(OSX 10.13, *) {
-                    self.downloadTask.currentDirectoryURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-                } else {
-                    // Fallback on earlier versions
-                }*/
-                //self.downloadTask.director
-                if #available(OSX 10.13, *) {
-                    //print(self.downloadTask.currentDirectoryURL)
-                    //print(self.downloadTask.currentDirectoryPath)
-                } else {
-                    // Fallback on earlier versions
-                }
-                
-                self.downloadTask.terminationHandler = {
-                    
-                    task in
-                    DispatchQueue.main.async(execute: {
-                        print("Stopped")
-                        print(self.downloadTask.terminationReason.rawValue)
-                        //self.updateDownloadProgressBar(progress: 0.0)
-                        progressHandler(100, nil, nil)
-                        completionHandler(self.currentVideo)
-                        //self.toggleDownloadInterface(to: false)
-                        self.currentVideo = YTVideo()
-                        //self.URLField.stringValue = ""
-                        if self.outputPipe.description.contains("must provide") {
-                            print("error")
-                        }
-                        self.isRunning = false
-                    })
-                    
-                }
-                
-                self.captureStandardOutput(self.downloadTask, progressHandler: {(percent) in
-                    progressHandler(percent, nil, nil)
-                }, errorHandler: {(error) in
-                    progressHandler(100, error, self.currentVideo)
-                }, infoHandler: {(videoInfo) in
-                    progressHandler(-1, nil, videoInfo)
+                task in
+                DispatchQueue.main.async(execute: {
+                    print("Stopped")
+                    print(self.downloadTask.terminationReason.rawValue)
+                    //self.updateDownloadProgressBar(progress: 0.0)
+                    progressHandler(100, nil, nil)
+                    completionHandler(self.currentVideo)
+                    //self.toggleDownloadInterface(to: false)
+                    self.currentVideo = YTVideo()
+                    //self.URLField.stringValue = ""
+                    if self.outputPipe.description.contains("must provide") {
+                        print("error")
+                    }
+                    self.isRunning = false
                 })
-                
-                self.readError(self.downloadTask, errorHandler: {(error) in
-                   progressHandler(100, error, self.currentVideo)
-                })
-                //self.toggleDownloadInterface(to: true)
-                if #available(OSX 10.13, *) {
-                    try! self.downloadTask.run()
-                } else {
-                    self.downloadTask.launch()
-                }
-                self.downloadTask.waitUntilExit()
                 
             }
             
-      //  }
+            self.captureStandardOutput(self.downloadTask, progressHandler: {(percent) in
+                progressHandler(percent, nil, nil)
+            }, errorHandler: {(error) in
+                progressHandler(100, error, self.currentVideo)
+            }, infoHandler: {(videoInfo) in
+                progressHandler(-1, nil, videoInfo)
+            })
+            
+            self.readError(self.downloadTask, errorHandler: {(error) in
+                progressHandler(100, error, self.currentVideo)
+            })
+            //self.toggleDownloadInterface(to: true)
+            if #available(OSX 10.13, *) {
+                try! self.downloadTask.run()
+            } else {
+                self.downloadTask.launch()
+            }
+            self.downloadTask.waitUntilExit()
+            
+        }
+        
+        //  }
     }
     
     private func readError(_ task:Process, errorHandler: @escaping (Error) -> Void) {
@@ -160,10 +153,10 @@ class Downloader {
             //print(outputString)
             
             /*if outputString.contains("fulltitle") {
-                for i in (outputString.split(separator: ":")) {
-                    (i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
-                }
-            }*/
+             for i in (outputString.split(separator: ":")) {
+             (i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
+             }
+             }*/
             if outputString.range(of:"100%: Done") != nil {
                 self.downloadTask.qualityOfService = .background
                 
@@ -176,7 +169,7 @@ class Downloader {
             } else if outputString.contains("[download]") {
                 if outputString.contains("Destination:") {
                     var videonameString = (outputString.replacingOccurrences(of: "[download] Destination: ", with: ""))
-                   // print(videonameString)
+                    // print(videonameString)
                     
                     //print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
                     
@@ -229,7 +222,7 @@ class Downloader {
         
         task.resume()
     }
-
+    
     
 }
 

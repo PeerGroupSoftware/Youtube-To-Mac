@@ -111,16 +111,16 @@
 		B77E6A631E9BCEFC001CFE77 /* YT3Swift */ = {
 			isa = PBXGroup;
 			children = (
-				B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */,
 				B773BB5D2263E4AB00F24E37 /* YoutubeDL */,
 				B78D7FA122CAA561009170F8 /* Window Controllers */,
 				B78D7FA422CAA695009170F8 /* View Controllers */,
+				B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */,
 				B7058DB722B6D392001E818D /* Downloader.swift */,
 				B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */,
+				C87CB87420066C90008AA662 /* Extensions.swift */,
 				B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */,
 				B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */,
 				B77E6A6D1E9BCEFC001CFE77 /* Info.plist */,
-				C87CB87420066C90008AA662 /* Extensions.swift */,
 			);
 			path = YT3Swift;
 			sourceTree = "<group>";
