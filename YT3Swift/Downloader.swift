@@ -21,11 +21,7 @@ class Downloader {
     private var downloadTask:Process!
     static let videoFormats = ["Auto", "mp4", "flv", "webm"]
     static let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
-    private let defaultQOS = DispatchQoS.QoSClass.userInitiated
-    
-    /*func latestYTDLVersion() -> YoutubeDLVersion {
-     return .version10
-     }*/
+    private let defaultQOS: DispatchQoS.QoSClass  = .userInitiated
     
     func downloadContent(with downloadRequest: YTDownloadRequest) {
         downloadContent(from: downloadRequest.contentURL, toLocation: downloadRequest.destination, audioOnly: downloadRequest.audioOnly, fileFormat: downloadRequest.fileFormat, progress: downloadRequest.progressHandler!, completionHandler: downloadRequest.completionHandler)
@@ -46,7 +42,6 @@ class Downloader {
         taskQueue.async {
             
             let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
-            // print(path)
             self.downloadTask = Process()
             if #available(OSX 10.13, *) {
                 self.downloadTask.executableURL = URL(fileURLWithPath: path!)
@@ -54,14 +49,8 @@ class Downloader {
                 self.downloadTask.launchPath = path
             }
             print("using file format \(fileFormat.rawValue)")
-            self.downloadTask.arguments = ["-v", "-f \(fileFormat.rawValue)", targetURL]
+            self.downloadTask.arguments = ["-f \(fileFormat.rawValue)", targetURL]
             self.downloadTask.currentDirectoryPath = downloadDestination
-            /*if #available(OSX 10.13, *) {
-                //print(self.downloadTask.currentDirectoryURL)
-                //print(self.downloadTask.currentDirectoryPath)
-            } else {
-                // Fallback on earlier versions
-            }*/
             
             self.downloadTask.terminationHandler = {
                 
@@ -69,12 +58,9 @@ class Downloader {
                 DispatchQueue.main.async(execute: {
                     print("Stopped")
                     print(self.downloadTask.terminationReason.rawValue)
-                    //self.updateDownloadProgressBar(progress: 0.0)
                     progressHandler(100, nil, nil)
                     completionHandler(self.currentVideo)
-                    //self.toggleDownloadInterface(to: false)
                     self.currentVideo = YTVideo()
-                    //self.URLField.stringValue = ""
                     if self.outputPipe.description.contains("must provide") {
                         print("error")
                     }
@@ -94,7 +80,6 @@ class Downloader {
             self.readError(self.downloadTask, errorHandler: {(error) in
                 progressHandler(100, error, self.currentVideo)
             })
-            //self.toggleDownloadInterface(to: true)
             if #available(OSX 10.13, *) {
                 try! self.downloadTask.run()
             } else {
@@ -117,8 +102,10 @@ class Downloader {
             
             let output = self.errorPipe.fileHandleForReading.availableData
             let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            
+            if !outputString.isEmpty {
             print("got error")
-            print(outputString)
+            print("ERROR: \(outputString)")
             
             if outputString.contains("requested format not available") {
                 print("format not available")
@@ -133,6 +120,7 @@ class Downloader {
             
             self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
             
+        }
         }
     }
     
@@ -230,5 +218,5 @@ enum YoutubeDLVersion: String {
     @available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
     @available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
     //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2020-03-24"
+    case latest = "youtube-dl-2020-06-16"
 }

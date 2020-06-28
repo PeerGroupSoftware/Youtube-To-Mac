@@ -76,7 +76,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func clearRecentVideos(_ sender: NSButton) {
-         UserDefaults().set([String:[String:String]](), forKey: "YTVideoHistory")
+        UserDefaults().set([String:[String:String]](), forKey: "YTVideoHistory")
         previousVideos = []
         previousVideosTableView.reloadData()
     }
@@ -97,7 +97,7 @@ class ViewController: NSViewController {
                 if previousVideosTableView.numberOfRows != 0 {clearTableViewButton.animator().isHidden = false}
             }, completionHandler:{
             })
-             let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
+            let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
             view.window?.setFrame(newWindowFrame, display: true, animate: true)
         case 0:
             let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
@@ -113,28 +113,25 @@ class ViewController: NSViewController {
     }
     
     @IBAction func changeDownloadLocation(_ sender: NSButton) {
-            let locationSelectPanel = NSOpenPanel()
-           // openPanel.title = ""
-           // openPanel.message = ""
-            locationSelectPanel.showsResizeIndicator=true
-            locationSelectPanel.canChooseDirectories = true
-            locationSelectPanel.canChooseFiles = false
-            locationSelectPanel.allowsMultipleSelection = false
-            locationSelectPanel.canCreateDirectories = true
+        let locationSelectPanel = NSOpenPanel()
+        locationSelectPanel.showsResizeIndicator=true
+        locationSelectPanel.canChooseDirectories = true
+        locationSelectPanel.canChooseFiles = false
+        locationSelectPanel.allowsMultipleSelection = false
+        locationSelectPanel.canCreateDirectories = true
         locationSelectPanel.beginSheetModal(for: view.window!, completionHandler: {(result) in
             if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
                 let path = locationSelectPanel.url!.path
                 print("selected folder is \(path)")
                 self.currentRequest.destination = path
-        }
+            }
         })
-            
+        
         
     }
     
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
         if sender.selectedItem?.title != "Auto" {
-            //fileFormat = (sender.selectedItem?.title)!
             currentRequest.fileFormat = FileFormat(rawValue:(sender.selectedItem?.title)!)!
         } else {
             switch audioBox.integerValue {
@@ -142,7 +139,7 @@ class ViewController: NSViewController {
                 currentRequest.fileFormat = .defaultAudio
                 print("set to audio")
             case 0:
-                 currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
+                currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -162,7 +159,7 @@ class ViewController: NSViewController {
             formatPopup.removeAllItems()
             formatPopup.addItems(withTitles: Downloader.videoFormats)
         default:
-                print("Audio button error")
+            print("Audio button error")
         }
         
         if formatPopup.selectedItem?.title == "Auto" {
@@ -186,18 +183,16 @@ class ViewController: NSViewController {
     }
     
     @IBAction func startTasks(_ sender: NSButton) {
-       /* if !URLField.stringValue.isEmpty{runScript([""])}
-        if audioBox.integerValue == 1 {currentVideo.isAudioOnly = true}*/
         currentRequest.contentURL = URLField.stringValue
         currentRequest.audioOnly = (audioBox.state == .on)
         
         //print("destination: \(currentRequest.destination)")
         if currentRequest.destination == "~/Desktop" || currentRequest.destination == "~/Downloads" {
-        if (UserDefaults.standard.string(forKey: "DownloadDestination") ?? "") == "downloads" {
-            currentRequest.destination = "~/Downloads"
-        } else {
-            currentRequest.destination = "~/Desktop"
-        }
+            if (UserDefaults.standard.string(forKey: "DownloadDestination") ?? "") == "downloads" {
+                currentRequest.destination = "~/Downloads"
+            } else {
+                currentRequest.destination = "~/Desktop"
+            }
         }
         
         if !currentRequest.contentURL.isEmpty {
@@ -206,29 +201,29 @@ class ViewController: NSViewController {
             currentRequest.progressHandler = {(progress, error, videoInfo) in
                 if progress >= 0 {
                     self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
-                if progress == 100 && videoInfo != nil {
-                    self.setDownloadInterface(to: false)
-                } else if videoInfo != nil {
-                    self.URLField.stringValue = videoInfo!.name
-                }
-                
-                if error != nil {
-                    DispatchQueue.main.async {
-                        let alert = NSAlert()
-                        alert.alertStyle = .critical
-                        alert.messageText = "Could not save \(videoInfo!.isAudioOnly ? "audio" : "video")"
-                        alert.informativeText = error!.localizedDescription
-                        alert.runModal()
-                    }
-                }
-                } else {
+                    if progress == 100 && videoInfo != nil {
+                        self.setDownloadInterface(to: false)
+                    } else if videoInfo != nil {
                         self.URLField.stringValue = videoInfo!.name
+                    }
+                    
+                    if error != nil {
+                        DispatchQueue.main.async {
+                            let alert = NSAlert()
+                            alert.alertStyle = .critical
+                            alert.messageText = "Could not save \(videoInfo!.isAudioOnly ? "audio" : "video")"
+                            alert.informativeText = error!.localizedDescription
+                            alert.runModal()
+                        }
+                    }
+                } else {
+                    self.URLField.stringValue = videoInfo!.name
                 }
             }
             currentRequest.completionHandler = { (video) in
                 self.URLField.stringValue = ""
             }
-        
+            
             downloader.downloadContent(with: currentRequest)
         }
     }
@@ -278,7 +273,7 @@ class ViewController: NSViewController {
                     
                     self.mainProgressBar.animator().isHidden = true
                     self.stopButton.animator().isHidden = true
-                   // self.nameLabel.animator().isHidden = true
+                    // self.nameLabel.animator().isHidden = true
                 }, completionHandler:{
                 })
             }
@@ -288,14 +283,14 @@ class ViewController: NSViewController {
     func downloadFinished(errorOccured: Bool) {
         let downloadNotification = NSUserNotification()
         let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
-       /* switch self.audioBox.integerValue {
-        case 1:
-            formatType = "Audio"
-        case 0:
-            formatType = "Video"
-        default:
-            break
-        }*/
+        /* switch self.audioBox.integerValue {
+         case 1:
+         formatType = "Audio"
+         case 0:
+         formatType = "Video"
+         default:
+         break
+         }*/
         var downloadDestination = ""
         if currentRequest.destination == "~/Desktop" {
             downloadDestination = "Desktop"
@@ -324,27 +319,27 @@ class ViewController: NSViewController {
         //print(self.currentVideo.name)
         
         /*if (previousVideos.first?.name ?? "" != self.currentVideo.name) && self.currentVideo.name != "" {
-            print("adding to list")
-            //print(self.currentVideo.name)
-            self.saveVideoToHistory(video: self.currentVideo)
-            previousVideos.insert(self.currentVideo, at: 0)
-            self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
-            //print("wfh: \(self.view.window?.frame.height)")
-            if self.view.window?.frame.height != 106 {
-                NSAnimationContext.runAnimationGroup({_ in
-                    NSAnimationContext.current.duration = 0.5
-                    if self.previousVideosTableView.numberOfRows != 0 {self.clearTableViewButton.animator().isHidden = false}
-                }, completionHandler: {
-                })
-            }
-        }*/
+         print("adding to list")
+         //print(self.currentVideo.name)
+         self.saveVideoToHistory(video: self.currentVideo)
+         previousVideos.insert(self.currentVideo, at: 0)
+         self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
+         //print("wfh: \(self.view.window?.frame.height)")
+         if self.view.window?.frame.height != 106 {
+         NSAnimationContext.runAnimationGroup({_ in
+         NSAnimationContext.current.duration = 0.5
+         if self.previousVideosTableView.numberOfRows != 0 {self.clearTableViewButton.animator().isHidden = false}
+         }, completionHandler: {
+         })
+         }
+         }*/
     }
     
     func updateDownloadProgressBar(progress: Double, errorOccured: Bool) {
         print("progress update \(progress)")
         DispatchQueue.main.async {
             NSAnimationContext.runAnimationGroup({_ in
-        self.mainProgressBar.increment(by: progress-self.mainProgressBar.doubleValue)
+                self.mainProgressBar.increment(by: progress-self.mainProgressBar.doubleValue)
             }, completionHandler:{
             })
             if progress == 100.0 {
