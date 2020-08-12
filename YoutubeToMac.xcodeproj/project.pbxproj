@@ -178,7 +178,7 @@
 				TargetAttributes = {
 					B77E6A601E9BCEFC001CFE77 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = VVSP7BBH48;
+						DevelopmentTeam = 9W7546BN3K;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -402,9 +402,9 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 33;
-				DEVELOPMENT_TEAM = VVSP7BBH48;
-				ENABLE_HARDENED_RUNTIME = NO;
+				CURRENT_PROJECT_VERSION = 34;
+				DEVELOPMENT_TEAM = 9W7546BN3K;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -429,9 +429,9 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 33;
-				DEVELOPMENT_TEAM = VVSP7BBH48;
-				ENABLE_HARDENED_RUNTIME = NO;
+				CURRENT_PROJECT_VERSION = 34;
+				DEVELOPMENT_TEAM = 9W7546BN3K;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
