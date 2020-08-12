@@ -685,6 +685,28 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="163" y="199" width="227" height="163"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+                        <toolbar key="toolbar" implicitIdentifier="ADB0ADA9-5CEC-47E9-95D6-5899AB5A19BA" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="2jv-QR-MCJ">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="9MN-fw-Iof"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="03H-N6-ueB"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="Bsj-Iv-tj3"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="RlS-mu-evZ"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="GrS-vD-f99"/>
+                                <toolbarItem implicitItemIdentifier="1CA614CB-9531-4415-A214-8D0D4FC7338F" label="General" paletteLabel="General" tag="-1" image="NSPreferencesGeneral" id="fiN-gL-jQn">
+                                    <size key="minSize" width="32" height="32"/>
+                                    <size key="maxSize" width="32" height="32"/>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="115A8D94-C443-41DC-846F-116ABBB01190" label="Downloading" paletteLabel="Downloading" tag="-1" image="NSApplicationIcon" id="sfy-5k-q2g">
+                                    <size key="minSize" width="32" height="32"/>
+                                    <size key="maxSize" width="32" height="32"/>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="fiN-gL-jQn"/>
+                                <toolbarItem reference="sfy-5k-q2g"/>
+                                <toolbarItem reference="GrS-vD-f99"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                 <color key="value" name="WindowBackground"/>
@@ -701,7 +723,7 @@
                 </windowController>
                 <customObject id="5gm-gx-7Za" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-356" y="-60"/>
+            <point key="canvasLocation" x="-356.5" y="-60.5"/>
         </scene>
         <!--Preferences View Controller-->
         <scene sceneID="YEK-JV-CnS">
@@ -723,7 +745,7 @@
                                 <rect key="frame" x="19" y="78" width="89" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Downloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="a7e-QI-kCb">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="setDownloadDestination:" target="9Qq-ZI-MuQ" id="yee-ZA-evf"/>
@@ -733,7 +755,7 @@
                                 <rect key="frame" x="19" y="56" width="73" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zv1-z1-mgi">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="setDownloadDestination:" target="9Qq-ZI-MuQ" id="t1K-uZ-RXN"/>
@@ -746,7 +768,7 @@
                                 <rect key="frame" x="18" y="18" width="221" height="18"/>
                                 <buttonCell key="cell" type="check" title="Automatically Check for Updates" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Osc-MY-oXn">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="toggleAutoUpdates:" target="9Qq-ZI-MuQ" id="Cja-tl-sSD"/>
@@ -770,14 +792,14 @@
                                 <rect key="frame" x="19" y="160" width="82" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Simplified" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="eHa-do-uSu">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                             </button>
                             <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="avX-fB-zTf">
                                 <rect key="frame" x="19" y="138" width="82" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Advanced" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="HDI-dx-e8c">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                             </button>
                         </subviews>
@@ -845,7 +867,7 @@
                                 <rect key="frame" x="20" y="42" width="315" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" placeholderString="Youtube URL" drawsBackground="YES" usesSingleLineMode="YES" id="9bU-h5-wA8" customClass="URLFieldCell" customModule="YoutubeToMac" customModuleProvider="target">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                 </textFieldCell>
@@ -855,7 +877,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Khx-Cu-XqU" id="SHA-ev-XMS">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="sxR-Uy-0xe">
                                         <items>
                                             <menuItem title="Item 1" state="on" id="Khx-Cu-XqU"/>
@@ -877,7 +899,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="AE6-zX-I37">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="cellTitle"/>
+                                    <font key="font" metaFont="label" size="12"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="stopButton:" target="XfG-lQ-9wD" id="G0T-gW-XCW"/>
@@ -888,7 +910,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarFolderTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qqU-od-VLy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="changeDownloadLocation:" target="XfG-lQ-9wD" id="AU2-9j-0bZ"/>
@@ -899,7 +921,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlayButton" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9s2-YI-9dk">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -913,7 +935,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Audio Only" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1YS-tE-Edt">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="audioToggle:" target="XfG-lQ-9wD" id="WYG-Dk-a9C"/>
@@ -939,7 +961,7 @@ DQ
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
                                                     <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="daA-Bo-wE0">
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="message"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -955,7 +977,7 @@ DQ
                                                                         <constraint firstAttribute="width" constant="337" id="oxO-UQ-hhX"/>
                                                                     </constraints>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Content Name" id="2Rq-gZ-CDs">
-                                                                        <font key="font" metaFont="system"/>
+                                                                        <font key="font" metaFont="message"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -967,7 +989,7 @@ DQ
                                                                     </constraints>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSShareTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CF9-Vh-X8n">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="system"/>
+                                                                        <font key="font" metaFont="message"/>
                                                                     </buttonCell>
                                                                 </button>
                                                                 <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="okO-yc-pZK">
@@ -981,7 +1003,7 @@ DQ
                                                                     </constraints>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarOpenInBrowserTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="skp-G7-Yxb">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="system"/>
+                                                                        <font key="font" metaFont="message"/>
                                                                     </buttonCell>
                                                                     <connections>
                                                                         <action selector="openVideoLink:" target="VJ8-HU-EXo" id="eB7-jY-E3C"/>
@@ -991,7 +1013,7 @@ DQ
                                                                     <rect key="frame" x="317" y="9" width="23" height="22"/>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarFolderTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="UaY-Gf-jDQ">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="system"/>
+                                                                        <font key="font" metaFont="message"/>
                                                                     </buttonCell>
                                                                 </button>
                                                             </subviews>
@@ -1046,7 +1068,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="only" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jqz-AY-YbG">
                                     <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="toggleWindowSize:" target="XfG-lQ-9wD" id="6Uq-du-i5r"/>
@@ -1085,6 +1107,8 @@ DQ
         </scene>
     </scenes>
     <resources>
+        <image name="NSApplicationIcon" width="32" height="32"/>
+        <image name="NSPreferencesGeneral" width="32" height="32"/>
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
         <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
