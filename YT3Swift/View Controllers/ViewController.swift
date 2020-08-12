@@ -149,6 +149,11 @@ class ViewController: NSViewController {
     }
     
     @IBAction func audioToggle(_ sender: NSButton) {
+        
+        if sender.identifier?.rawValue == "audioTBButton" {
+            audioBox.state = sender.state
+        }
+        
         switch sender.integerValue {
         case 1:
             print("set audio formats")
@@ -185,6 +190,7 @@ class ViewController: NSViewController {
     @IBAction func startTasks(_ sender: NSButton) {
         currentRequest.contentURL = URLField.stringValue
         currentRequest.audioOnly = (audioBox.state == .on)
+        currentRequest.error = nil
         
         //print("destination: \(currentRequest.destination)")
         if currentRequest.destination == "~/Desktop" || currentRequest.destination == "~/Downloads" {
@@ -220,8 +226,41 @@ class ViewController: NSViewController {
                     self.URLField.stringValue = videoInfo!.name
                 }
             }
-            currentRequest.completionHandler = { (video) in
+            
+            currentRequest.completionHandler = { (video, error) in
                 self.URLField.stringValue = ""
+                sender.isEnabled = true
+                
+                let downloadNotification = NSUserNotification()
+                let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
+                var downloadDestination = ""
+                if self.currentRequest.destination == "~/Desktop" {
+                    downloadDestination = "Desktop"
+                } else if self.currentRequest.destination == "~/Downloads" {
+                    downloadDestination = "Downloads"
+                }
+                
+                var informativeText = ""
+                if !downloadDestination.isEmpty {
+                    informativeText = "Saved \(formatType) to \(downloadDestination)"
+                } else {
+                    informativeText = "Saved \(formatType)"
+                }
+                
+                downloadNotification.title = "Downloaded \(formatType)"
+                downloadNotification.informativeText = informativeText
+                downloadNotification.soundName = NSUserNotificationDefaultSoundName
+                
+                if self.downloadButton.isEnabled && (self.currentRequest.error == nil) {
+                    NSUserNotificationCenter.default.deliver(downloadNotification)
+                    //self.URLField.stringValue = ""
+                } else {
+                    print(self.currentRequest.error)
+                }
+                
+                self.setDownloadInterface(to: false)
+                print(previousVideos.first?.name ?? "")
+                
             }
             
             downloader.downloadContent(with: currentRequest)
@@ -280,7 +319,7 @@ class ViewController: NSViewController {
         }
     }
     
-    func downloadFinished(errorOccured: Bool) {
+    /*func downloadFinished(errorOccured: Bool) {
         let downloadNotification = NSUserNotification()
         let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
         /* switch self.audioBox.integerValue {
@@ -333,7 +372,7 @@ class ViewController: NSViewController {
          })
          }
          }*/
-    }
+    }*/
     
     func updateDownloadProgressBar(progress: Double, errorOccured: Bool) {
         print("progress update \(progress)")
@@ -344,7 +383,7 @@ class ViewController: NSViewController {
             })
             if progress == 100.0 {
                 print("progress at 100")
-                self.downloadFinished(errorOccured: errorOccured)
+                //self.downloadFinished(errorOccured: errorOccured)
             }
         }
     }

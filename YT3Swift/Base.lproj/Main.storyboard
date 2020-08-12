@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -708,11 +708,11 @@
             <objects>
                 <viewController id="9Qq-ZI-MuQ" customClass="PreferencesViewController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="SVD-hY-Ayz">
-                        <rect key="frame" x="0.0" y="0.0" width="287" height="141"/>
+                        <rect key="frame" x="0.0" y="0.0" width="287" height="211"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h5o-SK-PJf">
-                                <rect key="frame" x="18" y="102" width="235" height="19"/>
+                                <rect key="frame" x="18" y="101" width="235" height="19"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Default Download Destination" id="02i-kc-fVB">
                                     <font key="font" metaFont="systemBold" size="16"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -720,7 +720,7 @@
                                 </textFieldCell>
                             </textField>
                             <button identifier="DownloadsRadio" toolTip="User Downloads folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q6l-Lj-wyW">
-                                <rect key="frame" x="19" y="79" width="89" height="18"/>
+                                <rect key="frame" x="19" y="78" width="89" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Downloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="a7e-QI-kCb">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -730,7 +730,7 @@
                                 </connections>
                             </button>
                             <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h5h-Jz-5qo">
-                                <rect key="frame" x="19" y="57" width="73" height="18"/>
+                                <rect key="frame" x="19" y="56" width="73" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zv1-z1-mgi">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -752,18 +752,55 @@
                                     <action selector="toggleAutoUpdates:" target="9Qq-ZI-MuQ" id="Cja-tl-sSD"/>
                                 </connections>
                             </button>
+                            <box horizontalHuggingPriority="247" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="1t7-jS-pKN">
+                                <rect key="frame" x="20" y="123" width="247" height="9"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="5" id="T6n-nt-rbf"/>
+                                </constraints>
+                            </box>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dF5-VQ-Ad0">
+                                <rect key="frame" x="18" y="185" width="129" height="19"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" title="Quality Selector" id="Y4L-lL-Grd">
+                                    <font key="font" metaFont="systemBold" size="16"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button identifier="DownloadsRadio" toolTip="User Downloads folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EMX-pd-ImP">
+                                <rect key="frame" x="19" y="160" width="82" height="18"/>
+                                <buttonCell key="cell" type="radio" title="Simplified" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="eHa-do-uSu">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="avX-fB-zTf">
+                                <rect key="frame" x="19" y="138" width="82" height="18"/>
+                                <buttonCell key="cell" type="radio" title="Advanced" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="HDI-dx-e8c">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="h5o-SK-PJf" firstAttribute="top" secondItem="1t7-jS-pKN" secondAttribute="bottom" constant="5" id="6AD-Gz-bgI"/>
+                            <constraint firstItem="1t7-jS-pKN" firstAttribute="trailing" secondItem="d7N-Pp-qye" secondAttribute="trailing" id="9Km-5t-8eK"/>
+                            <constraint firstItem="dF5-VQ-Ad0" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" id="ADG-S2-Fyd"/>
                             <constraint firstItem="d7N-Pp-qye" firstAttribute="leading" secondItem="h5h-Jz-5qo" secondAttribute="leading" id="AaH-ae-Ddc"/>
+                            <constraint firstItem="dF5-VQ-Ad0" firstAttribute="top" secondItem="SVD-hY-Ayz" secondAttribute="top" constant="7" id="CzG-sO-r9E"/>
+                            <constraint firstItem="EMX-pd-ImP" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" id="E4W-l4-l1m"/>
+                            <constraint firstItem="avX-fB-zTf" firstAttribute="top" secondItem="EMX-pd-ImP" secondAttribute="bottom" constant="6" symbolic="YES" id="FKJ-7D-naD"/>
+                            <constraint firstItem="d7N-Pp-qye" firstAttribute="top" secondItem="h5h-Jz-5qo" secondAttribute="bottom" constant="11" id="Nc5-yD-7kd"/>
                             <constraint firstItem="h5h-Jz-5qo" firstAttribute="top" secondItem="Q6l-Lj-wyW" secondAttribute="bottom" constant="6" symbolic="YES" id="QQw-A5-CgY"/>
                             <constraint firstItem="Q6l-Lj-wyW" firstAttribute="leading" secondItem="h5h-Jz-5qo" secondAttribute="leading" id="Qzo-t6-Uj0"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="top" secondItem="d7N-Pp-qye" secondAttribute="bottom" constant="11" id="T1x-VI-FHM"/>
                             <constraint firstItem="d7N-Pp-qye" firstAttribute="leading" secondItem="jm9-8x-pJW" secondAttribute="leading" id="TSJ-ET-VOy"/>
+                            <constraint firstItem="1t7-jS-pKN" firstAttribute="leading" secondItem="h5o-SK-PJf" secondAttribute="leading" id="byU-od-tDE"/>
                             <constraint firstItem="h5o-SK-PJf" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" symbolic="YES" id="dlo-Nh-1Th"/>
                             <constraint firstAttribute="bottom" secondItem="jm9-8x-pJW" secondAttribute="bottom" constant="20" symbolic="YES" id="hPb-KI-MiS"/>
+                            <constraint firstItem="EMX-pd-ImP" firstAttribute="leading" secondItem="avX-fB-zTf" secondAttribute="leading" id="mkI-gN-ijz"/>
+                            <constraint firstItem="EMX-pd-ImP" firstAttribute="top" secondItem="dF5-VQ-Ad0" secondAttribute="bottom" constant="8" id="p5r-fL-fU1"/>
                             <constraint firstItem="Q6l-Lj-wyW" firstAttribute="top" secondItem="h5o-SK-PJf" secondAttribute="bottom" constant="6" id="sHd-fw-gBQ"/>
                             <constraint firstItem="h5o-SK-PJf" firstAttribute="leading" secondItem="Q6l-Lj-wyW" secondAttribute="leading" id="tjL-wT-Mai"/>
-                            <constraint firstItem="h5o-SK-PJf" firstAttribute="top" secondItem="SVD-hY-Ayz" secondAttribute="top" constant="20" id="vPq-xd-obG"/>
                             <constraint firstAttribute="trailing" secondItem="d7N-Pp-qye" secondAttribute="trailing" constant="20" symbolic="YES" id="zhM-Hi-TPS"/>
                         </constraints>
                     </view>
@@ -773,7 +810,7 @@
                 </viewController>
                 <customObject id="E8m-pT-dv6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-603.5" y="269.5"/>
+            <point key="canvasLocation" x="-603.5" y="305.5"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -818,7 +855,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Khx-Cu-XqU" id="SHA-ev-XMS">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
+                                    <font key="font" metaFont="system"/>
                                     <menu key="menu" id="sxR-Uy-0xe">
                                         <items>
                                             <menuItem title="Item 1" state="on" id="Khx-Cu-XqU"/>
@@ -885,20 +922,19 @@ DQ
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPs-0d-v9U">
                                 <rect key="frame" x="20" y="-183" width="378" height="166"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="VI6-I7-6ep">
+                                <clipView key="contentView" drawsBackground="NO" id="VI6-I7-6ep">
                                     <rect key="frame" x="1" y="1" width="376" height="164"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" viewBased="YES" id="D2B-YN-MLg">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="164"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn width="373" minWidth="40" maxWidth="1000" id="geT-Xl-Zm9">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>

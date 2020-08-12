@@ -16,6 +16,7 @@ class Downloader {
     var videoTitle = ""
     var saveLocation = "~/Desktop"
     var currentVideo = YTVideo()
+    var cachedRequest: YTDownloadRequest?
     private var outputPipe:Pipe!
     private var errorPipe:Pipe!
     private var downloadTask:Process!
@@ -25,14 +26,19 @@ class Downloader {
     
     func downloadContent(with downloadRequest: YTDownloadRequest) {
         downloadContent(from: downloadRequest.contentURL, toLocation: downloadRequest.destination, audioOnly: downloadRequest.audioOnly, fileFormat: downloadRequest.fileFormat, progress: downloadRequest.progressHandler!, completionHandler: downloadRequest.completionHandler)
+        
+        cachedRequest = downloadRequest
     }
     
     func terminateDownload() {
         downloadTask.terminate()
     }
     
-    func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?) -> Void) {
-        let downloaderVersion = YoutubeDLVersion.latest//latestYTDLVersion()
+    func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
+        
+        //if !(downloadTask.isRunning ?? false) {
+        //DispatchQueue
+        let downloaderVersion = YoutubeDLVersion.latest
         currentVideo.URL = targetURL
         currentVideo.isAudioOnly = audioOnly
         
@@ -59,7 +65,7 @@ class Downloader {
                     print("Stopped")
                     print(self.downloadTask.terminationReason.rawValue)
                     progressHandler(100, nil, nil)
-                    completionHandler(self.currentVideo)
+                    completionHandler(self.currentVideo, nil)
                     self.currentVideo = YTVideo()
                     if self.outputPipe.description.contains("must provide") {
                         print("error")
@@ -72,6 +78,10 @@ class Downloader {
             self.captureStandardOutput(self.downloadTask, progressHandler: {(percent) in
                 progressHandler(percent, nil, nil)
             }, errorHandler: {(error) in
+                if self.cachedRequest != nil {
+                    self.cachedRequest?.error = error
+                }
+                
                 progressHandler(100, error, self.currentVideo)
             }, infoHandler: {(videoInfo) in
                 progressHandler(-1, nil, videoInfo)
@@ -89,7 +99,9 @@ class Downloader {
             
         }
         
-        //  }
+      /*  } else {
+            print("Can't start download, task is already running")
+        }*/
     }
     
     private func readError(_ task:Process, errorHandler: @escaping (Error) -> Void) {
@@ -109,10 +121,13 @@ class Downloader {
             
             if outputString.contains("requested format not available") {
                 print("format not available")
-                errorHandler(NSError(domain: "", code: 415, userInfo: [NSLocalizedDescriptionKey: "The requested format is not available for this content, please use the automatic format selection."]))
+                self.sendFatalError(error: NSError(domain: "", code: 415, userInfo: [NSLocalizedDescriptionKey: "The requested format is not available for this content, please use the automatic format selection."]), handler: errorHandler)
             } else if outputString.contains("who has blocked it on copyright grounds") {
                 print("Video was blocked")
-                errorHandler(NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]))
+                self.sendFatalError(error: NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]), handler: errorHandler)
+                } else if outputString.contains("is not a valid URL") {
+                self.sendFatalError(error: NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "The provided URL is invalid"]), handler: errorHandler)
+                
             } else if outputString.contains("writing DASH m4a") {
             } else if !outputString.isEmpty {
                 //errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
@@ -122,6 +137,14 @@ class Downloader {
             
         }
         }
+    }
+    
+    func sendFatalError(error: Error, handler: @escaping (Error) -> Void) {
+        if self.cachedRequest != nil {
+            self.cachedRequest?.error = error
+        }
+        handler(error)
+        
     }
     
     

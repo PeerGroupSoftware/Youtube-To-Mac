@@ -56,7 +56,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 if error == nil && json != nil && json!["message"] == nil {
                     let newestVersion = (json!["tag_name"] as! String)
                     let newestURL = URL(string: (json!["html_url"] as! String))!
-                    //var updateStatus = -1
                     
                     let versionCompare = currentVersion.compare(newestVersion, options: .numeric)
                     

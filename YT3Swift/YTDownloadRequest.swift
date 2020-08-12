@@ -14,7 +14,8 @@ class YTDownloadRequest {
     var audioOnly: Bool = false
     var fileFormat = FileFormat.defaultVideo // Default video file format
     var progressHandler: ((Double, Error?, YTVideo?) -> Void)!
-    var completionHandler: ((YTVideo?) -> Void)!
+    var completionHandler: ((YTVideo?, Error?) -> Void)!
+    var error: Error?
     
     convenience init(contentURL: String, destination: String) {
         self.init()
