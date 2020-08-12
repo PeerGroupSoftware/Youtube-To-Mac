@@ -85,7 +85,7 @@ class Downloader {
                 progressHandler(100, error, self.currentVideo)
             }, infoHandler: {(videoInfo) in
                 progressHandler(-1, nil, videoInfo)
-                //print("SENT \"\(videoInfo.name)\"")
+                print("SENT \"\(videoInfo.name)\"")
             })
             
             self.readError(self.downloadTask, errorHandler: {(error) in
@@ -180,8 +180,9 @@ class Downloader {
                 print("There was some kind of error")
             } else if outputString.contains("[download]") {
                 if outputString.contains("Destination:") {
-                    var videonameString = (outputString.replacingOccurrences(of: "[download] Destination: ", with: ""))
-                    videonameString.removeLast(5) // Remove extension
+                    //print("OUT: \"\(outputString)\"")
+                    var videonameString = (outputString.components(separatedBy: "\n").first! .replacingOccurrences(of: "[download] Destination: ", with: ""))
+                    videonameString.removeLast(4) // Remove extension
                     // print(videonameString)
                     
                     //print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
