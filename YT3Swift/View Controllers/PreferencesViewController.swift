@@ -52,7 +52,6 @@ class PreferencesViewController: NSViewController {
         default:
             defaults.set("desktop", forKey: "DownloadDestination")
         }
-        //defaults.synchronize()
     }
     
 }
