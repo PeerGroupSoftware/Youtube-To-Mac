@@ -100,9 +100,9 @@ class Downloader {
             
         }
         
-      /*  } else {
-            print("Can't start download, task is already running")
-        }*/
+        /*  } else {
+         print("Can't start download, task is already running")
+         }*/
     }
     
     private func readError(_ task:Process, errorHandler: @escaping (Error) -> Void) {
@@ -117,26 +117,26 @@ class Downloader {
             let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
             
             if !outputString.isEmpty {
-            print("got error")
-            print("ERROR: \(outputString)")
-            
-            if outputString.contains("requested format not available") {
-                print("format not available")
-                self.sendFatalError(error: NSError(domain: "", code: 415, userInfo: [NSLocalizedDescriptionKey: "The requested format is not available for this content, please use the automatic format selection."]), handler: errorHandler)
-            } else if outputString.contains("who has blocked it on copyright grounds") {
-                print("Video was blocked")
-                self.sendFatalError(error: NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]), handler: errorHandler)
-                } else if outputString.contains("is not a valid URL") {
-                self.sendFatalError(error: NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "The provided URL is invalid"]), handler: errorHandler)
+                print("got error")
+                print("ERROR: \(outputString)")
                 
-            } else if outputString.contains("writing DASH m4a") {
-            } else if !outputString.isEmpty {
-                //errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
+                if outputString.contains("requested format not available") {
+                    print("format not available")
+                    self.sendFatalError(error: NSError(domain: "", code: 415, userInfo: [NSLocalizedDescriptionKey: "The requested format is not available for this content, please use the automatic format selection."]), handler: errorHandler)
+                } else if outputString.contains("who has blocked it on copyright grounds") {
+                    print("Video was blocked")
+                    self.sendFatalError(error: NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]), handler: errorHandler)
+                } else if outputString.contains("is not a valid URL") {
+                    self.sendFatalError(error: NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "The provided URL is invalid"]), handler: errorHandler)
+                    
+                } else if outputString.contains("writing DASH m4a") {
+                } else if !outputString.isEmpty {
+                    //errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
+                }
+                
+                self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+                
             }
-            
-            self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
-            
-        }
         }
     }
     
@@ -180,27 +180,20 @@ class Downloader {
                 print("There was some kind of error")
             } else if outputString.contains("[download]") {
                 if outputString.contains("Destination:") {
-                    print(outputString)
                     var videonameString = (outputString.replacingOccurrences(of: "[download] Destination: ", with: ""))
                     videonameString.removeLast(5) // Remove extension
                     // print(videonameString)
                     
                     //print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
-                    print(videonameString)
                     //videonameString.removeSubrange((videonameString.range(of: ("-" + self.videoID))?.lowerBound)!..<videonameString.endIndex)
-                    //self.videoTitle = (videonameString)
                     self.currentVideo.name = videonameString
                     print(videonameString)
-                    //DispatchQueue.main.async {
-                        //self.URLField.stringValue = self.currentVideo.name
-                        infoHandler(self.currentVideo)
-                        print("adding name to field")
-                    //}
+                    infoHandler(self.currentVideo)
+                    print("adding name to field")
                 } else {
                     print("download update")
                     for i in (outputString.split(separator: " ")) {
                         if i.contains("%") {
-                            //self.updateDownloadProgressBar(progress:(Double(i.replacingOccurrences(of: "%", with: "")))!)
                             progressHandler((Double(i.replacingOccurrences(of: "%", with: "")))!)
                         }
                     }
