@@ -225,7 +225,7 @@ class ViewController: NSViewController {
                         }
                     }
                 } else {
-                    self.URLField.stringValue = videoInfo!.name
+                    DispatchQueue.main.async {self.URLField.stringValue = videoInfo!.name}
                 }
             }
             

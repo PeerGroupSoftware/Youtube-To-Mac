@@ -55,7 +55,7 @@ class Downloader {
                 self.downloadTask.launchPath = path
             }
             print("using file format \(fileFormat.rawValue)")
-            self.downloadTask.arguments = ["-f \(fileFormat.rawValue)", targetURL]
+            self.downloadTask.arguments = ["-f \(fileFormat.rawValue)", "-o%(title)s.%(ext)s", targetURL]
             self.downloadTask.currentDirectoryPath = downloadDestination
             
             self.downloadTask.terminationHandler = {
@@ -85,6 +85,7 @@ class Downloader {
                 progressHandler(100, error, self.currentVideo)
             }, infoHandler: {(videoInfo) in
                 progressHandler(-1, nil, videoInfo)
+                //print("SENT \"\(videoInfo.name)\"")
             })
             
             self.readError(self.downloadTask, errorHandler: {(error) in
@@ -179,19 +180,22 @@ class Downloader {
                 print("There was some kind of error")
             } else if outputString.contains("[download]") {
                 if outputString.contains("Destination:") {
+                    print(outputString)
                     var videonameString = (outputString.replacingOccurrences(of: "[download] Destination: ", with: ""))
+                    videonameString.removeLast(5) // Remove extension
                     // print(videonameString)
                     
                     //print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
-                    
-                    videonameString.removeSubrange((videonameString.range(of: ("-" + self.videoID))?.lowerBound)!..<videonameString.endIndex)
+                    print(videonameString)
+                    //videonameString.removeSubrange((videonameString.range(of: ("-" + self.videoID))?.lowerBound)!..<videonameString.endIndex)
                     //self.videoTitle = (videonameString)
                     self.currentVideo.name = videonameString
-                    DispatchQueue.main.async {
+                    print(videonameString)
+                    //DispatchQueue.main.async {
                         //self.URLField.stringValue = self.currentVideo.name
                         infoHandler(self.currentVideo)
                         print("adding name to field")
-                    }
+                    //}
                 } else {
                     print("download update")
                     for i in (outputString.split(separator: " ")) {
@@ -241,5 +245,5 @@ enum YoutubeDLVersion: String {
     @available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
     @available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
     //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2020-06-16"
+    case latest = "youtube-dl-2020-07-28"
 }

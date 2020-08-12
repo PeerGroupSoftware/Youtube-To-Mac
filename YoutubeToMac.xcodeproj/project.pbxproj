@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		232C4D0B24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh in Resources */ = {isa = PBXBuildFile; fileRef = 232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */; };
+		23F9B67F24E48536004C3128 /* youtube-dl-2020-07-28.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */; };
 		B7058DB822B6D392001E818D /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB722B6D392001E818D /* Downloader.swift */; };
 		B7058DBA22B6DB20001E818D /* YTDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */; };
 		B72F2F252433A65800A2EC78 /* youtube-dl-2020-03-24.sh in Resources */ = {isa = PBXBuildFile; fileRef = B72F2F242433A65800A2EC78 /* youtube-dl-2020-03-24.sh */; };
-		B774949F23E1D1D9002CF4D9 /* youtube-dl-2020-01-24.sh in Resources */ = {isa = PBXBuildFile; fileRef = B774949E23E1D1D9002CF4D9 /* youtube-dl-2020-01-24.sh */; };
-		B77AEE2723B64DA1003E43B3 /* youtube-dl-2019-12-25.command in Resources */ = {isa = PBXBuildFile; fileRef = B77AEE2623B64DA1003E43B3 /* youtube-dl-2019-12-25.command */; };
-		B77E5807233902860060B15B /* youtube-dl-2019-09-12-1.sh in Resources */ = {isa = PBXBuildFile; fileRef = B77E5806233902860060B15B /* youtube-dl-2019-09-12-1.sh */; };
 		B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */; };
 		B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A661E9BCEFC001CFE77 /* ViewController.swift */; };
 		B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */; };
@@ -21,10 +19,7 @@
 		B78D7FA022CAA559009170F8 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78D7F9F22CAA559009170F8 /* PreferencesWindowController.swift */; };
 		B78D7FA322CAA687009170F8 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78D7FA222CAA686009170F8 /* PreferencesViewController.swift */; };
 		B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C45E1920044C7400473CF8 /* MainWindowController.swift */; };
-		B7D9CA6B23970508003F4939 /* youtube-dl-2019-11-28.sh in Resources */ = {isa = PBXBuildFile; fileRef = B7D9CA6A23970508003F4939 /* youtube-dl-2019-11-28.sh */; };
-		B7E7AE10235F599C0009A65D /* youtube-dl-2019-10-22.sh in Resources */ = {isa = PBXBuildFile; fileRef = B7E7AE0F235F599C0009A65D /* youtube-dl-2019-10-22.sh */; };
 		B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */; };
-		B7F7C22A237733AD0038A386 /* youtube-dl-2019-11-05.sh in Resources */ = {isa = PBXBuildFile; fileRef = B7F7C229237733AD0038A386 /* youtube-dl-2019-11-05.sh */; };
 		C87CB87520066C90008AA662 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CB87420066C90008AA662 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,12 +37,10 @@
 
 /* Begin PBXFileReference section */
 		232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-06-16.sh"; sourceTree = "<group>"; };
+		23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-07-28.sh"; sourceTree = "<group>"; };
 		B7058DB722B6D392001E818D /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTDownloadRequest.swift; sourceTree = "<group>"; };
 		B72F2F242433A65800A2EC78 /* youtube-dl-2020-03-24.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-03-24.sh"; sourceTree = "<group>"; };
-		B774949E23E1D1D9002CF4D9 /* youtube-dl-2020-01-24.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-01-24.sh"; sourceTree = "<group>"; };
-		B77AEE2623B64DA1003E43B3 /* youtube-dl-2019-12-25.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = "youtube-dl-2019-12-25.command"; sourceTree = "<group>"; };
-		B77E5806233902860060B15B /* youtube-dl-2019-09-12-1.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-09-12-1.sh"; sourceTree = "<group>"; };
 		B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeToMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B77E6A661E9BCEFC001CFE77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,10 +51,7 @@
 		B78D7FA222CAA686009170F8 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		B79FF90D2006C02500D28394 /* YoutubeToMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YoutubeToMac.entitlements; sourceTree = "<group>"; };
 		B7C45E1920044C7400473CF8 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		B7D9CA6A23970508003F4939 /* youtube-dl-2019-11-28.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-11-28.sh"; sourceTree = "<group>"; };
-		B7E7AE0F235F599C0009A65D /* youtube-dl-2019-10-22.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-10-22.sh"; sourceTree = "<group>"; };
 		B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousTableViewController.swift; sourceTree = "<group>"; };
-		B7F7C229237733AD0038A386 /* youtube-dl-2019-11-05.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2019-11-05.sh"; sourceTree = "<group>"; };
 		C87CB87420066C90008AA662 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,14 +69,9 @@
 		B773BB5D2263E4AB00F24E37 /* YoutubeDL */ = {
 			isa = PBXGroup;
 			children = (
-				B7D9CA6A23970508003F4939 /* youtube-dl-2019-11-28.sh */,
-				B77E5806233902860060B15B /* youtube-dl-2019-09-12-1.sh */,
-				B7E7AE0F235F599C0009A65D /* youtube-dl-2019-10-22.sh */,
-				B7F7C229237733AD0038A386 /* youtube-dl-2019-11-05.sh */,
-				B77AEE2623B64DA1003E43B3 /* youtube-dl-2019-12-25.command */,
-				B774949E23E1D1D9002CF4D9 /* youtube-dl-2020-01-24.sh */,
 				B72F2F242433A65800A2EC78 /* youtube-dl-2020-03-24.sh */,
 				232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */,
+				23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */,
 			);
 			path = YoutubeDL;
 			sourceTree = "<group>";
@@ -155,7 +140,6 @@
 				B77E6A5E1E9BCEFC001CFE77 /* Frameworks */,
 				B77E6A5F1E9BCEFC001CFE77 /* Resources */,
 				B7DAB79A208FCB15003BD9B3 /* CopyFiles */,
-				B73FA203236380BA00203AD9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -218,40 +202,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B77E5807233902860060B15B /* youtube-dl-2019-09-12-1.sh in Resources */,
 				B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */,
 				232C4D0B24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh in Resources */,
-				B77AEE2723B64DA1003E43B3 /* youtube-dl-2019-12-25.command in Resources */,
-				B7D9CA6B23970508003F4939 /* youtube-dl-2019-11-28.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
-				B7E7AE10235F599C0009A65D /* youtube-dl-2019-10-22.sh in Resources */,
-				B7F7C22A237733AD0038A386 /* youtube-dl-2019-11-05.sh in Resources */,
-				B774949F23E1D1D9002CF4D9 /* youtube-dl-2020-01-24.sh in Resources */,
+				23F9B67F24E48536004C3128 /* youtube-dl-2020-07-28.sh in Resources */,
 				B72F2F252433A65800A2EC78 /* youtube-dl-2020-03-24.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B73FA203236380BA00203AD9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "chmod u+x $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Resources/youtube-dl-2019-10-22.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B77E6A5D1E9BCEFC001CFE77 /* Sources */ = {
