@@ -85,7 +85,7 @@ class Downloader {
                 progressHandler(100, error, self.currentVideo)
             }, infoHandler: {(videoInfo) in
                 progressHandler(-1, nil, videoInfo)
-                print("SENT \"\(videoInfo.name)\"")
+                //print("SENT \"\(videoInfo.name)\"")
             })
             
             self.readError(self.downloadTask, errorHandler: {(error) in

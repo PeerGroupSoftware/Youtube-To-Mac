@@ -255,7 +255,6 @@ class ViewController: NSViewController {
                 
                 if self.downloadButton.isEnabled && (self.currentRequest.error == nil) {
                     NSUserNotificationCenter.default.deliver(downloadNotification)
-                    //self.URLField.stringValue = ""
                 } else {
                     print(self.currentRequest.error)
                 }
@@ -286,8 +285,7 @@ class ViewController: NSViewController {
     func setDownloadInterface(to: Bool) {
         DispatchQueue.main.async {
             switch to {
-            case true:
-                //print("animate showing")
+            case true: // Animate showing normal UI
                 NSAnimationContext.runAnimationGroup({_ in
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
@@ -303,8 +301,7 @@ class ViewController: NSViewController {
                     self.stopButton.animator().isHidden = false
                 }, completionHandler:{
                 })
-            case false:
-                //print("animate hiding")
+            case false: // Animate hiding normal UI
                 NSAnimationContext.runAnimationGroup({_ in
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = true

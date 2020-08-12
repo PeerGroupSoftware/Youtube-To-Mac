@@ -42,7 +42,6 @@ class PreferencesViewController: NSViewController {
     
     @IBAction func setDownloadDestination(_ sender: NSButton) {
         let defaults = UserDefaults.standard
-        //print(sender.identifier?.rawValue)
         
         switch sender.identifier!.rawValue {
         case "DownloadsRadio":
