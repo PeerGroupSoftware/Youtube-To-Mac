@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		232C4D0B24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh in Resources */ = {isa = PBXBuildFile; fileRef = 232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */; };
-		233DF4F224E4A59B0070F015 /* GeneralVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DF4F124E4A59B0070F015 /* GeneralVC.swift */; };
 		233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */; };
 		23F9B67F24E48536004C3128 /* youtube-dl-2020-07-28.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */; };
 		B7058DB822B6D392001E818D /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB722B6D392001E818D /* Downloader.swift */; };
@@ -39,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-06-16.sh"; sourceTree = "<group>"; };
-		233DF4F124E4A59B0070F015 /* GeneralVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralVC.swift; sourceTree = "<group>"; };
 		233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingPreferencesViewController.swift; sourceTree = "<group>"; };
 		23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-07-28.sh"; sourceTree = "<group>"; };
 		B7058DB722B6D392001E818D /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				B78D7FA222CAA686009170F8 /* PreferencesViewController.swift */,
-				233DF4F124E4A59B0070F015 /* GeneralVC.swift */,
 				233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */,
 			);
 			path = Preferences;
@@ -238,7 +235,6 @@
 				C87CB87520066C90008AA662 /* Extensions.swift in Sources */,
 				B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */,
 				B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */,
-				233DF4F224E4A59B0070F015 /* GeneralVC.swift in Sources */,
 				B78D7FA022CAA559009170F8 /* PreferencesWindowController.swift in Sources */,
 				233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */,
 				B7058DBA22B6DB20001E818D /* YTDownloadRequest.swift in Sources */,
