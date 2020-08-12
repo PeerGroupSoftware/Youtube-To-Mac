@@ -152,15 +152,17 @@ class ViewController: NSViewController {
         
         if sender.identifier?.rawValue == "audioTBButton" {
             audioBox.state = sender.state
+        } else {
+            (view.window?.windowController as! MainWindowController as MainWindowController).updateTBAudioButton(withState: sender.state)
         }
         
         switch sender.integerValue {
         case 1:
-            print("set audio formats")
+            //print("set audio formats")
             formatPopup.removeAllItems()
             formatPopup.addItems(withTitles: Downloader.audioFormats)
         case 0:
-            print("set video formats")
+           // print("set video formats")
             formatPopup.removeAllItems()
             formatPopup.addItems(withTitles: Downloader.videoFormats)
         default:
@@ -264,6 +266,10 @@ class ViewController: NSViewController {
             }
             
             downloader.downloadContent(with: currentRequest)
+        } else {
+            if (sender.identifier?.rawValue) ?? "" == "downloadTBButton" {
+                DispatchQueue.main.async {sender.isEnabled = true}
+            }
         }
     }
     
