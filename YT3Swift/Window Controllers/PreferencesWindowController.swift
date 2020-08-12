@@ -8,10 +8,21 @@
 
 import Cocoa
 
-class PreferencesWindowController: NSWindowController {
-
+class PreferencesWindowController: NSWindowController, NSToolbarDelegate {
+    
+    @IBAction func clickedTab(_ sender: NSToolbarItem) {
+        /*switch (sender.itemIdentifier) {
+        case NSToolbarItem.Identifier("General"):
+            //(contentViewController as! GeneralVC).containerView
+        case "Downloading":
+        }*/
+    }
+    
+    
+    
     override func windowDidLoad() {
         super.windowDidLoad()
+        self.window?.toolbar!.delegate = self
     
         if #available(OSX 10.13, *) {
             window?.backgroundColor = NSColor(named: "WindowBackground")

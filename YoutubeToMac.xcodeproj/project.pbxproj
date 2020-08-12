@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		232C4D0B24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh in Resources */ = {isa = PBXBuildFile; fileRef = 232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */; };
+		233DF4F224E4A59B0070F015 /* GeneralVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DF4F124E4A59B0070F015 /* GeneralVC.swift */; };
+		233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */; };
 		23F9B67F24E48536004C3128 /* youtube-dl-2020-07-28.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */; };
 		B7058DB822B6D392001E818D /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB722B6D392001E818D /* Downloader.swift */; };
 		B7058DBA22B6DB20001E818D /* YTDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-06-16.sh"; sourceTree = "<group>"; };
+		233DF4F124E4A59B0070F015 /* GeneralVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralVC.swift; sourceTree = "<group>"; };
+		233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingPreferencesViewController.swift; sourceTree = "<group>"; };
 		23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-07-28.sh"; sourceTree = "<group>"; };
 		B7058DB722B6D392001E818D /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTDownloadRequest.swift; sourceTree = "<group>"; };
@@ -66,6 +70,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		233DF4F024E4A5820070F015 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				B78D7FA222CAA686009170F8 /* PreferencesViewController.swift */,
+				233DF4F124E4A59B0070F015 /* GeneralVC.swift */,
+				233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
 		B773BB5D2263E4AB00F24E37 /* YoutubeDL */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,9 +136,9 @@
 		B78D7FA422CAA695009170F8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				233DF4F024E4A5820070F015 /* Preferences */,
 				B7EC8034200576860059C8C8 /* PreviousTableViewController.swift */,
 				B77E6A661E9BCEFC001CFE77 /* ViewController.swift */,
-				B78D7FA222CAA686009170F8 /* PreferencesViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -224,7 +238,9 @@
 				C87CB87520066C90008AA662 /* Extensions.swift in Sources */,
 				B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */,
 				B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */,
+				233DF4F224E4A59B0070F015 /* GeneralVC.swift in Sources */,
 				B78D7FA022CAA559009170F8 /* PreferencesWindowController.swift in Sources */,
+				233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */,
 				B7058DBA22B6DB20001E818D /* YTDownloadRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,7 +377,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -388,7 +404,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (

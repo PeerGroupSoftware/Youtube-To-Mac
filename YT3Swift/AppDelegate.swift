@@ -72,7 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     
                     if updateStatus == -1 || updateStatus == 0 || updateStatus == 2 {
                         alert.messageText = "Up to Date"
-                        alert.informativeText = "You're running the latest version of \(Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "YoutubeToMac")."
+                        alert.informativeText = "You're using the latest version of \(Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "YoutubeToMac")."
                     } else if updateStatus == 1 {
                         alert.messageText = "Update Available"
                         alert.informativeText = "\(Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "YoutubeToMac") (\(newestVersion)) is available on GitHub."

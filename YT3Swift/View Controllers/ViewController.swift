@@ -244,9 +244,9 @@ class ViewController: NSViewController {
                 
                 var informativeText = ""
                 if !downloadDestination.isEmpty {
-                    informativeText = "Saved \(formatType) to \(downloadDestination)"
+                    informativeText = "Saved \(formatType.lowercased()) to \(downloadDestination)"
                 } else {
-                    informativeText = "Saved \(formatType)"
+                    informativeText = "Saved \(formatType.lowercased())"
                 }
                 
                 downloadNotification.title = "Downloaded \(formatType)"
