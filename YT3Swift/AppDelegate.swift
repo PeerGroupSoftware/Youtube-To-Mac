@@ -43,6 +43,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         checkForUpdates(sender: sender)
     }
     
+    @IBAction func submitFeedback(_ sender: NSMenuItem) {
+        NSWorkspace.shared.open(URL(string: "https://github.com/\(repoLocation)/issues")!)
+    }
+    
     func checkForUpdates(sender: NSObject) {
         print("Checking for updates...")
         let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String

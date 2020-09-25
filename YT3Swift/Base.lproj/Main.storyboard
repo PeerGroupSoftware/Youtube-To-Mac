@@ -654,6 +654,9 @@
                                     <items>
                                         <menuItem title="Submit Feedback" enabled="NO" id="PpT-IW-yHF">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="submitFeedback:" target="Voe-Tx-rLC" id="D9O-sG-SFj"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="THj-2E-ONn"/>
                                         <menuItem title="YoutubeToMac Help" enabled="NO" keyEquivalent="?" id="FKE-Sm-Kum">
@@ -679,11 +682,11 @@
         <scene sceneID="gOI-0x-361">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="Mz7-na-eTT" customClass="PreferencesWindowController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="EJw-Z8-nUy">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="EJw-Z8-nUy">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="163" y="199" width="227" height="163"/>
+                        <rect key="contentRect" x="163" y="199" width="301" height="163"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
@@ -701,7 +704,7 @@
                 </windowController>
                 <customObject id="5gm-gx-7Za" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-356.5" y="-60.5"/>
+            <point key="canvasLocation" x="-319.5" y="-60.5"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="W3v-qE-kDm">
@@ -739,6 +742,9 @@
                         <subviews>
                             <button toolTip="Check for updates at launch" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jm9-8x-pJW">
                                 <rect key="frame" x="18" y="80" width="221" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="217" id="dJm-h4-vQv"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Automatically Check for Updates" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Osc-MY-oXn">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -751,6 +757,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="jm9-8x-pJW" secondAttribute="bottom" constant="82" id="9SE-JX-gAt"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="top" secondItem="SVD-hY-Ayz" secondAttribute="top" constant="20" symbolic="YES" id="QX5-uU-bQp"/>
+                            <constraint firstAttribute="trailing" secondItem="jm9-8x-pJW" secondAttribute="trailing" constant="50" id="aXY-0Z-oMe"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" symbolic="YES" id="jsn-nV-Ycn"/>
                         </constraints>
                     </view>
@@ -800,6 +807,7 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cDB-2x-oWv" secondAttribute="trailing" constant="42" id="Jgk-e5-xUb"/>
                             <constraint firstItem="wcE-Jj-oqU" firstAttribute="leading" secondItem="SRg-UB-6zM" secondAttribute="leading" id="OdW-uB-Qxg"/>
                             <constraint firstItem="cDB-2x-oWv" firstAttribute="leading" secondItem="8XI-bV-nrz" secondAttribute="leading" constant="20" id="Xdv-BG-l4W"/>
                             <constraint firstItem="cDB-2x-oWv" firstAttribute="leading" secondItem="wcE-Jj-oqU" secondAttribute="leading" id="Xjs-j1-BSA"/>
@@ -948,7 +956,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" viewBased="YES" id="D2B-YN-MLg">
-                                            <rect key="frame" x="0.0" y="0.0" width="376" height="231"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="164"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
