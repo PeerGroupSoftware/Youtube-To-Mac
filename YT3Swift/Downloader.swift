@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import XCDYouTubeKit
 
 class Downloader {
     
@@ -35,6 +36,11 @@ class Downloader {
     }
     
     func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
+        
+        let testDownload = XCDYouTubeClient.default().getVideoWithIdentifier("dQw4w9WgXcQ", cookies: nil, completionHandler: {(video, error) in
+            print(video?.streamURLs)
+
+        })
         
         //if !(downloadTask.isRunning ?? false) {
         //DispatchQueue

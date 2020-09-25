@@ -38,6 +38,11 @@ class ViewController: NSViewController {
         
     }
     
+    override func viewWillAppear() {
+        let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
+        view.window?.setFrame(newWindowFrame, display: true, animate: true)
+    }
+    
     override func viewDidLoad() {
         URLField.focusRingType = .none
         URLField.underlined()
