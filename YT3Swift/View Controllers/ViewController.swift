@@ -44,6 +44,7 @@ class ViewController: NSViewController {
     }
     
     override func viewDidLoad() {
+        //print("TEST")
         URLField.focusRingType = .none
         URLField.underlined()
         mainViewController = self
@@ -58,6 +59,7 @@ class ViewController: NSViewController {
         previousVideosTableView.dataSource = previousVideosTableController
         
         let videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory") as? [String:[String:String]] ?? [String:[String:String]]()).reversed()
+        //print(videoHistory)
         for item in videoHistory {
             let newVideo = YTVideo()
             newVideo.name = item.key
@@ -260,6 +262,7 @@ class ViewController: NSViewController {
                 
                 if self.downloadButton.isEnabled && (self.currentRequest.error == nil) {
                     NSUserNotificationCenter.default.deliver(downloadNotification)
+                    self.saveVideoToHistory(video: video!)
                 } else {
                     print(self.currentRequest.error)
                 }
