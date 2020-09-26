@@ -49,4 +49,9 @@ class YTVideo {
     var URL = ""
     var diskPath = ""
     var isAudioOnly = false
+    
+    convenience init(name: String) {
+        self.init()
+        self.name = name
+    }
 }
