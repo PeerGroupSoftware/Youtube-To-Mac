@@ -10,6 +10,7 @@
 		232C4D0B24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh in Resources */ = {isa = PBXBuildFile; fileRef = 232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */; };
 		233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */; };
 		237AD174251EB9020017F257 /* youtube-dl-2020-09-20.sh in Resources */ = {isa = PBXBuildFile; fileRef = 237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */; };
+		23875D492559E533008D19AE /* youtube-dl-2020-11-01.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */; };
 		23F9B67F24E48536004C3128 /* youtube-dl-2020-07-28.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */; };
 		B7058DB822B6D392001E818D /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB722B6D392001E818D /* Downloader.swift */; };
 		B7058DBA22B6DB20001E818D /* YTDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */; };
@@ -40,6 +41,7 @@
 		232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-06-16.sh"; sourceTree = "<group>"; };
 		233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingPreferencesViewController.swift; sourceTree = "<group>"; };
 		237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-09-20.sh"; sourceTree = "<group>"; };
+		23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-11-01.sh"; sourceTree = "<group>"; };
 		23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-07-28.sh"; sourceTree = "<group>"; };
 		B7058DB722B6D392001E818D /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTDownloadRequest.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				232C4D0A24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh */,
 				23F9B67E24E48536004C3128 /* youtube-dl-2020-07-28.sh */,
 				237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */,
+				23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */,
 			);
 			path = YoutubeDL;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */,
 				237AD174251EB9020017F257 /* youtube-dl-2020-09-20.sh in Resources */,
 				232C4D0B24A3B0A2001D29E4 /* youtube-dl-2020-06-16.sh in Resources */,
+				23875D492559E533008D19AE /* youtube-dl-2020-11-01.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
 				23F9B67F24E48536004C3128 /* youtube-dl-2020-07-28.sh in Resources */,
 			);
@@ -379,7 +383,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -407,7 +411,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -245,5 +245,5 @@ enum YoutubeDLVersion: String {
     @available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
     @available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
     //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2020-09-20"
+    case latest = "youtube-dl-2020-11-01"
 }
