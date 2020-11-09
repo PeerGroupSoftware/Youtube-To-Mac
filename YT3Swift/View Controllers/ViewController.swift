@@ -3,7 +3,7 @@
 //  YT3Swift
 //
 //  Created by Jake Spann on 4/10/17.
-//  Copyright © 2017 Peer Group. All rights reserved.
+//  Copyright © 2020 Peer Group. All rights reserved.
 //
 
 import Cocoa
@@ -22,7 +22,12 @@ class ViewController: NSViewController {
     @IBOutlet weak var downloadLocationButton: NSButton!
     @IBOutlet weak var previousVideosTableView: NSTableView!
     @IBOutlet weak var recentVideosLabel: NSTextField!
+    @IBOutlet weak var bigConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var recentVideosDisclosureTriangle: NSButton!
+    
+    var bottomConstraintConstant: Int = 0
+    let defaultBottomConstant = 9
     
     
     
@@ -40,11 +45,16 @@ class ViewController: NSViewController {
     
     override func viewWillAppear() {
         let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
-        view.window?.setFrame(newWindowFrame, display: true, animate: true)
+        //view.window?.setFrame(newWindowFrame, display: true, animate: true)
+        
+        bottomConstraintConstant = Int(bigConstraint.constant)
+        bigConstraint.constant = CGFloat(defaultBottomConstant)
+        
+       // bottomSpaceConstraint.constant = -previousVideosTableView.frame.size.height
     }
     
     override func viewDidLoad() {
-        //print("TEST")
+        
         URLField.focusRingType = .none
         URLField.underlined()
         mainViewController = self
@@ -105,13 +115,23 @@ class ViewController: NSViewController {
             }, completionHandler:{
             })
             let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
-            view.window?.setFrame(newWindowFrame, display: true, animate: true)
+            bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
+        print(bottomConstraintConstant)
+            //view.window?.setFrame(newWindowFrame, display: true, animate: true)
+            NSAnimationContext.runAnimationGroup({_ in
+                NSAnimationContext.current.duration = 0.2
+                //clearTableViewButton.animator().isHidden = true
+                bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
+            }, completionHandler:{
+            })
         case 0:
             let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
-            view.window?.setFrame(newWindowFrame, display: true, animate: true)
+
+           // view.window?.setFrame(newWindowFrame, display: true, animate: true)
             NSAnimationContext.runAnimationGroup({_ in
                 NSAnimationContext.current.duration = 0.2
                 clearTableViewButton.animator().isHidden = true
+                bigConstraint.animator().constant = CGFloat(defaultBottomConstant)
             }, completionHandler:{
             })
         default:
