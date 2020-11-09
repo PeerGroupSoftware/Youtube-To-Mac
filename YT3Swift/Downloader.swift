@@ -124,6 +124,9 @@ class Downloader {
                 if outputString.contains("requested format not available") {
                     print("format not available")
                     self.sendFatalError(error: NSError(domain: "", code: 415, userInfo: [NSLocalizedDescriptionKey: "The requested format is not available for this content, please use the automatic format selection."]), handler: errorHandler)
+                    
+                } else if outputString.contains("Premieres in") {
+                    self.sendFatalError(error: NSError(domain: "", code: 403, userInfo: [NSLocalizedDescriptionKey: "The requested content has not yet premiered. Please try again once this content has been made available."]), handler: errorHandler)
                 } else if outputString.contains("who has blocked it on copyright grounds") {
                     print("Video was blocked")
                     self.sendFatalError(error: NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]), handler: errorHandler)
@@ -180,6 +183,7 @@ class Downloader {
                 errorHandler(NSError(domain: "", code: 409, userInfo: [NSLocalizedDescriptionKey: "The requested content already exists at the download destination."]))
             } else if outputString.range(of:"must provide") != nil {
                 print("There was some kind of error")
+                
             } else if outputString.contains("[download]") {
                 if outputString.contains("Destination:") {
                     //print("OUT: \"\(outputString)\"")
