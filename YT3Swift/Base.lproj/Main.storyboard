@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -737,11 +737,11 @@
             <objects>
                 <viewController id="9Qq-ZI-MuQ" customClass="PreferencesViewController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="SVD-hY-Ayz">
-                        <rect key="frame" x="0.0" y="0.0" width="287" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="287" height="118"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button toolTip="Check for updates at launch" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jm9-8x-pJW">
-                                <rect key="frame" x="18" y="80" width="221" height="18"/>
+                                <rect key="frame" x="18" y="81" width="219" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="217" id="dJm-h4-vQv"/>
                                 </constraints>
@@ -786,7 +786,7 @@
                                 </textFieldCell>
                             </textField>
                             <button identifier="DownloadsRadio" toolTip="User Downloads folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Jj-oqU">
-                                <rect key="frame" x="19" y="54" width="89" height="18"/>
+                                <rect key="frame" x="18" y="54" width="93" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Downloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YST-Kq-Su7">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -796,7 +796,7 @@
                                 </connections>
                             </button>
                             <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SRg-UB-6zM">
-                                <rect key="frame" x="19" y="32" width="73" height="18"/>
+                                <rect key="frame" x="18" y="32" width="77" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4zx-p4-9Kw">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -885,7 +885,7 @@
                                 <rect key="frame" x="20" y="210" width="352" height="20"/>
                             </progressIndicator>
                             <button hidden="YES" toolTip="Stop download" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FpU-ta-yxo">
-                                <rect key="frame" x="380" y="212" width="18" height="19"/>
+                                <rect key="frame" x="380" y="212" width="18" height="19.5"/>
                                 <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="AE6-zX-I37">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -895,7 +895,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Download destination" translatesAutoresizingMaskIntoConstraints="NO" id="OBh-TZ-Kob">
-                                <rect key="frame" x="332" y="243" width="22" height="22"/>
+                                <rect key="frame" x="332" y="243" width="22.5" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="76o-1d-12h"/>
                                     <constraint firstAttribute="width" constant="22" id="mAg-Qc-8lH"/>
@@ -926,7 +926,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-8e-DwU">
-                                <rect key="frame" x="18" y="212" width="88" height="18"/>
+                                <rect key="frame" x="18" y="213" width="92" height="18"/>
                                 <buttonCell key="cell" type="check" title="Audio Only" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1YS-tE-Edt">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -936,7 +936,7 @@ DQ
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C0x-o8-4go">
-                                <rect key="frame" x="164" y="210" width="79" height="17"/>
+                                <rect key="frame" x="170" y="210" width="79" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cGe-9O-uzl"/>
                                 </constraints>
@@ -947,7 +947,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yAQ-wh-GkQ">
-                                <rect key="frame" x="243" y="213" width="13" height="13"/>
+                                <rect key="frame" x="249" y="213" width="13" height="13"/>
                                 <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="only" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jqz-AY-YbG">
                                     <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -969,7 +969,7 @@ DQ
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="373" minWidth="40" maxWidth="1000" id="geT-Xl-Zm9">
+                                                <tableColumn width="364" minWidth="40" maxWidth="1000" id="geT-Xl-Zm9">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -997,7 +997,7 @@ DQ
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKt-px-QHx">
-                                                                    <rect key="frame" x="345" y="11" width="18" height="18"/>
+                                                                    <rect key="frame" x="345" y="8" width="18.5" height="26"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="18" id="8hi-DZ-kym"/>
                                                                     </constraints>
@@ -1011,7 +1011,7 @@ DQ
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OrangeDot" id="3XU-5T-7a7"/>
                                                                 </imageView>
                                                                 <button toolTip="Open in Web Browser" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RaQ-9x-MdW">
-                                                                    <rect key="frame" x="342" y="7" width="24" height="26"/>
+                                                                    <rect key="frame" x="342" y="4" width="24" height="32"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="26" id="1Tp-6i-1HE"/>
                                                                     </constraints>
@@ -1024,7 +1024,7 @@ DQ
                                                                     </connections>
                                                                 </button>
                                                                 <button hidden="YES" toolTip="Open Save Location" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDs-6V-a3V">
-                                                                    <rect key="frame" x="317" y="9" width="23" height="22"/>
+                                                                    <rect key="frame" x="317" y="9" width="23.5" height="22"/>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarFolderTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="UaY-Gf-jDQ">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -1069,7 +1069,7 @@ DQ
                                 </scroller>
                             </scrollView>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-fv-edg">
-                                <rect key="frame" x="358" y="188" width="42" height="17"/>
+                                <rect key="frame" x="361" y="189" width="39" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Lko-rY-qAd"/>
                                 </constraints>
@@ -1104,12 +1104,12 @@ DQ
                             <constraint firstItem="D2B-YN-MLg" firstAttribute="top" secondItem="2fg-fv-edg" secondAttribute="bottom" constant="4" id="h8G-Jg-PTy"/>
                             <constraint firstItem="fPs-0d-v9U" firstAttribute="top" relation="greaterThanOrEqual" secondItem="C0x-o8-4go" secondAttribute="bottom" constant="24" id="kVs-y1-Mtg"/>
                             <constraint firstAttribute="trailing" secondItem="Px7-yg-8H1" secondAttribute="trailing" constant="24" id="n4h-9t-lDr"/>
+                            <constraint firstItem="OBh-TZ-Kob" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="19" id="o2B-30-hR7"/>
                             <constraint firstAttribute="trailing" secondItem="XHB-NN-yC5" secondAttribute="trailing" constant="24" id="oX2-63-YSc"/>
                             <constraint firstItem="C0x-o8-4go" firstAttribute="top" secondItem="bjC-oJ-pVm" secondAttribute="bottom" constant="17" id="pOg-2R-61C"/>
                             <constraint firstItem="OBh-TZ-Kob" firstAttribute="leading" secondItem="bjC-oJ-pVm" secondAttribute="trailing" constant="-3" id="sLQ-w8-d0F"/>
                             <constraint firstItem="tDR-8e-DwU" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="uxC-Uq-H9H"/>
                             <constraint firstItem="C0x-o8-4go" firstAttribute="leading" secondItem="tDR-8e-DwU" secondAttribute="trailing" constant="62" id="wsq-Mw-zmR"/>
-                            <constraint firstItem="OBh-TZ-Kob" firstAttribute="top" secondItem="bjC-oJ-pVm" secondAttribute="bottom" constant="-21" id="xh5-W2-Cf9"/>
                             <constraint firstAttribute="trailing" secondItem="2fg-fv-edg" secondAttribute="trailing" constant="22" id="z1t-AE-GfZ"/>
                         </constraints>
                     </view>
@@ -1136,10 +1136,10 @@ DQ
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
-        <image name="NSShareTemplate" width="11" height="16"/>
-        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
-        <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
-        <image name="NSTouchBarOpenInBrowserTemplate" width="18" height="30"/>
+        <image name="NSShareTemplate" width="15" height="17"/>
+        <image name="NSStopProgressFreestandingTemplate" width="15" height="15"/>
+        <image name="NSTouchBarFolderTemplate" width="18" height="14"/>
+        <image name="NSTouchBarOpenInBrowserTemplate" width="15" height="15"/>
         <image name="OrangeDot" width="180" height="180"/>
         <image name="PlayButton" width="2400" height="1675"/>
         <namedColor name="WindowBackground">
