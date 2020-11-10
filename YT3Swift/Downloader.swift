@@ -127,6 +127,9 @@ class Downloader {
                     
                 } else if outputString.contains("Premieres in") {
                     self.sendFatalError(error: NSError(domain: "", code: 403, userInfo: [NSLocalizedDescriptionKey: "The requested content has not yet premiered. Please try again once this content has been made available."]), handler: errorHandler)
+                    
+                } else if outputString.contains("This live event will begin in") {
+                    self.sendFatalError(error: NSError(domain: "", code: 403, userInfo: [NSLocalizedDescriptionKey: "The requested content has not yet premiered. Please try again once this content has been made available."]), handler: errorHandler)
                 } else if outputString.contains("who has blocked it on copyright grounds") {
                     print("Video was blocked")
                     self.sendFatalError(error: NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]), handler: errorHandler)
