@@ -295,6 +295,7 @@ class ViewController: NSViewController {
             }
             
             downloader.downloadContent(with: currentRequest)
+            //URLField.selec
         } else {
             if (sender.identifier?.rawValue) ?? "" == "downloadTBButton" {
                 DispatchQueue.main.async {sender.isEnabled = true}
@@ -315,7 +316,7 @@ class ViewController: NSViewController {
     func setDownloadInterface(to: Bool) {
         DispatchQueue.main.async {
             switch to {
-            case true: // Animate showing normal UI
+            case true: // Animate showing downloading UI
                 NSAnimationContext.runAnimationGroup({_ in
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
@@ -324,6 +325,7 @@ class ViewController: NSViewController {
                     self.recentVideosDisclosureTriangle.animator().isHidden = true
                     self.formatPopup.animator().isHidden = true
                     self.downloadButton.isEnabled = false
+                    (self.view.window?.windowController as! MainWindowController as MainWindowController).updateTBDownloadButton(withState: .off)
                     self.downloadLocationButton.isEnabled = false
                     //self.nameLabel.animator().isHidden = false
                     
@@ -331,7 +333,7 @@ class ViewController: NSViewController {
                     self.stopButton.animator().isHidden = false
                 }, completionHandler:{
                 })
-            case false: // Animate hiding normal UI
+            case false: // Animate showing normal UI
                 NSAnimationContext.runAnimationGroup({_ in
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = true
@@ -341,6 +343,7 @@ class ViewController: NSViewController {
                     self.recentVideosDisclosureTriangle.animator().isHidden = false
                     self.formatPopup.animator().isHidden = false
                     self.downloadButton.isEnabled = true
+                    (self.view.window?.windowController as! MainWindowController as MainWindowController).updateTBDownloadButton(withState: .on)
                     
                     
                     self.mainProgressBar.animator().isHidden = true

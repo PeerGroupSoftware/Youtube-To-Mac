@@ -925,7 +925,7 @@ DQ
                                     <action selector="startTasks:" target="XfG-lQ-9wD" id="rn2-i3-Bam"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-8e-DwU">
+                            <button toolTip="Downlad only audio" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-8e-DwU">
                                 <rect key="frame" x="18" y="212" width="88" height="18"/>
                                 <buttonCell key="cell" type="check" title="Audio Only" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1YS-tE-Edt">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -935,7 +935,7 @@ DQ
                                     <action selector="audioToggle:" target="XfG-lQ-9wD" id="WYG-Dk-a9C"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C0x-o8-4go">
+                            <textField toolTip="Show recently downloaded content" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C0x-o8-4go">
                                 <rect key="frame" x="164" y="210" width="79" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cGe-9O-uzl"/>
@@ -1068,7 +1068,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-fv-edg">
+                            <button hidden="YES" toolTip="Clear recent downloads list" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-fv-edg">
                                 <rect key="frame" x="356" y="188" width="42" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Lko-rY-qAd"/>

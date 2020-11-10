@@ -11,6 +11,7 @@ import Cocoa
 class MainWindowController: NSWindowController, NSTouchBarDelegate {
     
     var audioOnlyButton: NSButton?
+    var downloadContentButton: NSButton?
     
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -28,6 +29,12 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate {
     func updateTBAudioButton(withState state: NSButton.StateValue) {
         if audioOnlyButton != nil {
             audioOnlyButton!.state = state
+        }
+    }
+    
+    func updateTBDownloadButton(withState state: NSButton.StateValue) {
+        if downloadContentButton != nil {
+            downloadContentButton!.isEnabled = (state == .on)
         }
     }
     
@@ -72,6 +79,7 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate {
         case NSTouchBarItem.Identifier("downloadButton"):
             let downloadTBButton = NSCustomTouchBarItem(identifier:NSTouchBarItem.Identifier(rawValue: "downloadButton"))
             let downloadButton = NSButton(title: "Download", target: self, action: #selector(handleButtonPress))
+            downloadContentButton = downloadButton
             downloadButton.bezelColor = .red
             downloadButton.identifier = NSUserInterfaceItemIdentifier(rawValue: "downloadTBButton")
             downloadTBButton.view = downloadButton
