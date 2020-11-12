@@ -64,9 +64,16 @@ class Downloader {
                 task in
                 DispatchQueue.main.async(execute: {
                     print("Stopped")
-                    print(self.downloadTask.terminationReason.rawValue)
+                    let terminationReason = self.downloadTask.terminationReason.rawValue
                     progressHandler(100, nil, nil)
-                    completionHandler(self.currentVideo, nil)
+                    //print(terminationReason)
+                    if terminationReason == 2 {
+                       // completionHandler(self.currentVideo, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
+                        //progressHandler(100, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]), self.currentVideo)
+                        completionHandler(self.currentVideo,NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
+                    } else {
+                        completionHandler(self.currentVideo, nil)
+                    }
                     self.currentVideo = YTVideo()
                     if self.outputPipe.description.contains("must provide") {
                         print("error")

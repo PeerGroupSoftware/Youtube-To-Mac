@@ -248,12 +248,14 @@ class ViewController: NSViewController {
                     }
                     
                     if error != nil {
+                        if (error! as NSError).code != 499 {
                         DispatchQueue.main.async {
                             let alert = NSAlert()
                             alert.alertStyle = .critical
                             alert.messageText = "Could not save \(videoInfo!.isAudioOnly ? "audio" : "video")"
                             alert.informativeText = error!.localizedDescription
                             alert.runModal()
+                        }
                         }
                     }
                 } else {
@@ -285,7 +287,7 @@ class ViewController: NSViewController {
                 downloadNotification.informativeText = informativeText
                 downloadNotification.soundName = NSUserNotificationDefaultSoundName
                 
-                if self.downloadButton.isEnabled && (self.currentRequest.error == nil) {
+                if self.downloadButton.isEnabled && (self.currentRequest.error == nil) && (error == nil) {
                     NSUserNotificationCenter.default.deliver(downloadNotification)
                     self.saveVideoToHistory(video: video!)
                 } else {
