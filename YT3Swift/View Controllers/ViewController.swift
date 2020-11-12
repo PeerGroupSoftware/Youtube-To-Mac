@@ -105,6 +105,9 @@ class ViewController: NSViewController {
         videoHistory.updateValue([targetVideo.URL:targetVideo.diskPath], forKey: targetVideo.name)
         UserDefaults().set(videoHistory, forKey: "YTVideoHistory")
         
+        previousVideos.insert(targetVideo, at: 0)
+        self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
+        
     }
     
     @IBAction func toggleWindowSize(_ sender: NSButton) {

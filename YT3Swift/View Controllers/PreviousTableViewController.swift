@@ -16,6 +16,7 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
     func numberOfRows(in tableView: NSTableView) -> Int {
         return previousVideos.count
     }
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let newCell = tableView.makeView(withIdentifier: (tableColumn?.identifier)!, owner: self) as! previousVideoCellView
         let newVideo = YTVideo()
@@ -27,6 +28,10 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
 //        if previousVideos[row].isAudioOnly {
 //        }
         return newCell
+    }
+    
+    func insert(video: YTVideo) {
+        
     }
     
 }
