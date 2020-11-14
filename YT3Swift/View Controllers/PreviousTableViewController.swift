@@ -21,7 +21,7 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
         let newCell = tableView.makeView(withIdentifier: (tableColumn?.identifier)!, owner: self) as! previousVideoCellView
         let newVideo = YTVideo()
         newVideo.name = (previousVideos[row].name)
-        newVideo.URL = (previousVideos[row].URL)
+        newVideo.url = (previousVideos[row].url)
         newCell.video = newVideo
         newCell.videoNameLabel.stringValue = previousVideos[row].name
         
@@ -42,7 +42,7 @@ class previousVideoCellView: NSTableCellView {
     @IBOutlet weak var microphoneIcon: NSImageView!
     
     @IBAction func openVideoLink(_ sender: NSButton) {
-        NSWorkspace.shared.open(URL(string: self.video.URL)!)
+        NSWorkspace.shared.open(URL(string: self.video.url)!)
             //print("default browser was successfully opened")
         
     }
@@ -51,7 +51,7 @@ class previousVideoCellView: NSTableCellView {
 
 class YTVideo {
     var name = ""
-    var URL = ""
+    var url = ""
     var diskPath = ""
     var isAudioOnly = false
     

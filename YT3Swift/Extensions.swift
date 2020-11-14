@@ -41,6 +41,7 @@ extension NSTextField {
     }
 }
 
+
 class URLFieldCell: NSTextFieldCell {
     
     @IBInspectable var rightPadding: CGFloat = 10.0

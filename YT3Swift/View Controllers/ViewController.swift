@@ -75,7 +75,7 @@ class ViewController: NSViewController {
         for item in videoHistory {
             let newVideo = YTVideo()
             newVideo.name = item.key
-            newVideo.URL = (item.value.first?.key)!
+            newVideo.url = (item.value.first?.key)!
             newVideo.diskPath = (item.value.first?.value)!
             previousVideos.append(newVideo)
         }
@@ -102,7 +102,8 @@ class ViewController: NSViewController {
     
     func saveVideoToHistory(video targetVideo: YTVideo) {
         var videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory")) as? [String:[String:String]] ?? [String:[String:String]]()
-        videoHistory.updateValue([targetVideo.URL:targetVideo.diskPath], forKey: targetVideo.name)
+        //UserDefaults().arr
+        videoHistory.updateValue([targetVideo.url:targetVideo.diskPath], forKey: targetVideo.name)
         UserDefaults().set(videoHistory, forKey: "YTVideoHistory")
         
         previousVideos.insert(targetVideo, at: 0)
@@ -239,31 +240,20 @@ class ViewController: NSViewController {
             setDownloadInterface(to: true)
             
             currentRequest.progressHandler = {(progress, error, videoInfo) in
+                DispatchQueue.main.async {
                 if progress >= 0 {
                     self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
                     if progress == 100 && videoInfo != nil {
                         self.setDownloadInterface(to: false)
-                    } else if videoInfo != nil {
-                        self.URLField.stringValue = videoInfo!.name
-                    }
-                    
-                    if error != nil {
-                        if (error! as NSError).code != 499 {
-                        DispatchQueue.main.async {
-                            let alert = NSAlert()
-                            alert.alertStyle = .critical
-                            alert.messageText = "Could not save \(videoInfo!.isAudioOnly ? "audio" : "video")"
-                            alert.informativeText = error!.localizedDescription
-                            alert.runModal()
-                        }
-                        }
                     }
                 } else {
                     DispatchQueue.main.async {self.URLField.stringValue = videoInfo!.name}
                 }
             }
+            }
             
             currentRequest.completionHandler = { (video, error) in
+                DispatchQueue.main.async {
                 self.URLField.stringValue = ""
                 sender.isEnabled = true
                 
@@ -293,10 +283,23 @@ class ViewController: NSViewController {
                 } else {
                     print(self.currentRequest.error)
                 }
+                    
+            
+                    if error != nil {
+                        if (error! as NSError).code != 499 {
+                        DispatchQueue.main.async {
+                            let alert = NSAlert()
+                            alert.alertStyle = .critical
+                            alert.messageText = "Could not save \(formatType)"
+                            alert.informativeText = error!.localizedDescription
+                            alert.runModal()
+                        }
+                        }
+                    }
                 
                 self.setDownloadInterface(to: false)
                 print(previousVideos.first?.name ?? "")
-                
+                }
             }
             
             downloader.downloadContent(with: currentRequest)
@@ -419,12 +422,11 @@ class ViewController: NSViewController {
         print("progress update \(progress)")
         DispatchQueue.main.async {
             NSAnimationContext.runAnimationGroup({_ in
-                self.mainProgressBar.increment(by: progress-self.mainProgressBar.doubleValue)
+                self.mainProgressBar.animator().increment(by: progress-self.mainProgressBar.doubleValue)
             }, completionHandler:{
             })
             if progress == 100.0 {
                 print("progress at 100")
-                //self.downloadFinished(errorOccured: errorOccured)
             }
         }
     }

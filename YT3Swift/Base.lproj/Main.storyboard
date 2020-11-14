@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,25 +67,31 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" hidden="YES" id="dMs-cI-mzQ">
+                            <menuItem title="File" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="New Window" id="CBB-9g-avY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="B8D-0N-5wS" kind="show" id="Qw0-tJ-bnp"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="New" hidden="YES" enabled="NO" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
+                                        <menuItem title="Open…" hidden="YES" enabled="NO" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open Recent" id="tXI-mr-wws">
+                                        <menuItem title="Open Recent" hidden="YES" enabled="NO" id="tXI-mr-wws">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oas-Oc-fiZ">
                                                 <items>
-                                                    <menuItem title="Clear Menu" id="vNY-rz-j42">
+                                                    <menuItem title="Clear Menu" enabled="NO" id="vNY-rz-j42">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="clearRecentDocuments:" target="Ady-hI-5gd" id="Daa-9d-B3U"/>
@@ -95,34 +101,34 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
-                                        <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
+                                        <menuItem title="Close" hidden="YES" enabled="NO" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
+                                        <menuItem title="Save…" hidden="YES" enabled="NO" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
                                                 <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
+                                        <menuItem title="Save As…" hidden="YES" enabled="NO" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="KaW-ft-85H">
+                                        <menuItem title="Revert to Saved" hidden="YES" enabled="NO" keyEquivalent="r" id="KaW-ft-85H">
                                             <connections>
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
+                                        <menuItem title="Page Setup…" hidden="YES" enabled="NO" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                             <connections>
                                                 <action selector="runPageLayout:" target="Ady-hI-5gd" id="Din-rz-gC5"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
+                                        <menuItem title="Print…" hidden="YES" enabled="NO" keyEquivalent="p" id="aTl-1u-JFS">
                                             <connections>
                                                 <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
                                             </connections>
@@ -737,11 +743,11 @@
             <objects>
                 <viewController id="9Qq-ZI-MuQ" customClass="PreferencesViewController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="SVD-hY-Ayz">
-                        <rect key="frame" x="0.0" y="0.0" width="287" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="287" height="118"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button toolTip="Check for updates at launch" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jm9-8x-pJW">
-                                <rect key="frame" x="18" y="80" width="221" height="18"/>
+                                <rect key="frame" x="18" y="81" width="219" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="217" id="dJm-h4-vQv"/>
                                 </constraints>
@@ -786,7 +792,7 @@
                                 </textFieldCell>
                             </textField>
                             <button identifier="DownloadsRadio" toolTip="User Downloads folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Jj-oqU">
-                                <rect key="frame" x="19" y="54" width="89" height="18"/>
+                                <rect key="frame" x="18" y="54" width="93" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Downloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YST-Kq-Su7">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -796,7 +802,7 @@
                                 </connections>
                             </button>
                             <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SRg-UB-6zM">
-                                <rect key="frame" x="19" y="32" width="73" height="18"/>
+                                <rect key="frame" x="18" y="32" width="77" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4zx-p4-9Kw">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -863,7 +869,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton toolTip="Request format" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XHB-NN-yC5">
-                                <rect key="frame" x="353" y="207" width="76" height="26"/>
+                                <rect key="frame" x="352" y="206" width="78" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="71" id="W3K-VH-vkz"/>
                                 </constraints>
@@ -886,7 +892,7 @@
                                 <rect key="frame" x="20" y="210" width="379" height="20"/>
                             </progressIndicator>
                             <button hidden="YES" toolTip="Stop download" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FpU-ta-yxo">
-                                <rect key="frame" x="407" y="209" width="18" height="24"/>
+                                <rect key="frame" x="407" y="209" width="18" height="24.5"/>
                                 <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="AE6-zX-I37">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -927,7 +933,7 @@ DQ
                                 </connections>
                             </button>
                             <button toolTip="Downlad only audio" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-8e-DwU">
-                                <rect key="frame" x="18" y="212" width="88" height="18"/>
+                                <rect key="frame" x="18" y="213" width="92" height="18"/>
                                 <buttonCell key="cell" type="check" title="Audio Only" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1YS-tE-Edt">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -937,7 +943,7 @@ DQ
                                 </connections>
                             </button>
                             <textField toolTip="Show recently downloaded content" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C0x-o8-4go">
-                                <rect key="frame" x="171" y="210" width="79" height="17"/>
+                                <rect key="frame" x="177" y="210" width="79" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cGe-9O-uzl"/>
                                 </constraints>
@@ -948,7 +954,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yAQ-wh-GkQ">
-                                <rect key="frame" x="250" y="213" width="13" height="13"/>
+                                <rect key="frame" x="256" y="213" width="13" height="13"/>
                                 <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="only" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jqz-AY-YbG">
                                     <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -957,7 +963,7 @@ DQ
                                     <action selector="toggleWindowSize:" target="XfG-lQ-9wD" id="6Uq-du-i5r"/>
                                 </connections>
                             </button>
-                            <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPs-0d-v9U">
+                            <scrollView misplaced="YES" borderType="line" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPs-0d-v9U">
                                 <rect key="frame" x="22" y="20" width="405" height="166"/>
                                 <clipView key="contentView" drawsBackground="NO" id="VI6-I7-6ep">
                                     <rect key="frame" x="1" y="1" width="403" height="164"/>
@@ -983,7 +989,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView misplaced="YES" id="VJ8-HU-EXo" customClass="previousVideoCellView" customModule="YoutubeToMac" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="1" width="353" height="40"/>
+                                                            <rect key="frame" x="1" y="1" width="362" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EEb-cm-utk">
@@ -998,7 +1004,7 @@ DQ
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKt-px-QHx">
-                                                                    <rect key="frame" x="342" y="11" width="18" height="18"/>
+                                                                    <rect key="frame" x="342" y="8" width="18.5" height="26"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="18" id="8hi-DZ-kym"/>
                                                                     </constraints>
@@ -1012,7 +1018,7 @@ DQ
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OrangeDot" id="3XU-5T-7a7"/>
                                                                 </imageView>
                                                                 <button toolTip="Open in Web Browser" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RaQ-9x-MdW">
-                                                                    <rect key="frame" x="359" y="10" width="26" height="20"/>
+                                                                    <rect key="frame" x="359" y="7" width="26" height="26"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="1Tp-6i-1HE"/>
                                                                         <constraint firstAttribute="width" constant="26" id="M9b-Rx-nad"/>
@@ -1027,7 +1033,7 @@ DQ
                                                                     </connections>
                                                                 </button>
                                                                 <button hidden="YES" toolTip="Open Save Location" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDs-6V-a3V">
-                                                                    <rect key="frame" x="288" y="9" width="28" height="22"/>
+                                                                    <rect key="frame" x="288" y="9" width="28.5" height="22"/>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarFolderTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="UaY-Gf-jDQ">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -1070,6 +1076,13 @@ DQ
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </scrollView>
                             <button hidden="YES" toolTip="Clear recent downloads list" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-fv-edg">
                                 <rect key="frame" x="385" y="188" width="42" height="17"/>
@@ -1139,10 +1152,10 @@ DQ
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
-        <image name="NSShareTemplate" width="11" height="16"/>
-        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
-        <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
-        <image name="NSTouchBarOpenInBrowserTemplate" width="18" height="30"/>
+        <image name="NSShareTemplate" width="15" height="17"/>
+        <image name="NSStopProgressFreestandingTemplate" width="15" height="15"/>
+        <image name="NSTouchBarFolderTemplate" width="18" height="14"/>
+        <image name="NSTouchBarOpenInBrowserTemplate" width="15" height="15"/>
         <image name="OrangeDot" width="180" height="180"/>
         <image name="PlayButton" width="2400" height="1675"/>
         <image name="SFFolder" width="113" height="93"/>

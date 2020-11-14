@@ -8,9 +8,9 @@
 
 import Foundation
 import Cocoa
-//import XCDYouTubeKit
 
-class Downloader {
+class Downloader: ContentDownloaderDelegate {
+    
     
     var isRunning = false
     var videoID = ""
@@ -18,12 +18,17 @@ class Downloader {
     var saveLocation = "~/Desktop"
     var currentVideo = YTVideo()
     var cachedRequest: YTDownloadRequest?
-    private var outputPipe:Pipe!
-    private var errorPipe:Pipe!
+    //private var outputPipe:Pipe!
+    //private var errorPipe:Pipe!
     private var downloadTask:Process!
     static let videoFormats = ["Auto", "mp4", "flv", "webm"]
     static let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     private let defaultQOS: DispatchQoS.QoSClass  = .userInitiated
+    
+    var progressHandler: ((Double, Error?, YTVideo?) -> Void)?
+    var completionHandler: ((YTVideo?, Error?) -> Void)?
+    
+    var downloader: ContentDownloader = YTDLDownloader()
     
     func downloadContent(with downloadRequest: YTDownloadRequest) {
         downloadContent(from: downloadRequest.contentURL, toLocation: downloadRequest.destination, audioOnly: downloadRequest.audioOnly, fileFormat: downloadRequest.fileFormat, progress: downloadRequest.progressHandler!, completionHandler: downloadRequest.completionHandler)
@@ -37,10 +42,18 @@ class Downloader {
     
     func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
         
+        downloader.delegate = self
+        self.progressHandler = progressHandler
+        self.completionHandler = completionHandler
+        
+        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: .mp4), to: URL(string: downloadDestination)!, completion: {
+            completionHandler(nil, nil)
+        })
+        
+        /*
         //if !(downloadTask.isRunning ?? false) {
-        //DispatchQueue
         let downloaderVersion = YoutubeDLVersion.latest
-        currentVideo.URL = targetURL
+        currentVideo.url = targetURL
         currentVideo.isAudioOnly = audioOnly
         
         isRunning = true
@@ -55,8 +68,8 @@ class Downloader {
             } else {
                 self.downloadTask.launchPath = path
             }
-            print("using file format \(fileFormat.rawValue)")
-            self.downloadTask.arguments = ["-f \(fileFormat.rawValue)", "-o%(title)s.%(ext)s", targetURL]
+            //print("using file format \(fileFormat.rawValue)")
+            self.downloadTask.arguments = ["-f \(fileFormat.rawValue)[height>=?1080]", "-o%(title)s.%(ext)s", targetURL]
             self.downloadTask.currentDirectoryPath = downloadDestination
             
             self.downloadTask.terminationHandler = {
@@ -68,8 +81,6 @@ class Downloader {
                     progressHandler(100, nil, nil)
                     //print(terminationReason)
                     if terminationReason == 2 {
-                       // completionHandler(self.currentVideo, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
-                        //progressHandler(100, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]), self.currentVideo)
                         completionHandler(self.currentVideo,NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
                     } else {
                         completionHandler(self.currentVideo, nil)
@@ -111,9 +122,33 @@ class Downloader {
         /*  } else {
          print("Can't start download, task is already running")
          }*/
+        */
     }
     
-    private func readError(_ task:Process, errorHandler: @escaping (Error) -> Void) {
+    func didCompleteDownload(error: Int?) {
+        print("COMPLETED: \(error)")
+        if completionHandler != nil {
+            completionHandler!(currentVideo, (error == nil ? nil : NSError(domain: "", code: error!, userInfo: [NSLocalizedDescriptionKey:downloadErrors[error!]])))
+        }
+    }
+    
+    func downloadDidProgress(to downloadProgress: Double) {
+        print("PROGRESS: \(downloadProgress)")
+        if progressHandler != nil {
+            progressHandler!(downloadProgress, nil, self.currentVideo)
+        }
+        
+    }
+    
+    func didGetVideoName(_ videoName: String) {
+        print("Video name found: \(videoName)")
+        self.currentVideo.name = videoName
+        if progressHandler != nil {
+            self.progressHandler!(-1, nil, currentVideo)
+        }
+    }
+    
+    /*private func readError(_ task:Process, errorHandler: @escaping (Error) -> Void) {
         errorPipe = Pipe()
         task.standardError = errorPipe
         errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
@@ -125,7 +160,7 @@ class Downloader {
             let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
             
             if !outputString.isEmpty {
-                print("got error")
+                //print("got error")
                 print("ERROR: \(outputString)")
                 
                 if outputString.contains("requested format not available") {
@@ -176,14 +211,6 @@ class Downloader {
             
             let output = self.outputPipe.fileHandleForReading.availableData
             let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
-            //print("got output")
-            //print(outputString)
-            
-            /*if outputString.contains("fulltitle") {
-             for i in (outputString.split(separator: ":")) {
-             (i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
-             }
-             }*/
             if outputString.range(of:"100%: Done") != nil {
                 self.downloadTask.qualityOfService = .background
                 
@@ -223,6 +250,10 @@ class Downloader {
             
             
         }
+    }*/
+    
+    func getFormats(for: YTVideo, completion: ([MediaFormat], Error?) -> Void) {
+        
     }
     
     func fetchJSON(from targetURL: URL, completion: @escaping ([String: Any]?, Error?) -> Void) {
