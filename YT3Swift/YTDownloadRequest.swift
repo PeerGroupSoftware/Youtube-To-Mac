@@ -38,5 +38,8 @@ enum MediaExtension: String {
     case wav = "wav"
     case aac = "aac"
     case mov = "mov"
+    case m4v = "m4v"
+    case aiff = "aiff"
+    case caf = "caf"
     case auto
 }

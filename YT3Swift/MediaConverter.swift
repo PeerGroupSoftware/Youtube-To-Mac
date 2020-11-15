@@ -9,6 +9,8 @@
 import Foundation
 
 class MediaConverter {
+    static let availableVideoFormats: [MediaExtension] = [.mp4, .m4v, .mov]
+    static let availableAudioFormats: [MediaExtension] = [.aiff, .wav, .m4a, .mp3, .caf]
     
 }
 

@@ -24,6 +24,7 @@ protocol ContentDownloader {
 
 struct MediaFormat {
     var fileExtension: MediaExtension
+    var size: NSSize?
     //var codec: AVVideoCodecType
 }
 

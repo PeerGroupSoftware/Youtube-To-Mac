@@ -31,9 +31,9 @@ class Downloader: ContentDownloaderDelegate {
     static func allFormats(for contentType: FormatType) -> [MediaExtension] {
         switch contentType {
         case .video:
-            return [.mp4, .flv, .webm, .mov]
+            return [.mp4, .flv, .webm, .mov, .m4v]
         case .audio:
-            return [.m4a, .mp3, .wav, .aac]
+            return [.m4a, .mp3, .wav, .aac, .aiff, .caf]
         }
     }
     
@@ -295,11 +295,19 @@ class Downloader: ContentDownloaderDelegate {
                 //print(dataResponse)
                     let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: []) as? [String : Any]
                 let retreivedFormats = (jsonResponse!["formats"] as! [[String: Any]])
-                print(retreivedFormats)
+                //print(retreivedFormats)
                 for format in retreivedFormats {
-                    print("\(format["ext"] ?? "unknown") - \(format["width"] ?? 0)x\(format["height"] ?? 0)")
+                    //print("\(format["ext"] ?? "unknown") - \(format["width"] ?? 0)x\(format["height"] ?? 0)")
                     guard let newExtension = MediaExtension(rawValue: (format["ext"] as! String) ?? "unknown") else {return}
-                    foundFormats.append(MediaFormat(fileExtension: newExtension))
+                    var newSize = NSSize()
+                    newSize.width = CGFloat((format["width"] as? Int) ?? 0)
+                    newSize.height = CGFloat((format["height"] as? Int) ?? 0)
+                    
+                    if newSize.width != 0 || newSize.height != 0 {
+                        foundFormats.append(MediaFormat(fileExtension: newExtension, size: newSize))
+                    } else {
+                        foundFormats.append(MediaFormat(fileExtension: newExtension))
+                    }
                 }
             } catch {
                print(error)

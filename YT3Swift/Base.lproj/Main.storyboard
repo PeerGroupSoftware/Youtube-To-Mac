@@ -1090,12 +1090,26 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7S9-0c-Hjk">
+                                <rect key="frame" x="308" y="204" width="46" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="9kR-67-bH7"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="sliders" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1pA-dW-AGb">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="videoControlsPopover:" target="XfG-lQ-9wD" id="UWD-pu-Apm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="9jL-rL-s9k" firstAttribute="top" secondItem="tDR-8e-DwU" secondAttribute="bottom" constant="-15" id="4cj-Ok-Qtg"/>
                             <constraint firstItem="fPs-0d-v9U" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="6Yt-xD-fYD"/>
                             <constraint firstItem="Px7-yg-8H1" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="6ZT-dx-aVP"/>
                             <constraint firstItem="2fg-fv-edg" firstAttribute="top" secondItem="XHB-NN-yC5" secondAttribute="bottom" constant="5" id="7iV-13-thA"/>
+                            <constraint firstItem="7S9-0c-Hjk" firstAttribute="centerY" secondItem="XHB-NN-yC5" secondAttribute="centerY" id="9N3-w1-R19"/>
                             <constraint firstItem="C0x-o8-4go" firstAttribute="top" secondItem="yAQ-wh-GkQ" secondAttribute="bottom" constant="-14" id="AZk-87-QnZ"/>
                             <constraint firstAttribute="trailing" secondItem="9jL-rL-s9k" secondAttribute="trailing" constant="48" id="COx-k0-UCY"/>
                             <constraint firstAttribute="bottom" secondItem="C0x-o8-4go" secondAttribute="bottom" constant="210" id="Gc6-ei-owe"/>
@@ -1111,6 +1125,7 @@ DQ
                             <constraint firstAttribute="bottom" secondItem="fPs-0d-v9U" secondAttribute="bottom" priority="750" constant="20" symbolic="YES" id="Zil-bS-s3l"/>
                             <constraint firstItem="bjC-oJ-pVm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="aKs-jm-Xqz"/>
                             <constraint firstAttribute="trailing" secondItem="fPs-0d-v9U" secondAttribute="trailing" constant="22" id="gGX-Ni-vbp"/>
+                            <constraint firstItem="7S9-0c-Hjk" firstAttribute="leading" secondItem="9jL-rL-s9k" secondAttribute="trailing" constant="-84" id="gIe-EI-5RR"/>
                             <constraint firstItem="vEp-yc-ryh" firstAttribute="centerY" secondItem="D2B-YN-MLg" secondAttribute="centerY" id="gVE-6x-uqL"/>
                             <constraint firstItem="FpU-ta-yxo" firstAttribute="centerY" secondItem="XHB-NN-yC5" secondAttribute="centerY" constant="0.5" id="h4q-D6-Jr4"/>
                             <constraint firstItem="D2B-YN-MLg" firstAttribute="top" secondItem="2fg-fv-edg" secondAttribute="bottom" constant="4" id="h8G-Jg-PTy"/>
@@ -1143,6 +1158,87 @@ DQ
             </objects>
             <point key="canvasLocation" x="44.5" y="775"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="bNO-0X-3FR">
+            <objects>
+                <viewController storyboardIdentifier="ContentControlsPopover" id="KcT-z3-CVp" sceneMemberID="viewController">
+                    <view key="view" id="ZwY-GC-AZ6">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="114"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yKg-DM-J2k">
+                                <rect key="frame" x="17" y="16" width="78" height="25"/>
+                                <popUpButtonCell key="cell" type="push" title="mov" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="0fg-42-cOP" id="Oth-1g-UaY">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="p3b-pY-bG2">
+                                        <items>
+                                            <menuItem title="mov" state="on" id="0fg-42-cOP"/>
+                                            <menuItem title="Item 2" id="fq9-IW-7SV"/>
+                                            <menuItem title="Item 3" id="RLt-3y-oeD"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nGF-K9-nZg">
+                                <rect key="frame" x="133" y="16" width="107" height="25"/>
+                                <popUpButtonCell key="cell" type="push" title="1920x1080" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="6ay-RY-C7T" id="EEZ-MR-zad">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="TpT-cy-xfU">
+                                        <items>
+                                            <menuItem title="1920x1080" state="on" id="6ay-RY-C7T"/>
+                                            <menuItem title="Item 2" id="WFi-DX-YiN"/>
+                                            <menuItem title="Item 3" id="aD9-50-jpy"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qMU-xI-PuW">
+                                <rect key="frame" x="20" y="48" width="47" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Format" id="3Lz-gO-8XP">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OrU-gb-jGt">
+                                <rect key="frame" x="134" y="48" width="75" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Resolution" id="Nzf-xh-hcr">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bep-Qr-fKi">
+                                <rect key="frame" x="18" y="84" width="220" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Video Title" id="5cv-wu-i5V">
+                                    <font key="font" metaFont="systemMedium" size="13"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="nGF-K9-nZg" firstAttribute="leading" secondItem="yKg-DM-J2k" secondAttribute="trailing" constant="45" id="0nh-1a-djG"/>
+                            <constraint firstItem="OrU-gb-jGt" firstAttribute="leading" secondItem="nGF-K9-nZg" secondAttribute="leading" id="0vK-d5-ywA"/>
+                            <constraint firstAttribute="bottom" secondItem="yKg-DM-J2k" secondAttribute="bottom" constant="20" symbolic="YES" id="4bG-1C-siD"/>
+                            <constraint firstAttribute="trailing" secondItem="OrU-gb-jGt" secondAttribute="trailing" constant="43" id="5cl-if-9Ji"/>
+                            <constraint firstItem="qMU-xI-PuW" firstAttribute="baseline" secondItem="OrU-gb-jGt" secondAttribute="baseline" id="7qL-jL-2Jy"/>
+                            <constraint firstItem="yKg-DM-J2k" firstAttribute="top" secondItem="qMU-xI-PuW" secondAttribute="bottom" constant="8" symbolic="YES" id="A1K-fi-uOD"/>
+                            <constraint firstItem="bep-Qr-fKi" firstAttribute="leading" secondItem="ZwY-GC-AZ6" secondAttribute="leading" constant="20" symbolic="YES" id="PBQ-mm-aO0"/>
+                            <constraint firstItem="bep-Qr-fKi" firstAttribute="trailing" secondItem="nGF-K9-nZg" secondAttribute="trailing" id="RA4-xY-Bpa"/>
+                            <constraint firstItem="yKg-DM-J2k" firstAttribute="baseline" secondItem="nGF-K9-nZg" secondAttribute="baseline" id="T6B-an-eSU"/>
+                            <constraint firstItem="OrU-gb-jGt" firstAttribute="leading" secondItem="qMU-xI-PuW" secondAttribute="trailing" constant="71" id="TM3-p1-qJ8"/>
+                            <constraint firstItem="qMU-xI-PuW" firstAttribute="top" secondItem="bep-Qr-fKi" secondAttribute="bottom" constant="20" id="YJ0-TJ-8Cn"/>
+                            <constraint firstItem="bep-Qr-fKi" firstAttribute="leading" secondItem="yKg-DM-J2k" secondAttribute="leading" id="uKx-IR-VLk"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="e0q-kk-1As" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="440" y="775"/>
+        </scene>
     </scenes>
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
@@ -1152,6 +1248,7 @@ DQ
         <image name="NSTouchBarOpenInBrowserTemplate" width="15" height="15"/>
         <image name="PlayButton" width="2400" height="1675"/>
         <image name="SFFolder" width="113" height="93"/>
+        <image name="sliders" width="140" height="134"/>
         <namedColor name="WindowBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

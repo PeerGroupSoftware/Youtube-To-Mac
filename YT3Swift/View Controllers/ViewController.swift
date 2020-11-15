@@ -89,9 +89,17 @@ class ViewController: NSViewController {
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
         if (detector.numberOfMatches(in: sender.stringValue, options: [], range: NSRange(location: 0, length: sender.stringValue.utf16.count))) == 1 {
             Downloader().getFormats(for: YTVideo(name: "", url: sender.stringValue), completion: {(formats, error) in
-                print(formats, error)
+                let directFormats = formats.compactMap({$0.fileExtension})
+                print(formats)
+                print(Downloader.allFormats(for: .video))
+                print(directFormats + MediaConverter.availableVideoFormats)
             })
         }
+    }
+    
+    @IBAction func videoControlsPopover(_ sender: NSButton) {
+        let popoverVC = NSStoryboard.main?.instantiateController(withIdentifier: "ContentControlsPopover") as! NSViewController
+        self.present(popoverVC, asPopoverRelativeTo: sender.bounds, of: sender, preferredEdge: .maxY, behavior: .semitransient)
     }
     
     @objc func changeWindowSizeLabel() {
@@ -203,11 +211,11 @@ class ViewController: NSViewController {
         case 1:
             //print("set audio formats")
             formatPopup.removeAllItems()
-            formatPopup.addItems(withTitles: Downloader.audioFormats)
+            formatPopup.addItems(withTitles: ["Auto"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue}))
         case 0:
             // print("set video formats")
             formatPopup.removeAllItems()
-            formatPopup.addItems(withTitles: Downloader.videoFormats)
+            formatPopup.addItems(withTitles: ["Auto"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue}))
         default:
             print("Audio button error")
         }
