@@ -25,9 +25,19 @@ protocol ContentDownloader {
 struct MediaFormat {
     var fileExtension: MediaExtension
     var size: NSSize?
-    //var codec: AVVideoCodecType
+    var codec: YTCodec?
+    var audioOnly: Bool = false
+    var sizeString: String?
+    var fps: Int?
 }
 
+enum YTCodec: String, CaseIterable {
+    case mp4a = "mp4a"
+    case opus = "opus"
+    case vp9 = "vp9"
+    case avc1 = "avc1"
+    case av01 = "av01"
+}
 /*enum MediaExtension {
     case mp4
     case wav

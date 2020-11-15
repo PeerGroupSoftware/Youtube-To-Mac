@@ -262,7 +262,7 @@ class Downloader: ContentDownloaderDelegate {
         }
     }*/
     
-    func getFormats(for targetVideo: YTVideo, completion: @escaping ([MediaFormat], Error?) -> Void) {
+    func getFormats(for targetVideo: YTVideo, useableOnly: Bool = false, completion: @escaping ([MediaFormat], Error?) -> Void) {
         let executablePath = Bundle.main.path(forResource: YTDLDownloader.executableName, ofType: "sh")
         
         let outputPipe = Pipe()
@@ -299,19 +299,42 @@ class Downloader: ContentDownloaderDelegate {
                 for format in retreivedFormats {
                     //print("\(format["ext"] ?? "unknown") - \(format["width"] ?? 0)x\(format["height"] ?? 0)")
                     guard let newExtension = MediaExtension(rawValue: (format["ext"] as! String) ?? "unknown") else {return}
+                    var newFormat = MediaFormat(fileExtension: newExtension)
+                    
+                    if ((format["format"] as? String) ?? "unknown").contains("audio only") {
+                        newFormat.audioOnly = true
+                    }
+                    
+                    if ((format["format_note"] as? String) ?? "unknown").last == "p" {
+                        newFormat.sizeString = (format["format_note"] as! String)
+                    }
+                    
+                    for codec in YTCodec.allCases {
+                        if ((format["acodec"] as? String) ?? "unknown").contains(codec.rawValue) {
+                            newFormat.codec = codec
+                        } else if ((format["vcodec"] as? String) ?? "unknown").contains(codec.rawValue) {
+                            newFormat.codec = codec
+                        }
+                    }
+                    
+                    newFormat.fps = (format["fps"] as? Int)
+                    
                     var newSize = NSSize()
                     newSize.width = CGFloat((format["width"] as? Int) ?? 0)
                     newSize.height = CGFloat((format["height"] as? Int) ?? 0)
                     
-                    if newSize.width != 0 || newSize.height != 0 {
-                        foundFormats.append(MediaFormat(fileExtension: newExtension, size: newSize))
-                    } else {
-                        foundFormats.append(MediaFormat(fileExtension: newExtension))
+                    if (newSize.width != 0) || (newSize.height != 0) {
+                        newFormat.size = newSize
                     }
+                    foundFormats.append(newFormat)
                 }
             } catch {
                print(error)
                 completion([], error)
+            }
+            
+            if useableOnly {
+                foundFormats = foundFormats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
             }
             completion(foundFormats, nil)
         }

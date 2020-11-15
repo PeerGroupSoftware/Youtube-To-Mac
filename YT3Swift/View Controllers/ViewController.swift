@@ -102,25 +102,22 @@ class ViewController: NSViewController {
                 (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
             }
         }
-        Downloader().getFormats(for: YTVideo(name: "", url: URLField.stringValue), completion: {(formats, error) in
+        Downloader().getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: true, completion: {(formats, error) in
             DispatchQueue.main.async {
                 if !(self.controlsPopover?.isShown ?? false) {
                     if !formats.isEmpty {self.controlsButton.isEnabled = true}
                     self.controlsLoadingIndicator.stopAnimation(self)
                     self.controlsButton.isHidden = false
-                } else {
+                } /*else {
                     if formats.isEmpty {
                         (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
                     } else {
                         (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
                     }
-                }
+                }*/
             }
-           // let directFormats = formats.compactMap({$0.fileExtension})
-            print(formats)
-            self.currentRequest.directFormats = formats
-            //print(Downloader.allFormats(for: .video))
-           // print(directFormats + MediaConverter.availableVideoFormats)
+            //let directUsableFormats = formats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
+            print(formats.sorted(by: {($0.size?.height ?? 0)<($1.size?.height ?? 0)}))
         })
         } else {
             print("No URL detected")
