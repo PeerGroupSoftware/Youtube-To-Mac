@@ -12,7 +12,7 @@ class YTDownloadRequest {
     var destination = "~/Desktop"
     var contentURL = ""
     var audioOnly: Bool = false
-    var fileFormat = FileFormat.defaultVideo // Default video file format
+    var fileFormat = MediaExtension.auto // Default video file format
     var progressHandler: ((Double, Error?, YTVideo?) -> Void)!
     var completionHandler: ((YTVideo?, Error?) -> Void)!
     var error: Error?
@@ -29,7 +29,7 @@ class YTDownloadRequest {
     }
 }
 
-enum FileFormat: String {
+enum MediaExtension: String {
     case mp4 = "mp4"
     case flv = "flv"
     case webm = "webm"
@@ -37,6 +37,6 @@ enum FileFormat: String {
     case mp3 = "mp3"
     case wav = "wav"
     case aac = "aac"
-    case defaultAudio = "wav/m4a/mp3/bestaudio"
-    case defaultVideo = "mp4/flv/best"
+    case mov = "mov"
+    case auto
 }

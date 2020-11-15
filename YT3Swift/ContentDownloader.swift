@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 protocol ContentDownloaderDelegate {
     func didCompleteDownload(error: Int?)
@@ -23,12 +24,18 @@ protocol ContentDownloader {
 
 struct MediaFormat {
     var fileExtension: MediaExtension
+    //var codec: AVVideoCodecType
 }
 
-enum MediaExtension {
+/*enum MediaExtension {
     case mp4
     case wav
-}
+    case flv
+    case webm
+    case m4a
+    case mp3
+    case aac
+}*/
 
 let downloadErrors =  [
     400 : "The provided URL is invalid.",

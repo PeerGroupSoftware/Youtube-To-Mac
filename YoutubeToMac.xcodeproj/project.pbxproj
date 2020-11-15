@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		230D7EFF2560A83400894714 /* YTVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230D7EFE2560A83400894714 /* YTVideo.swift */; };
 		233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */; };
+		2355D1312560A9F400DAA19E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2355D1302560A9F400DAA19E /* Helpers.swift */; };
 		237AD174251EB9020017F257 /* youtube-dl-2020-09-20.sh in Resources */ = {isa = PBXBuildFile; fileRef = 237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */; };
 		23856E652560640A005162A2 /* ContentDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23856E642560640A005162A2 /* ContentDownloader.swift */; };
 		23856E672560641F005162A2 /* YTDLDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23856E662560641F005162A2 /* YTDLDownloader.swift */; };
@@ -40,7 +42,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		230D7EFE2560A83400894714 /* YTVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTVideo.swift; sourceTree = "<group>"; };
 		233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingPreferencesViewController.swift; sourceTree = "<group>"; };
+		2355D1302560A9F400DAA19E /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-09-20.sh"; sourceTree = "<group>"; };
 		23856E642560640A005162A2 /* ContentDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDownloader.swift; sourceTree = "<group>"; };
 		23856E662560641F005162A2 /* YTDLDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTDLDownloader.swift; sourceTree = "<group>"; };
@@ -129,8 +133,10 @@
 				23F92A4225604AD60056F5C8 /* DownloadHistoryManager.swift */,
 				B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */,
 				23856E642560640A005162A2 /* ContentDownloader.swift */,
+				230D7EFE2560A83400894714 /* YTVideo.swift */,
 				23856E6825606424005162A2 /* Downloaders */,
 				C87CB87420066C90008AA662 /* Extensions.swift */,
+				2355D1302560A9F400DAA19E /* Helpers.swift */,
 				B77E6A681E9BCEFC001CFE77 /* Assets.xcassets */,
 				B77E6A6A1E9BCEFC001CFE77 /* Main.storyboard */,
 				B77E6A6D1E9BCEFC001CFE77 /* Info.plist */,
@@ -250,6 +256,7 @@
 			files = (
 				23F92A4325604AD60056F5C8 /* DownloadHistoryManager.swift in Sources */,
 				B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */,
+				230D7EFF2560A83400894714 /* YTVideo.swift in Sources */,
 				B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */,
 				B78D7FA322CAA687009170F8 /* PreferencesViewController.swift in Sources */,
 				B7058DB822B6D392001E818D /* Downloader.swift in Sources */,
@@ -258,6 +265,7 @@
 				23856E652560640A005162A2 /* ContentDownloader.swift in Sources */,
 				B7C45E1A20044C7400473CF8 /* MainWindowController.swift in Sources */,
 				B78D7FA022CAA559009170F8 /* PreferencesWindowController.swift in Sources */,
+				2355D1312560A9F400DAA19E /* Helpers.swift in Sources */,
 				233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */,
 				23F92A41256041250056F5C8 /* MediaConverter.swift in Sources */,
 				B7058DBA22B6DB20001E818D /* YTDownloadRequest.swift in Sources */,

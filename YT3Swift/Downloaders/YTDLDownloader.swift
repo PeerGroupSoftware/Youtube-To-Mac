@@ -14,7 +14,7 @@ class YTDLDownloader: ContentDownloader {
     private var errorPipe:Pipe!
     private var downloadTask:Process!
     private let downloadQOS: DispatchQoS.QoSClass  = .userInitiated
-    private let executableName = "youtube-dl-2020-11-01"
+    static let executableName = "youtube-dl-2020-11-01"
     
     // If an error contains the string, the error matching the code is called
     private let errors: [(String, Int)] = [
@@ -34,7 +34,7 @@ class YTDLDownloader: ContentDownloader {
         
         downloadQueue.async {
             
-            let executablePath = Bundle.main.path(forResource: self.executableName, ofType: "sh")
+            let executablePath = Bundle.main.path(forResource: YTDLDownloader.executableName, ofType: "sh")
             self.downloadTask = Process()
             
             if #available(OSX 10.13, *) {

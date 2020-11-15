@@ -48,15 +48,3 @@ class previousVideoCellView: NSTableCellView {
     }
     
 }
-
-class YTVideo {
-    var name = ""
-    var url = ""
-    var diskPath = ""
-    var isAudioOnly = false
-    
-    convenience init(name: String) {
-        self.init()
-        self.name = name
-    }
-}

@@ -18,9 +18,7 @@ class Downloader: ContentDownloaderDelegate {
     var saveLocation = "~/Desktop"
     var currentVideo = YTVideo()
     var cachedRequest: YTDownloadRequest?
-    //private var outputPipe:Pipe!
-    //private var errorPipe:Pipe!
-    private var downloadTask:Process!
+    //private var downloadTask:Process!
     static let videoFormats = ["Auto", "mp4", "flv", "webm"]
     static let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
     private let defaultQOS: DispatchQoS.QoSClass  = .userInitiated
@@ -30,6 +28,15 @@ class Downloader: ContentDownloaderDelegate {
     
     var downloader: ContentDownloader = YTDLDownloader()
     
+    static func allFormats(for contentType: FormatType) -> [MediaExtension] {
+        switch contentType {
+        case .video:
+            return [.mp4, .flv, .webm, .mov]
+        case .audio:
+            return [.m4a, .mp3, .wav, .aac]
+        }
+    }
+    
     func downloadContent(with downloadRequest: YTDownloadRequest) {
         downloadContent(from: downloadRequest.contentURL, toLocation: downloadRequest.destination, audioOnly: downloadRequest.audioOnly, fileFormat: downloadRequest.fileFormat, progress: downloadRequest.progressHandler!, completionHandler: downloadRequest.completionHandler)
         
@@ -37,16 +44,19 @@ class Downloader: ContentDownloaderDelegate {
     }
     
     func terminateDownload() {
-        downloadTask.terminate()
+        //downloadTask.terminate()
     }
     
-    func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
+    func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: MediaExtension, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
         
         downloader.delegate = self
         self.progressHandler = progressHandler
         self.completionHandler = completionHandler
         
-        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: .mp4), to: URL(string: downloadDestination)!, completion: {
+        currentVideo.url = targetURL
+        currentVideo.isAudioOnly = audioOnly
+        
+        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: fileFormat), to: URL(string: downloadDestination)!, completion: {
             completionHandler(nil, nil)
         })
         
@@ -252,8 +262,75 @@ class Downloader: ContentDownloaderDelegate {
         }
     }*/
     
-    func getFormats(for: YTVideo, completion: ([MediaFormat], Error?) -> Void) {
+    func getFormats(for targetVideo: YTVideo, completion: @escaping ([MediaFormat], Error?) -> Void) {
+        let executablePath = Bundle.main.path(forResource: YTDLDownloader.executableName, ofType: "sh")
         
+        let outputPipe = Pipe()
+        let errorPipe = Pipe()
+        let fetchInfoTask = Process()
+        
+        var retreivedJSONString = ""
+        var foundFormats: [MediaFormat] = []
+        
+        
+        if #available(OSX 10.13, *) {
+            fetchInfoTask.executableURL = URL(fileURLWithPath: executablePath!)
+        } else {
+            fetchInfoTask.launchPath = executablePath
+        }
+        
+        fetchInfoTask.arguments = ["--dump-json", targetVideo.url]
+        fetchInfoTask.qualityOfService = .default
+        
+        fetchInfoTask.standardOutput = outputPipe
+        fetchInfoTask.standardError = errorPipe
+        outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        
+        fetchInfoTask.terminationHandler = {(process) in
+            print("Finsihed checking JSON")
+            //fetchInfoTask.standardOutput = nil
+            do {
+                let dataResponse = retreivedJSONString.data(using: .utf8)!
+                //print(dataResponse)
+                    let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: []) as? [String : Any]
+                let retreivedFormats = (jsonResponse!["formats"] as! [[String: Any]])
+                print(retreivedFormats)
+                for format in retreivedFormats {
+                    print("\(format["ext"] ?? "unknown") - \(format["width"] ?? 0)x\(format["height"] ?? 0)")
+                    guard let newExtension = MediaExtension(rawValue: (format["ext"] as! String) ?? "unknown") else {return}
+                    foundFormats.append(MediaFormat(fileExtension: newExtension))
+                }
+            } catch {
+               print(error)
+                completion([], error)
+            }
+            completion(foundFormats, nil)
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading , queue: nil) { notification in
+            let output = outputPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            
+            retreivedJSONString += (outputString)
+            if !outputString.isEmpty {
+                outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: errorPipe.fileHandleForReading , queue: nil) { notification in
+            let output = errorPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            
+            print(outputString)
+            if !outputString.isEmpty {
+                errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+            }
+        }
+        fetchInfoTask.waitUntilExit()
+        
+        try! fetchInfoTask.run()
+        //("REsumed?")
     }
     
     func fetchJSON(from targetURL: URL, completion: @escaping ([String: Any]?, Error?) -> Void) {

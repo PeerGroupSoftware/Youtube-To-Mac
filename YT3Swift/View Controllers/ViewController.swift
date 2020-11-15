@@ -63,7 +63,7 @@ class ViewController: NSViewController {
         
         //set video formats in UI
         formatPopup.removeAllItems()
-        formatPopup.addItems(withTitles: Downloader.videoFormats)
+        formatPopup.addItems(withTitles: ["Auto"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue}))
         
         downloadLocationButton.setAsFolderButton()
         
@@ -85,12 +85,22 @@ class ViewController: NSViewController {
         recentVideosLabel.addGestureRecognizer(recentVideosLabelGestureRecognizer)
     }
     
-    @objc func changeWindowSizeLabel() {
-        if recentVideosDisclosureTriangle.integerValue == 1 {
-            recentVideosDisclosureTriangle.integerValue = 0
-        } else {
-            recentVideosDisclosureTriangle.integerValue = 1
+    @IBAction func urlFieldAction(_ sender: NSTextField) {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        if (detector.numberOfMatches(in: sender.stringValue, options: [], range: NSRange(location: 0, length: sender.stringValue.utf16.count))) == 1 {
+            Downloader().getFormats(for: YTVideo(name: "", url: sender.stringValue), completion: {(formats, error) in
+                print(formats, error)
+            })
         }
+    }
+    
+    @objc func changeWindowSizeLabel() {
+        /*if recentVideosDisclosureTriangle.state == .on {
+            recentVideosDisclosureTriangle.state = .off
+        } else {
+            recentVideosDisclosureTriangle.state = .on
+        }*/
+        recentVideosDisclosureTriangle.state = (recentVideosDisclosureTriangle.state == .on) ? .off : .on
         toggleWindowSize(recentVideosDisclosureTriangle)
     }
     
@@ -113,8 +123,8 @@ class ViewController: NSViewController {
     
     @IBAction func toggleWindowSize(_ sender: NSButton) {
         
-        switch (sender.integerValue) {
-        case 1:
+        switch (sender.state) {
+        case .on:
             NSAnimationContext.runAnimationGroup({_ in
                 NSAnimationContext.current.duration = 0.5
                 if previousVideosTableView.numberOfRows != 0 {clearTableViewButton.animator().isHidden = false}
@@ -130,7 +140,7 @@ class ViewController: NSViewController {
                 bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
             }, completionHandler:{
             })
-        case 0:
+        case .off:
             //let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
             
             // view.window?.setFrame(newWindowFrame, display: true, animate: true)
@@ -165,14 +175,14 @@ class ViewController: NSViewController {
     
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
         if sender.selectedItem?.title != "Auto" {
-            currentRequest.fileFormat = FileFormat(rawValue:(sender.selectedItem?.title)!)!
+            currentRequest.fileFormat = MediaExtension(rawValue:(sender.selectedItem?.title)!)!
         } else {
             switch audioBox.integerValue {
             case 1:
-                currentRequest.fileFormat = .defaultAudio
+               // currentRequest.fileFormat = .defaultAudio
                 print("set to audio")
             case 0:
-                currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
+               // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -205,10 +215,10 @@ class ViewController: NSViewController {
         if formatPopup.selectedItem?.title == "Auto" {
             switch sender.integerValue {
             case 1:
-                currentRequest.fileFormat = .defaultAudio//"wav/m4a/mp3/bestaudio"
+                currentRequest.fileFormat = .auto//"wav/m4a/mp3/bestaudio"
                 print("set to audio")
             case 0:
-                currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
+                currentRequest.fileFormat = .auto//"mp4/flv/best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -246,13 +256,14 @@ class ViewController: NSViewController {
                     if progress == 100 && videoInfo != nil {
                         self.setDownloadInterface(to: false)
                     }
-                } else {
+                } else if progress != 100 {
                     DispatchQueue.main.async {self.URLField.stringValue = videoInfo!.name}
                 }
             }
             }
             
             currentRequest.completionHandler = { (video, error) in
+                print("COMPLETION HANDLER")
                 DispatchQueue.main.async {
                 self.URLField.stringValue = ""
                 sender.isEnabled = true
