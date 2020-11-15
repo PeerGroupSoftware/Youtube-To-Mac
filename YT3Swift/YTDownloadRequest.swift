@@ -13,6 +13,7 @@ class YTDownloadRequest {
     var contentURL = ""
     var audioOnly: Bool = false
     var fileFormat = MediaExtension.auto // Default video file format
+    var directFormats: [MediaFormat] = []
     var progressHandler: ((Double, Error?, YTVideo?) -> Void)!
     var completionHandler: ((YTVideo?, Error?) -> Void)!
     var error: Error?

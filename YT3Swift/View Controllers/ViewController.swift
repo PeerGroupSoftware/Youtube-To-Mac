@@ -92,13 +92,6 @@ class ViewController: NSViewController {
         recentVideosLabel.addGestureRecognizer(recentVideosLabelGestureRecognizer)
     }
     
-    @IBAction func urlFieldAction(_ sender: NSTextField) {
-       // if sender.stringValue.containsURL() {
-            loadVideoFormats()
-            
-      //  }
-    }
-    
     @objc func loadVideoFormats() {
         if URLField.stringValue.containsURL() {
         DispatchQueue.main.async {
@@ -123,11 +116,17 @@ class ViewController: NSViewController {
                     }
                 }
             }
-            let directFormats = formats.compactMap({$0.fileExtension})
+           // let directFormats = formats.compactMap({$0.fileExtension})
             print(formats)
+            self.currentRequest.directFormats = formats
             //print(Downloader.allFormats(for: .video))
            // print(directFormats + MediaConverter.availableVideoFormats)
         })
+        } else {
+            print("No URL detected")
+            if self.controlsPopover != nil {
+                (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
+            }
         }
     }
     
@@ -144,8 +143,8 @@ class ViewController: NSViewController {
             controlsPopover?.performClose(self)
         } else {
             controlsPopover!.show(relativeTo: sender.frame, of: view, preferredEdge: .minY)
+            (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(currentRequest.directFormats.isEmpty ? .waiting : .found)
         }
-        //self.present(popoverVC, asPopoverRelativeTo: sender.bounds, of: sender, preferredEdge: .maxY, behavior: .semitransient)
     }
     
     @objc func changeWindowSizeLabel() {

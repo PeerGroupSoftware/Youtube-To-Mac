@@ -867,9 +867,6 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                 </textFieldCell>
-                                <connections>
-                                    <action selector="urlFieldAction:" target="XfG-lQ-9wD" id="n8p-QL-xjJ"/>
-                                </connections>
                             </textField>
                             <popUpButton toolTip="Request format" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XHB-NN-yC5">
                                 <rect key="frame" x="348" y="206" width="82" height="27"/>
