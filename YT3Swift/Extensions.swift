@@ -26,6 +26,13 @@ extension NSButton {
     }
 }
 
+extension String {
+    func containsURL() -> Bool {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        return (detector.numberOfMatches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))) >= 1
+    }
+}
+
 
 extension NSTextField {
     func underlined(){

@@ -25,9 +25,15 @@ class ViewController: NSViewController {
     @IBOutlet weak var bigConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var recentVideosDisclosureTriangle: NSButton!
+    @IBOutlet weak var controlsButton: NSButton!
+    @IBOutlet weak var controlsLoadingIndicator: NSProgressIndicator!
     
     var bottomConstraintConstant: Int = 0
     let defaultBottomConstant = 9
+    private var controlsPopover: NSPopover?
+    
+    private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
+    private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
     
     
     
@@ -59,11 +65,12 @@ class ViewController: NSViewController {
         
         URLField.focusRingType = .none
         URLField.underlined()
+        URLField.delegate = self
         mainViewController = self
         
         //set video formats in UI
         formatPopup.removeAllItems()
-        formatPopup.addItems(withTitles: ["Auto"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue}))
+        formatPopup.addItems(withTitles: videoFormatsList)
         
         downloadLocationButton.setAsFolderButton()
         
@@ -86,20 +93,59 @@ class ViewController: NSViewController {
     }
     
     @IBAction func urlFieldAction(_ sender: NSTextField) {
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if (detector.numberOfMatches(in: sender.stringValue, options: [], range: NSRange(location: 0, length: sender.stringValue.utf16.count))) == 1 {
-            Downloader().getFormats(for: YTVideo(name: "", url: sender.stringValue), completion: {(formats, error) in
-                let directFormats = formats.compactMap({$0.fileExtension})
-                print(formats)
-                print(Downloader.allFormats(for: .video))
-                print(directFormats + MediaConverter.availableVideoFormats)
-            })
+       // if sender.stringValue.containsURL() {
+            loadVideoFormats()
+            
+      //  }
+    }
+    
+    @objc func loadVideoFormats() {
+        if URLField.stringValue.containsURL() {
+        DispatchQueue.main.async {
+            if !(self.controlsPopover?.isShown ?? false) {
+                self.controlsLoadingIndicator.startAnimation(self)
+                self.controlsButton.isHidden = true
+            } else {
+                (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
+            }
+        }
+        Downloader().getFormats(for: YTVideo(name: "", url: URLField.stringValue), completion: {(formats, error) in
+            DispatchQueue.main.async {
+                if !(self.controlsPopover?.isShown ?? false) {
+                    if !formats.isEmpty {self.controlsButton.isEnabled = true}
+                    self.controlsLoadingIndicator.stopAnimation(self)
+                    self.controlsButton.isHidden = false
+                } else {
+                    if formats.isEmpty {
+                        (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
+                    } else {
+                        (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
+                    }
+                }
+            }
+            let directFormats = formats.compactMap({$0.fileExtension})
+            print(formats)
+            //print(Downloader.allFormats(for: .video))
+           // print(directFormats + MediaConverter.availableVideoFormats)
+        })
         }
     }
     
     @IBAction func videoControlsPopover(_ sender: NSButton) {
-        let popoverVC = NSStoryboard.main?.instantiateController(withIdentifier: "ContentControlsPopover") as! NSViewController
-        self.present(popoverVC, asPopoverRelativeTo: sender.bounds, of: sender, preferredEdge: .maxY, behavior: .semitransient)
+        if controlsPopover == nil {
+            let popoverVC = NSStoryboard.main?.instantiateController(withIdentifier: "ContentControlsPopover") as! FormatControlsVC
+            let popover = NSPopover()
+            popover.contentViewController = popoverVC
+            popover.behavior = .semitransient
+            controlsPopover = popover
+        }
+        
+        if (controlsPopover?.isShown ?? false) {
+            controlsPopover?.performClose(self)
+        } else {
+            controlsPopover!.show(relativeTo: sender.frame, of: view, preferredEdge: .minY)
+        }
+        //self.present(popoverVC, asPopoverRelativeTo: sender.bounds, of: sender, preferredEdge: .maxY, behavior: .semitransient)
     }
     
     @objc func changeWindowSizeLabel() {
@@ -182,12 +228,13 @@ class ViewController: NSViewController {
     }
     
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
-        if sender.selectedItem?.title != "Auto" {
+        if  !["Auto", "Manual"].contains(sender.selectedItem?.title) {
             currentRequest.fileFormat = MediaExtension(rawValue:(sender.selectedItem?.title)!)!
         } else {
             switch audioBox.integerValue {
             case 1:
                // currentRequest.fileFormat = .defaultAudio
+               // currentRequest.fileFormat = .
                 print("set to audio")
             case 0:
                // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
@@ -211,11 +258,11 @@ class ViewController: NSViewController {
         case 1:
             //print("set audio formats")
             formatPopup.removeAllItems()
-            formatPopup.addItems(withTitles: ["Auto"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue}))
+            formatPopup.addItems(withTitles: audioFormatsList/*["Auto"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue})*/)
         case 0:
             // print("set video formats")
             formatPopup.removeAllItems()
-            formatPopup.addItems(withTitles: ["Auto"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue}))
+            formatPopup.addItems(withTitles: videoFormatsList/*["Auto"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})*/)
         default:
             print("Audio button error")
         }
@@ -271,7 +318,7 @@ class ViewController: NSViewController {
             }
             
             currentRequest.completionHandler = { (video, error) in
-                print("COMPLETION HANDLER")
+                //print("COMPLETION HANDLER")
                 DispatchQueue.main.async {
                 self.URLField.stringValue = ""
                 sender.isEnabled = true
@@ -451,4 +498,17 @@ class ViewController: NSViewController {
     }
     
     
+}
+
+extension ViewController: NSTextFieldDelegate {
+    func controlTextDidChange(_ obj: Notification) {
+            NSObject.cancelPreviousPerformRequests(
+                   withTarget: self,
+                   selector: #selector(ViewController.loadVideoFormats),
+                   object: nil)
+            self.perform(
+                    #selector(ViewController.loadVideoFormats),
+                    with: nil,
+                    afterDelay: 0.6)
+    }
 }
