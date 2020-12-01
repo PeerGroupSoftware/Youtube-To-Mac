@@ -21,12 +21,16 @@ class Downloader: ContentDownloaderDelegate {
     //private var downloadTask:Process!
     static let videoFormats = ["Auto", "mp4", "flv", "webm"]
     static let audioFormats = ["Auto", "m4a", "mp3", "wav", "aac"]
+    static let downloadsFolder = try! FileManager.default.url(for: .downloadsDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    static let desktopFolder = try! FileManager.default.url(for: .desktopDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    
     private let defaultQOS: DispatchQoS.QoSClass  = .userInitiated
     
     var progressHandler: ((Double, Error?, YTVideo?) -> Void)?
     var completionHandler: ((YTVideo?, Error?) -> Void)?
     
     var downloader: ContentDownloader = YTDLDownloader()
+    private let mediaConverter = MediaConverter()
     
     static func allFormats(for contentType: FormatType) -> [MediaExtension] {
         switch contentType {
@@ -47,7 +51,7 @@ class Downloader: ContentDownloaderDelegate {
         //downloadTask.terminate()
     }
     
-    func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: MediaExtension, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
+    func downloadContent(from targetURL: String, toLocation downloadDestination: URL, audioOnly: Bool, fileFormat: MediaExtension, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
         
         downloader.delegate = self
         self.progressHandler = progressHandler
@@ -56,8 +60,21 @@ class Downloader: ContentDownloaderDelegate {
         currentVideo.url = targetURL
         currentVideo.isAudioOnly = audioOnly
         
-        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: fileFormat), to: URL(string: downloadDestination)!, completion: {
-            completionHandler(nil, nil)
+        var downloadFormat = fileFormat
+        
+        if fileFormat == .mov {
+            downloadFormat = .mp4
+        }
+        
+        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: downloadFormat), to: downloadDestination, completion: { downloadedFile in
+            
+            if fileFormat == .mov {
+                self.mediaConverter.convert(videoAt: downloadedFile, withID: "12345", to: .mov, destination: nil, completion: {(error) in
+                    print(error)
+               })
+           } else {
+                completionHandler(nil, nil)
+            }
         })
         
         /*
@@ -311,9 +328,9 @@ class Downloader: ContentDownloaderDelegate {
                     
                     for codec in YTCodec.allCases {
                         if ((format["acodec"] as? String) ?? "unknown").contains(codec.rawValue) {
-                            newFormat.codec = codec
+                            newFormat.audioCodec = codec
                         } else if ((format["vcodec"] as? String) ?? "unknown").contains(codec.rawValue) {
-                            newFormat.codec = codec
+                            newFormat.videoCodec = codec
                         }
                     }
                     
@@ -334,7 +351,7 @@ class Downloader: ContentDownloaderDelegate {
             }
             
             if useableOnly {
-                foundFormats = foundFormats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
+                foundFormats = foundFormats.filter({$0.audioCodec == .mp4a || $0.videoCodec == .avc1})
             }
             completion(foundFormats, nil)
         }

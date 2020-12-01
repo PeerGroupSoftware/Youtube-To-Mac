@@ -18,14 +18,15 @@ protocol ContentDownloaderDelegate {
 protocol ContentDownloader {
     var delegate: ContentDownloaderDelegate? { get set }
     
-    func download(content: String, with: MediaFormat, to: URL, completion: () -> Void)
+    func download(content: String, with: MediaFormat, to: URL, completion: @escaping (URL) -> Void)
     
 }
 
 struct MediaFormat {
     var fileExtension: MediaExtension
     var size: NSSize?
-    var codec: YTCodec?
+    var videoCodec: YTCodec?
+    var audioCodec: YTCodec?
     var audioOnly: Bool = false
     var sizeString: String?
     var fps: Int?

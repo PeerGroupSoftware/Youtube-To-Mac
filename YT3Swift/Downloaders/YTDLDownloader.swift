@@ -16,6 +16,8 @@ class YTDLDownloader: ContentDownloader {
     private let downloadQOS: DispatchQoS.QoSClass  = .userInitiated
     static let executableName = "youtube-dl-2020-11-01"
     
+    private var videoName = ""
+    
     // If an error contains the string, the error matching the code is called
     private let errors: [(String, Int)] = [
         ("requested format not available", 415),
@@ -29,7 +31,7 @@ class YTDLDownloader: ContentDownloader {
     
     var isRunning = false
     
-    func download(content targetURL: String, with targetFormat: MediaFormat, to downloadDestination: URL, completion: () -> Void) {
+    func download(content targetURL: String, with targetFormat: MediaFormat, to downloadDestination: URL, completion: @escaping (URL) -> Void) {
         let downloadQueue = DispatchQueue.global(qos: downloadQOS)
         
         downloadQueue.async {
@@ -44,11 +46,13 @@ class YTDLDownloader: ContentDownloader {
             }
             
             self.downloadTask.arguments = ["-f \(targetFormat.fileExtension)", "-o%(title)s.%(ext)s", targetURL]
-            self.downloadTask.currentDirectoryPath = downloadDestination.absoluteString
+            print(downloadDestination.absoluteString)
+            self.downloadTask.currentDirectoryPath = downloadDestination.absoluteString.replacingOccurrences(of: "file://", with: "")
             
             self.downloadTask.terminationHandler = { task in
                 DispatchQueue.main.async(execute: {
                     self.isRunning = false
+                    completion(downloadDestination.appendingPathComponent(self.videoName, isDirectory: false).appendingPathExtension(targetFormat.fileExtension.rawValue))
                 })
                 
             }
@@ -112,6 +116,7 @@ class YTDLDownloader: ContentDownloader {
                     videonameString.removeLast(4) // Remove extension // This should probably be made better, don't assume extension length
                     if self.delegate != nil {
                         self.delegate?.didGetVideoName(videonameString)
+                        self.videoName = videonameString
                     }
                     print(videonameString)
                 } else {

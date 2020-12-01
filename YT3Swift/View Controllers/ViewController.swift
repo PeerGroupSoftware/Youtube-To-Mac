@@ -108,13 +108,13 @@ class ViewController: NSViewController {
                     if !formats.isEmpty {self.controlsButton.isEnabled = true}
                     self.controlsLoadingIndicator.stopAnimation(self)
                     self.controlsButton.isHidden = false
-                } /*else {
+                } else {
                     if formats.isEmpty {
                         (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
                     } else {
                         (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
                     }
-                }*/
+                }
             }
             //let directUsableFormats = formats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
             print(formats.sorted(by: {($0.size?.height ?? 0)<($1.size?.height ?? 0)}))
@@ -216,7 +216,7 @@ class ViewController: NSViewController {
             if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
                 let path = locationSelectPanel.url!.path
                 print("selected folder is \(path)")
-                self.currentRequest.destination = path
+                self.currentRequest.destination = URL(fileURLWithPath: path)
             }
         })
         
@@ -289,11 +289,11 @@ class ViewController: NSViewController {
         currentRequest.error = nil
         
         //print("destination: \(currentRequest.destination)")
-        if currentRequest.destination == "~/Desktop" || currentRequest.destination == "~/Downloads" {
+        if currentRequest.destination == Downloader.desktopFolder || currentRequest.destination == Downloader.downloadsFolder {
             if (UserDefaults.standard.string(forKey: "DownloadDestination") ?? "") == "downloads" {
-                currentRequest.destination = "~/Downloads"
+                currentRequest.destination = Downloader.downloadsFolder//"~/Downloads"
             } else {
-                currentRequest.destination = "~/Desktop"
+                currentRequest.destination = Downloader.desktopFolder
             }
         }
         
@@ -322,9 +322,9 @@ class ViewController: NSViewController {
                 let downloadNotification = NSUserNotification()
                 let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
                 var downloadDestination = ""
-                if self.currentRequest.destination == "~/Desktop" {
+                if self.currentRequest.destination == Downloader.desktopFolder {
                     downloadDestination = "Desktop"
-                } else if self.currentRequest.destination == "~/Downloads" {
+                } else if self.currentRequest.destination == Downloader.downloadsFolder {
                     downloadDestination = "Downloads"
                 }
                 
@@ -391,6 +391,7 @@ class ViewController: NSViewController {
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
                     self.audioBox.animator().isHidden = true
+                    self.controlsButton.animator().isHidden = true
                     self.recentVideosLabel.animator().isHidden = true
                     self.recentVideosDisclosureTriangle.animator().isHidden = true
                     self.formatPopup.animator().isHidden = true
@@ -408,6 +409,7 @@ class ViewController: NSViewController {
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = true
                     self.audioBox.animator().isHidden = false
+                    self.controlsButton.animator().isHidden = false
                     self.downloadLocationButton.isEnabled = true
                     self.recentVideosLabel.animator().isHidden = false
                     self.recentVideosDisclosureTriangle.animator().isHidden = false

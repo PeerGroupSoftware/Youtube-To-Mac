@@ -9,7 +9,7 @@
 import Foundation
 
 class YTDownloadRequest {
-    var destination = "~/Desktop"
+    var destination: URL = Downloader.desktopFolder //"~/Desktop"
     var contentURL = ""
     var audioOnly: Bool = false
     var fileFormat = MediaExtension.auto // Default video file format
@@ -18,7 +18,7 @@ class YTDownloadRequest {
     var completionHandler: ((YTVideo?, Error?) -> Void)!
     var error: Error?
     
-    convenience init(contentURL: String, destination: String) {
+    convenience init(contentURL: String, destination: URL) {
         self.init()
         self.contentURL = contentURL
         self.destination = destination
