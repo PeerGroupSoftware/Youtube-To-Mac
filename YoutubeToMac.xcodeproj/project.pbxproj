@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23273A3C257AEAA800975BC9 /* youtube-dl-2020-12-05.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23273A3B257AEAA800975BC9 /* youtube-dl-2020-12-05.sh */; };
 		233DF4F424E4B2F60070F015 /* DownloadingPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */; };
 		237AD174251EB9020017F257 /* youtube-dl-2020-09-20.sh in Resources */ = {isa = PBXBuildFile; fileRef = 237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */; };
 		23875D492559E533008D19AE /* youtube-dl-2020-11-01.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */; };
@@ -36,6 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		23273A3B257AEAA800975BC9 /* youtube-dl-2020-12-05.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-12-05.sh"; sourceTree = "<group>"; };
 		233DF4F324E4B2F60070F015 /* DownloadingPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingPreferencesViewController.swift; sourceTree = "<group>"; };
 		237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-09-20.sh"; sourceTree = "<group>"; };
 		23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-11-01.sh"; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			children = (
 				237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */,
 				23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */,
+				23273A3B257AEAA800975BC9 /* youtube-dl-2020-12-05.sh */,
 			);
 			path = YoutubeDL;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				B77E6A691E9BCEFC001CFE77 /* Assets.xcassets in Resources */,
 				237AD174251EB9020017F257 /* youtube-dl-2020-09-20.sh in Resources */,
 				23875D492559E533008D19AE /* youtube-dl-2020-11-01.sh in Resources */,
+				23273A3C257AEAA800975BC9 /* youtube-dl-2020-12-05.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +379,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -386,7 +390,7 @@
 				INFOPLIST_FILE = YT3Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks $(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeerGroupSoftware.YoutubeToMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -403,7 +407,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -414,7 +418,7 @@
 				INFOPLIST_FILE = YT3Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks $(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeerGroupSoftware.YoutubeToMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";

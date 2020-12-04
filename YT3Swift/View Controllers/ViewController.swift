@@ -239,6 +239,7 @@ class ViewController: NSViewController {
             setDownloadInterface(to: true)
             
             currentRequest.progressHandler = {(progress, error, videoInfo) in
+                //print("PROGRESS HANDLER")
                 if progress >= 0 {
                     self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
                     if progress == 100 && videoInfo != nil {
@@ -264,6 +265,8 @@ class ViewController: NSViewController {
             }
             
             currentRequest.completionHandler = { (video, error) in
+                DispatchQueue.main.async {
+                    //Thread.current.name = "COMPLETION: \(video?.name)"
                 self.URLField.stringValue = ""
                 sender.isEnabled = true
                 
@@ -298,9 +301,10 @@ class ViewController: NSViewController {
                 print(previousVideos.first?.name ?? "")
                 
             }
-            
-            downloader.downloadContent(with: currentRequest)
+            }
+                self.downloader.downloadContent(with: self.currentRequest)
             //URLField.selec
+            
         } else {
             if (sender.identifier?.rawValue) ?? "" == "downloadTBButton" {
                 DispatchQueue.main.async {sender.isEnabled = true}

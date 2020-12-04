@@ -31,8 +31,9 @@ class Downloader {
         cachedRequest = downloadRequest
     }
     
-    func terminateDownload() {
+    func terminateDownload() -> Bool {
         downloadTask.terminate()
+        return downloadTask.isRunning
     }
     
     func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
@@ -45,6 +46,8 @@ class Downloader {
         
         isRunning = true
         let taskQueue = DispatchQueue.global(qos: defaultQOS)
+        
+        
         
         taskQueue.async {
             
@@ -62,27 +65,38 @@ class Downloader {
             self.downloadTask.terminationHandler = {
                 
                 task in
-                DispatchQueue.main.async(execute: {
+               // DispatchQueue.main.async(execute: {
                     print("Stopped")
                     let terminationReason = self.downloadTask.terminationReason.rawValue
+                //DispatchQueue.main.async {
                     progressHandler(100, nil, nil)
+             //   }
                     //print(terminationReason)
                     if terminationReason == 2 {
                        // completionHandler(self.currentVideo, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
                         //progressHandler(100, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]), self.currentVideo)
-                        completionHandler(self.currentVideo,NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
+                       // DispatchQueue.main.async {
+                            completionHandler(self.currentVideo,NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
+                      //  }
                     } else {
-                        completionHandler(self.currentVideo, nil)
+                     //   DispatchQueue.main.async {
+                            completionHandler(self.currentVideo, nil)
+                      //  }
                     }
                     self.currentVideo = YTVideo()
+                if self.outputPipe != nil {
                     if self.outputPipe.description.contains("must provide") {
                         print("error")
                     }
+                }
+                
                     self.isRunning = false
-                })
+              //  })
                 
             }
             
+            //if !audioOnly {
+                //print("GETTING STANDARD OUTPUT")
             self.captureStandardOutput(self.downloadTask, progressHandler: {(percent) in
                 progressHandler(percent, nil, nil)
             }, errorHandler: {(error) in
@@ -95,15 +109,23 @@ class Downloader {
                 progressHandler(-1, nil, videoInfo)
                 //print("SENT \"\(videoInfo.name)\"")
             })
+           // }
             
+           // if !audioOnly {
+                //print("GETTING ERROR")
             self.readError(self.downloadTask, errorHandler: {(error) in
                 progressHandler(100, error, self.currentVideo)
             })
+           // }
+            
             if #available(OSX 10.13, *) {
                 try! self.downloadTask.run()
             } else {
                 self.downloadTask.launch()
             }
+            //Thread.current.name = "DOWNLOAD: \(targetURL)"
+            
+            //print("THREAD: \(Thread.current.name)")
             self.downloadTask.waitUntilExit()
             
         }
@@ -118,38 +140,43 @@ class Downloader {
         task.standardError = errorPipe
         errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
         
+        
+        print ("ERROR FUNC 2")
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: errorPipe.fileHandleForReading , queue: nil) {
             notification in
+            print ("ERROR FUNC")
             
             let output = self.errorPipe.fileHandleForReading.availableData
-            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            let errorString = String(data: output, encoding: String.Encoding.utf8) ?? ""
             
-            if !outputString.isEmpty {
+            
+            if !errorString.isEmpty {
                 print("got error")
-                print("ERROR: \(outputString)")
+                print("ERROR: \(errorString)")
                 
-                if outputString.contains("requested format not available") {
+                if errorString.contains("requested format not available") {
                     print("format not available")
                     self.sendFatalError(error: NSError(domain: "", code: 415, userInfo: [NSLocalizedDescriptionKey: "The requested format is not available for this content, please use the automatic format selection."]), handler: errorHandler)
                     
-                } else if outputString.contains("Premieres in") {
+                } else if errorString.contains("Premieres in") {
                     self.sendFatalError(error: NSError(domain: "", code: 403, userInfo: [NSLocalizedDescriptionKey: "The requested content has not yet premiered. Please try again once this content has been made available."]), handler: errorHandler)
                     
-                } else if outputString.contains("This live event will begin in") {
+                } else if errorString.contains("This live event will begin in") {
                     self.sendFatalError(error: NSError(domain: "", code: 403, userInfo: [NSLocalizedDescriptionKey: "The requested content has not yet premiered. Please try again once this content has been made available."]), handler: errorHandler)
-                } else if outputString.contains("who has blocked it on copyright grounds") {
+                } else if errorString.contains("who has blocked it on copyright grounds") {
                     print("Video was blocked")
                     self.sendFatalError(error: NSError(domain: "", code: 451, userInfo: [NSLocalizedDescriptionKey: "The requested content was blocked on copyright grounds."]), handler: errorHandler)
-                } else if outputString.contains("is not a valid URL") {
+                } else if errorString.contains("is not a valid URL") {
                     self.sendFatalError(error: NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "The provided URL is invalid."]), handler: errorHandler)
                     
-                } else if outputString.contains("Unable to extract video data") {
+                } else if errorString.contains("Unable to extract video data") {
                     self.sendFatalError(error: NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "The provided URL is invalid."]), handler: errorHandler)
-                } else if !outputString.isEmpty {
+                } else if !errorString.isEmpty {
                     //errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
                 }
                 
-                self.outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+                    self.errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
                 
             }
         }
@@ -173,6 +200,8 @@ class Downloader {
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading , queue: nil) {
             notification in
+            
+            //print ("OUTPUT FUNC")
             
             let output = self.outputPipe.fileHandleForReading.availableData
             let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
@@ -255,5 +284,5 @@ enum YoutubeDLVersion: String {
     @available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
     @available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
     //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2020-11-01"
+    case latest = "youtube-dl-2020-12-05"
 }
