@@ -33,9 +33,10 @@ class ViewController: NSViewController {
     private var controlsPopover: NSPopover?
     private var popoverState: FormatControlsVC.URLState?
     private var popoverTitle: String?
+    private var popoverFormats: [MediaFormat]?
     
     private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
-    private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
+    private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue})
     
     
     
@@ -142,6 +143,7 @@ class ViewController: NSViewController {
                         self.setControlsPopoverState(to: .found)
                         //}
                         self.currentRequest.directFormats = formats
+                        self.setControlsPopoverFormats(to: formats)
                     }
                 
             }
@@ -173,6 +175,14 @@ class ViewController: NSViewController {
         }
     }
     
+    func setControlsPopoverFormats(to newFormats: [MediaFormat]) {
+        print("Requesting new popover formats")
+        popoverFormats = newFormats
+        if self.controlsPopover != nil {
+            DispatchQueue.main.async {(self.controlsPopover?.contentViewController as! FormatControlsVC).display(formats: newFormats)}
+        }
+    }
+    
     @IBAction func videoControlsPopover(_ sender: NSButton) {
         if controlsPopover == nil {
             let popoverVC = NSStoryboard.main?.instantiateController(withIdentifier: "ContentControlsPopover") as! FormatControlsVC
@@ -189,6 +199,7 @@ class ViewController: NSViewController {
             //print(currentRequest.directFormats)
             (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(popoverState ?? .waiting)
             (controlsPopover?.contentViewController as! FormatControlsVC).updateVideoTitle(to: popoverTitle)
+            (controlsPopover?.contentViewController as! FormatControlsVC).display(formats: popoverFormats ?? [])
         }
     }
     

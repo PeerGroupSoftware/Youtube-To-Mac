@@ -1216,6 +1216,7 @@ DQ
                                                     <rect key="frame" x="18" y="87" width="168" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="mTd-Dg-0aY"/>
+                                                        <constraint firstAttribute="width" priority="250" constant="164" id="rQF-aw-VHp"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Video Title" id="5cv-wu-i5V">
                                                         <font key="font" metaFont="systemMedium" size="13"/>
@@ -1302,8 +1303,10 @@ DQ
                     </view>
                     <connections>
                         <outlet property="formatsLoadingIndicator" destination="gzI-si-mng" id="j8w-49-sd9"/>
+                        <outlet property="formatsPopUpButton" destination="yKg-DM-J2k" id="0X5-0z-NAR"/>
                         <outlet property="instructionalLabel" destination="grQ-fL-9oX" id="p5I-Lg-w5p"/>
                         <outlet property="mainTabView" destination="a3c-Wg-hdr" id="n0p-rj-mmP"/>
+                        <outlet property="resolutionPopUpButton" destination="nGF-K9-nZg" id="ir1-Bj-Tqo"/>
                         <outlet property="videoTitleLabel" destination="bep-Qr-fKi" id="BcN-PP-3uX"/>
                     </connections>
                 </viewController>

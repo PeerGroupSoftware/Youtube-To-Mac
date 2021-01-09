@@ -428,6 +428,8 @@ class Downloader: ContentDownloaderDelegate {
             if useableOnly {
                 foundFormats = foundFormats.filter({$0.audioCodec == .mp4a || $0.videoCodec == .avc1})
             }
+            
+            self.cachedRequest?.directFormats = foundFormats
             completion(foundFormats, nil)
         }
         
