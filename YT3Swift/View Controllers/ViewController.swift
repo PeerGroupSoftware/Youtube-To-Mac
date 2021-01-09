@@ -31,6 +31,7 @@ class ViewController: NSViewController {
     var bottomConstraintConstant: Int = 0
     let defaultBottomConstant = 9
     private var controlsPopover: NSPopover?
+    private var popoverState: FormatControlsVC.URLState?
     
     private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
     private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
@@ -102,28 +103,50 @@ class ViewController: NSViewController {
                 (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
             }
         }
+            
         Downloader().getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: true, completion: {(formats, error) in
+            //print("formats: \(formats)")
             DispatchQueue.main.async {
+                print("controls popover: \(self.controlsPopover)")
                 if !(self.controlsPopover?.isShown ?? false) {
+                    print("controls popover is shown or nil")
                     if !formats.isEmpty {self.controlsButton.isEnabled = true}
                     self.controlsLoadingIndicator.stopAnimation(self)
                     self.controlsButton.isHidden = false
-                } else {
-                    if formats.isEmpty {
-                        (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
-                    } else {
-                        (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
-                    }
                 }
+                    if formats.isEmpty {
+                        print("Found formats is empty")
+                        //if self.controlsPopover != nil {
+                            //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
+                        self.setControlsPopoverState(to: .waiting)
+                       // }
+                    } else {
+                        print("Found formats is NOT empty")
+                        //if self.controlsPopover != nil {
+                            //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
+                        self.setControlsPopoverState(to: .found)
+                        //}
+                        self.currentRequest.directFormats = formats
+                    }
+                
             }
             //let directUsableFormats = formats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
             print(formats.sorted(by: {($0.size?.height ?? 0)<($1.size?.height ?? 0)}))
         })
         } else {
             print("No URL detected")
-            if self.controlsPopover != nil {
+            /*if self.controlsPopover != nil {
                 (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
-            }
+            }*/
+            setControlsPopoverState(to: .waiting)
+        }
+    }
+    
+    func setControlsPopoverState(to newState: FormatControlsVC.URLState) {
+        print("Requesting new state \(newState)")
+        popoverState = newState
+        if self.controlsPopover != nil {
+            (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(newState)
         }
     }
     
@@ -140,7 +163,8 @@ class ViewController: NSViewController {
             controlsPopover?.performClose(self)
         } else {
             controlsPopover!.show(relativeTo: sender.frame, of: view, preferredEdge: .minY)
-            (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(currentRequest.directFormats.isEmpty ? .waiting : .found)
+            //print(currentRequest.directFormats)
+            (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(popoverState ?? .waiting)
         }
     }
     
@@ -341,7 +365,9 @@ class ViewController: NSViewController {
                 
                 if self.downloadButton.isEnabled && (self.currentRequest.error == nil) && (error == nil) {
                     NSUserNotificationCenter.default.deliver(downloadNotification)
-                    self.saveVideoToHistory(video: video!)
+                    if video != nil {
+                        self.saveVideoToHistory(video: video!)
+                    }
                 } else {
                     print(self.currentRequest.error)
                 }

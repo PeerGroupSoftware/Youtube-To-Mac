@@ -19,6 +19,7 @@ class FormatControlsVC: NSViewController {
     }
     
     func setURLState(_ state: URLState) {
+        print("Received state set to \(state)")
         switch state {
         case .found:
             formatsLoadingIndicator.stopAnimation(self)

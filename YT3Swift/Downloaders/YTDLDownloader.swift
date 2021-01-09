@@ -14,7 +14,7 @@ class YTDLDownloader: ContentDownloader {
     private var errorPipe:Pipe!
     private var downloadTask:Process!
     private let downloadQOS: DispatchQoS.QoSClass  = .userInitiated
-    static let executableName = "youtube-dl-2020-11-01"
+    static let executableName = "youtube-dl-2021-01-08"
     
     private var videoName = ""
     
