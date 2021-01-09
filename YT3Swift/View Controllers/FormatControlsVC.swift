@@ -12,6 +12,7 @@ class FormatControlsVC: NSViewController {
     @IBOutlet weak var mainTabView: NSTabView!
     @IBOutlet weak var instructionalLabel: NSTextField!
     @IBOutlet weak var formatsLoadingIndicator: NSProgressIndicator!
+    @IBOutlet weak var videoTitleLabel: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,10 @@ class FormatControlsVC: NSViewController {
             instructionalLabel.isHidden = true
             formatsLoadingIndicator.startAnimation(self)
         }
+    }
+    
+    func updateVideoTitle(to newTitle: String?) {
+        videoTitleLabel.stringValue = newTitle ?? "No Content Selected"
     }
     
     enum URLState {

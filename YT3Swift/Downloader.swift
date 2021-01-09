@@ -279,6 +279,75 @@ class Downloader: ContentDownloaderDelegate {
         }
     }*/
     
+    func getTitle(for targetVideo: YTVideo, completion: @escaping (String?, Error?) -> Void) {
+        let executablePath = Bundle.main.path(forResource: YTDLDownloader.executableName, ofType: "sh")
+        
+        let outputPipe = Pipe()
+        let errorPipe = Pipe()
+        let fetchInfoTask = Process()
+        
+        var retreivedJSONString = ""
+        var foundName: String?
+        
+        if #available(OSX 10.13, *) {
+            fetchInfoTask.executableURL = URL(fileURLWithPath: executablePath!)
+        } else {
+            fetchInfoTask.launchPath = executablePath
+        }
+        
+        fetchInfoTask.arguments = ["--dump-json", targetVideo.url]
+        fetchInfoTask.qualityOfService = .default
+        fetchInfoTask.standardOutput = outputPipe
+        fetchInfoTask.standardError = errorPipe
+        outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+        
+        fetchInfoTask.terminationHandler = {(process) in
+            print("Finsihed checking JSON")
+            do {
+                let dataResponse = retreivedJSONString.data(using: .utf8)!
+                    let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: []) as? [String : Any]
+             foundName = (jsonResponse!["title"]) as! String?
+             if foundName != nil {
+                 //self.didGetVideoName(foundName!)
+                self.currentVideo.name = foundName!
+             }
+            } catch {
+               print(error)
+                completion(nil, error)
+            }
+            
+           /* if useableOnly {
+                foundFormats = foundFormats.filter({$0.audioCodec == .mp4a || $0.videoCodec == .avc1})
+            }
+            completion(foundFormats, nil)*/
+            completion(foundName, nil)
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: outputPipe.fileHandleForReading , queue: nil) { notification in
+            let output = outputPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            
+            retreivedJSONString += (outputString)
+            if !outputString.isEmpty {
+                outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+            }
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: errorPipe.fileHandleForReading , queue: nil) { notification in
+            let output = errorPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: String.Encoding.utf8) ?? ""
+            
+            print(outputString)
+            if !outputString.isEmpty {
+                errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+            }
+        }
+        fetchInfoTask.waitUntilExit()
+        
+        try! fetchInfoTask.run()
+    }
+    
     func getFormats(for targetVideo: YTVideo, useableOnly: Bool = false, completion: @escaping ([MediaFormat], Error?) -> Void) {
         let executablePath = Bundle.main.path(forResource: YTDLDownloader.executableName, ofType: "sh")
         
@@ -310,7 +379,13 @@ class Downloader: ContentDownloaderDelegate {
             do {
                 let dataResponse = retreivedJSONString.data(using: .utf8)!
                 //print(dataResponse)
+                //print(retreivedJSONString)
                     let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: []) as? [String : Any]
+                var foundTitle = (jsonResponse!["title"]) as! String?
+                if foundTitle != nil {
+                    //self.didGetVideoName(foundTitle!)
+                    self.currentVideo.name = foundTitle!
+                }
                 let retreivedFormats = (jsonResponse!["formats"] as! [[String: Any]])
                 //print(retreivedFormats)
                 for format in retreivedFormats {

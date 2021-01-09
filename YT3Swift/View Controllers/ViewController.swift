@@ -32,6 +32,7 @@ class ViewController: NSViewController {
     let defaultBottomConstant = 9
     private var controlsPopover: NSPopover?
     private var popoverState: FormatControlsVC.URLState?
+    private var popoverTitle: String?
     
     private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
     private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
@@ -93,6 +94,20 @@ class ViewController: NSViewController {
         recentVideosLabel.addGestureRecognizer(recentVideosLabelGestureRecognizer)
     }
     
+    @objc func getBasicVideoInfo() {
+        loadVideoFormats()
+        getVideoTitle()
+    }
+    
+    func getVideoTitle() {
+        downloader.getTitle(for: YTVideo(name: "", url: URLField.stringValue), completion: { [self](title, error) in
+            //if title != nil {
+            print("GOT VIDEO TITLE")
+                setControlsPopoverTitle(to: title)
+           // }
+        })
+    }
+    
     @objc func loadVideoFormats() {
         if URLField.stringValue.containsURL() {
         DispatchQueue.main.async {
@@ -104,7 +119,7 @@ class ViewController: NSViewController {
             }
         }
             
-        Downloader().getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: true, completion: {(formats, error) in
+        downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: true, completion: {(formats, error) in
             //print("formats: \(formats)")
             DispatchQueue.main.async {
                 print("controls popover: \(self.controlsPopover)")
@@ -150,6 +165,14 @@ class ViewController: NSViewController {
         }
     }
     
+    func setControlsPopoverTitle(to newTitle: String?) {
+        print("Requesting new popover title \(newTitle)")
+        popoverTitle = newTitle
+        if self.controlsPopover != nil {
+            DispatchQueue.main.async {(self.controlsPopover?.contentViewController as! FormatControlsVC).updateVideoTitle(to: newTitle)}
+        }
+    }
+    
     @IBAction func videoControlsPopover(_ sender: NSButton) {
         if controlsPopover == nil {
             let popoverVC = NSStoryboard.main?.instantiateController(withIdentifier: "ContentControlsPopover") as! FormatControlsVC
@@ -165,6 +188,7 @@ class ViewController: NSViewController {
             controlsPopover!.show(relativeTo: sender.frame, of: view, preferredEdge: .minY)
             //print(currentRequest.directFormats)
             (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(popoverState ?? .waiting)
+            (controlsPopover?.contentViewController as! FormatControlsVC).updateVideoTitle(to: popoverTitle)
         }
     }
     
@@ -528,10 +552,10 @@ extension ViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
             NSObject.cancelPreviousPerformRequests(
                    withTarget: self,
-                   selector: #selector(ViewController.loadVideoFormats),
+                   selector: #selector(ViewController.getBasicVideoInfo),
                    object: nil)
             self.perform(
-                    #selector(ViewController.loadVideoFormats),
+                    #selector(ViewController.getBasicVideoInfo),
                     with: nil,
                     afterDelay: 0.6)
     }

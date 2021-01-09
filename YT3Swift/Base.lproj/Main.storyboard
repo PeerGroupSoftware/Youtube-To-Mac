@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1204,8 +1204,8 @@ DQ
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OrU-gb-jGt">
-                                                    <rect key="frame" x="128" y="47" width="75" height="16"/>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OrU-gb-jGt">
+                                                    <rect key="frame" x="128" y="47" width="68" height="16"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Resolution" id="Nzf-xh-hcr">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1214,6 +1214,9 @@ DQ
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bep-Qr-fKi">
                                                     <rect key="frame" x="18" y="87" width="168" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="mTd-Dg-0aY"/>
+                                                    </constraints>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Video Title" id="5cv-wu-i5V">
                                                         <font key="font" metaFont="systemMedium" size="13"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1251,7 +1254,6 @@ DQ
                                                 <constraint firstItem="OrU-gb-jGt" firstAttribute="leading" secondItem="nGF-K9-nZg" secondAttribute="leading" id="7ls-G4-EnC"/>
                                                 <constraint firstItem="uM4-tg-Sfb" firstAttribute="leading" secondItem="bep-Qr-fKi" secondAttribute="trailing" constant="8" symbolic="YES" id="ING-GE-xTm"/>
                                                 <constraint firstItem="qMU-xI-PuW" firstAttribute="leading" secondItem="yKg-DM-J2k" secondAttribute="leading" id="L05-w3-FuD"/>
-                                                <constraint firstAttribute="trailing" secondItem="nGF-K9-nZg" secondAttribute="trailing" constant="20" symbolic="YES" id="LQI-hW-xYR"/>
                                                 <constraint firstItem="yKg-DM-J2k" firstAttribute="top" secondItem="qMU-xI-PuW" secondAttribute="bottom" constant="7" id="NYt-Ik-0jk"/>
                                                 <constraint firstItem="bep-Qr-fKi" firstAttribute="top" secondItem="DPx-vP-Wsw" secondAttribute="top" constant="11" id="PbJ-zy-OJM"/>
                                                 <constraint firstAttribute="bottom" secondItem="nGF-K9-nZg" secondAttribute="bottom" constant="20" symbolic="YES" id="bha-xd-S5T"/>
@@ -1259,6 +1261,7 @@ DQ
                                                 <constraint firstAttribute="bottom" secondItem="yKg-DM-J2k" secondAttribute="bottom" constant="20" symbolic="YES" id="gJ0-BZ-D7C"/>
                                                 <constraint firstAttribute="trailing" secondItem="uM4-tg-Sfb" secondAttribute="trailing" constant="20" symbolic="YES" id="h9z-tS-pEI"/>
                                                 <constraint firstItem="nGF-K9-nZg" firstAttribute="top" secondItem="OrU-gb-jGt" secondAttribute="bottom" constant="7" id="hWw-An-NMt"/>
+                                                <constraint firstItem="nGF-K9-nZg" firstAttribute="leading" secondItem="yKg-DM-J2k" secondAttribute="trailing" constant="39" id="v8a-dl-jOt"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -1275,14 +1278,15 @@ DQ
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <progressIndicator fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="gzI-si-mng">
+                                                <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="gzI-si-mng">
                                                     <rect key="frame" x="109" y="41" width="32" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 </progressIndicator>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="gzI-si-mng" firstAttribute="centerY" secondItem="k08-vK-SpS" secondAttribute="centerY" id="0Jl-Pg-7sG"/>
                                                 <constraint firstItem="grQ-fL-9oX" firstAttribute="centerY" secondItem="k08-vK-SpS" secondAttribute="centerY" id="6vg-g7-g2F"/>
                                                 <constraint firstItem="grQ-fL-9oX" firstAttribute="centerX" secondItem="k08-vK-SpS" secondAttribute="centerX" id="HTX-PE-aRJ"/>
+                                                <constraint firstItem="gzI-si-mng" firstAttribute="centerX" secondItem="k08-vK-SpS" secondAttribute="centerX" id="pGZ-hD-x4z"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -1300,6 +1304,7 @@ DQ
                         <outlet property="formatsLoadingIndicator" destination="gzI-si-mng" id="j8w-49-sd9"/>
                         <outlet property="instructionalLabel" destination="grQ-fL-9oX" id="p5I-Lg-w5p"/>
                         <outlet property="mainTabView" destination="a3c-Wg-hdr" id="n0p-rj-mmP"/>
+                        <outlet property="videoTitleLabel" destination="bep-Qr-fKi" id="BcN-PP-3uX"/>
                     </connections>
                 </viewController>
                 <customObject id="e0q-kk-1As" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
