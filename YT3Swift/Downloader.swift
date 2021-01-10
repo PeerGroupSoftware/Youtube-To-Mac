@@ -67,14 +67,14 @@ class Downloader: ContentDownloaderDelegate {
             downloadFormat = .mp4
         }
         
-        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: downloadFormat), to: downloadDestination, completion: { downloadedFile in
+        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: downloadFormat), to: downloadDestination, completion: {video, downloadedFile in
             
             if fileFormat == .mov {
                 self.mediaConverter.convert(videoAt: downloadedFile, withID: "12345", to: .mov, destination: nil, completion: {(error) in
                     print(error)
                })
            } else {
-                completionHandler(nil, nil)
+                completionHandler(video, nil)
             }
         })
         
@@ -170,7 +170,7 @@ class Downloader: ContentDownloaderDelegate {
     
     func didGetVideoName(_ videoName: String) {
         print("Video name found: \(videoName)")
-        self.currentVideo.name = videoName
+        self.currentVideo.title = videoName
         if progressHandler != nil {
             self.progressHandler!(-1, nil, currentVideo)
         }
@@ -311,7 +311,7 @@ class Downloader: ContentDownloaderDelegate {
              foundName = (jsonResponse!["title"]) as! String?
              if foundName != nil {
                  //self.didGetVideoName(foundName!)
-                self.currentVideo.name = foundName!
+                self.currentVideo.title = foundName!
              }
             } catch {
                print(error)
@@ -385,7 +385,7 @@ class Downloader: ContentDownloaderDelegate {
                 var foundTitle = (jsonResponse!["title"]) as! String?
                 if foundTitle != nil {
                     //self.didGetVideoName(foundTitle!)
-                    self.currentVideo.name = foundTitle!
+                    self.currentVideo.title = foundTitle!
                 }
                 let retreivedFormats = (jsonResponse!["formats"] as! [[String: Any]])
                 //print(retreivedFormats)

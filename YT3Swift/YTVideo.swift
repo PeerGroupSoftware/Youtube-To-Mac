@@ -9,7 +9,7 @@
 import Foundation
 
 class YTVideo {
-    var name = ""
+    var title = ""
     var url = ""
     var diskPath = ""
     var isAudioOnly = false
@@ -17,12 +17,12 @@ class YTVideo {
     
     convenience init(name: String) {
         self.init()
-        self.name = name
+        self.title = name
     }
     
     convenience init(name: String, url: String) {
         self.init()
-        self.name = name
+        self.title = name
         self.url = url
         
     }

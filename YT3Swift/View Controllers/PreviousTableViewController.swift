@@ -20,10 +20,10 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let newCell = tableView.makeView(withIdentifier: (tableColumn?.identifier)!, owner: self) as! previousVideoCellView
         let newVideo = YTVideo()
-        newVideo.name = (previousVideos[row].name)
+        newVideo.title = (previousVideos[row].title)
         newVideo.url = (previousVideos[row].url)
         newCell.video = newVideo
-        newCell.videoNameLabel.stringValue = previousVideos[row].name
+        newCell.videoNameLabel.stringValue = previousVideos[row].title
         
 //        if previousVideos[row].isAudioOnly {
 //        }

@@ -17,6 +17,7 @@ class YTDLDownloader: ContentDownloader {
     static let executableName = "youtube-dl-2021-01-08"
     
     private var videoName = ""
+    //private var cachedVideo = YTVideo()
     
     // If an error contains the string, the error matching the code is called
     private let errors: [(String, Int)] = [
@@ -31,7 +32,7 @@ class YTDLDownloader: ContentDownloader {
     
     var isRunning = false
     
-    func download(content targetURL: String, with targetFormat: MediaFormat, to downloadDestination: URL, completion: @escaping (URL) -> Void) {
+    func download(content targetURL: String, with targetFormat: MediaFormat, to downloadDestination: URL, completion: @escaping (YTVideo?, URL) -> Void) {
         let downloadQueue = DispatchQueue.global(qos: downloadQOS)
         
         downloadQueue.async {
@@ -63,7 +64,7 @@ class YTDLDownloader: ContentDownloader {
             self.downloadTask.terminationHandler = { task in
                 DispatchQueue.main.async(execute: {
                     self.isRunning = false
-                    completion(downloadDestination.appendingPathComponent(self.videoName, isDirectory: false).appendingPathExtension(targetFormat.fileExtension.rawValue))
+                    completion(YTVideo(name: self.videoName, url: targetURL), downloadDestination.appendingPathComponent(self.videoName, isDirectory: false).appendingPathExtension(targetFormat.fileExtension.rawValue))
                 })
                 
             }

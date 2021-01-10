@@ -18,7 +18,7 @@ protocol ContentDownloaderDelegate {
 protocol ContentDownloader {
     var delegate: ContentDownloaderDelegate? { get set }
     
-    func download(content: String, with: MediaFormat, to: URL, completion: @escaping (URL) -> Void)
+    func download(content: String, with: MediaFormat, to: URL, completion: @escaping (YTVideo?, URL) -> Void)
     func terminateDownload()
     
 }

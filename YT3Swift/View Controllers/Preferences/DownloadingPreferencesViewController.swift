@@ -9,7 +9,8 @@
 import Cocoa
 
 class DownloadingPreferencesViewController: NSViewController {
-
+    @IBOutlet weak var showContentTitleNotificationCheckbox: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          let defaults = UserDefaults.standard
@@ -21,6 +22,13 @@ class DownloadingPreferencesViewController: NSViewController {
                default:
                    (view.subviews.first(where: {($0.identifier ?? NSUserInterfaceItemIdentifier(rawValue: "")).rawValue == "DesktopRadio"}) as! NSButton).state = .on
                }
+        
+        switch defaults.bool(forKey: "shouldShowTitleInNotification") {
+        case true:
+            showContentTitleNotificationCheckbox.state = .on
+        case false:
+            showContentTitleNotificationCheckbox.state = .off
+        }
     }
     
     @IBAction func setDownloadDestination(_ sender: NSButton) {
@@ -33,6 +41,19 @@ class DownloadingPreferencesViewController: NSViewController {
             defaults.set("desktop", forKey: "DownloadDestination")
         default:
             defaults.set("desktop", forKey: "DownloadDestination")
+        }
+    }
+    
+    @IBAction func setTitleInNotification(_ sender: NSButton) {
+        let defaults = UserDefaults.standard
+        
+        switch sender.state {
+        case .on:
+            defaults.set(true, forKey: "shouldShowTitleInNotification")
+        case .off:
+            defaults.set(false, forKey: "shouldShowTitleInNotification")
+        default:
+            break
         }
     }
     

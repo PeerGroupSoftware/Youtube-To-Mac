@@ -14,10 +14,10 @@ class SystemDownloader: NSObject, ContentDownloader {
     
     private var targetExtension:  MediaExtension!
     private var finalDestination: URL!
-    private var completionHandler: ((URL) -> Void)!
+    private var completionHandler: ((YTVideo, URL) -> Void)!
     private var downloadTask: URLSessionDownloadTask!
     
-    func download(content: String, with targetFormat: MediaFormat, to targetDestination: URL, completion: @escaping (URL) -> Void) {
+    func download(content: String, with targetFormat: MediaFormat, to targetDestination: URL, completion: @escaping (YTVideo?, URL) -> Void) {
         downloadQueue.qualityOfService = .userInitiated
         targetExtension = targetFormat.fileExtension
         finalDestination = targetDestination

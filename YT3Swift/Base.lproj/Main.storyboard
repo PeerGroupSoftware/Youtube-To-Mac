@@ -747,9 +747,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button toolTip="Check for updates at launch" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jm9-8x-pJW">
-                                <rect key="frame" x="18" y="81" width="219" height="18"/>
+                                <rect key="frame" x="18" y="81" width="225" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="217" id="dJm-h4-vQv"/>
+                                    <constraint firstAttribute="width" constant="223" id="dJm-h4-vQv"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Automatically Check for Updates" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Osc-MY-oXn">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -763,7 +763,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="jm9-8x-pJW" secondAttribute="bottom" constant="82" id="9SE-JX-gAt"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="top" secondItem="SVD-hY-Ayz" secondAttribute="top" constant="20" symbolic="YES" id="QX5-uU-bQp"/>
-                            <constraint firstAttribute="trailing" secondItem="jm9-8x-pJW" secondAttribute="trailing" constant="50" id="aXY-0Z-oMe"/>
+                            <constraint firstAttribute="trailing" secondItem="jm9-8x-pJW" secondAttribute="trailing" constant="44" id="aXY-0Z-oMe"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" symbolic="YES" id="jsn-nV-Ycn"/>
                         </constraints>
                     </view>
@@ -780,11 +780,11 @@
             <objects>
                 <viewController id="jNg-vh-OV5" customClass="DownloadingPreferencesViewController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="8XI-bV-nrz">
-                        <rect key="frame" x="0.0" y="0.0" width="287" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="287" height="138"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-2x-oWv">
-                                <rect key="frame" x="18" y="77" width="229" height="19"/>
+                                <rect key="frame" x="18" y="99" width="229" height="19"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Default Download Destination" id="tu6-Db-wg0">
                                     <font key="font" metaFont="systemSemibold" size="16"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -792,7 +792,7 @@
                                 </textFieldCell>
                             </textField>
                             <button identifier="DownloadsRadio" toolTip="User Downloads folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Jj-oqU">
-                                <rect key="frame" x="18" y="54" width="93" height="18"/>
+                                <rect key="frame" x="18" y="76" width="93" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Downloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YST-Kq-Su7">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -802,7 +802,7 @@
                                 </connections>
                             </button>
                             <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SRg-UB-6zM">
-                                <rect key="frame" x="18" y="32" width="77" height="18"/>
+                                <rect key="frame" x="18" y="54" width="77" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4zx-p4-9Kw">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -811,10 +811,23 @@
                                     <action selector="setDownloadDestination:" target="jNg-vh-OV5" id="yc5-2N-3m4"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pFI-HG-hNE">
+                                <rect key="frame" x="18" y="19" width="229" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show content title in notifications" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5N8-o6-HV0">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setTitleInNotification:" target="jNg-vh-OV5" id="2at-RB-UH9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="pFI-HG-hNE" firstAttribute="top" secondItem="SRg-UB-6zM" secondAttribute="bottom" constant="19" id="7pD-Le-M1L"/>
                             <constraint firstAttribute="trailing" secondItem="cDB-2x-oWv" secondAttribute="trailing" constant="42" id="Jgk-e5-xUb"/>
                             <constraint firstItem="wcE-Jj-oqU" firstAttribute="leading" secondItem="SRg-UB-6zM" secondAttribute="leading" id="OdW-uB-Qxg"/>
+                            <constraint firstAttribute="bottom" secondItem="pFI-HG-hNE" secondAttribute="bottom" constant="20" symbolic="YES" id="SGE-pD-PDg"/>
+                            <constraint firstItem="pFI-HG-hNE" firstAttribute="leading" secondItem="8XI-bV-nrz" secondAttribute="leading" constant="20" symbolic="YES" id="XQy-MJ-zcb"/>
                             <constraint firstItem="cDB-2x-oWv" firstAttribute="leading" secondItem="8XI-bV-nrz" secondAttribute="leading" constant="20" id="Xdv-BG-l4W"/>
                             <constraint firstItem="cDB-2x-oWv" firstAttribute="leading" secondItem="wcE-Jj-oqU" secondAttribute="leading" id="Xjs-j1-BSA"/>
                             <constraint firstItem="cDB-2x-oWv" firstAttribute="top" secondItem="8XI-bV-nrz" secondAttribute="top" constant="20" id="f3O-Zx-fcW"/>
@@ -822,10 +835,13 @@
                             <constraint firstItem="wcE-Jj-oqU" firstAttribute="top" secondItem="cDB-2x-oWv" secondAttribute="bottom" constant="6" id="sPs-jk-lUB"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="showContentTitleNotificationCheckbox" destination="pFI-HG-hNE" id="0VW-7w-nva"/>
+                    </connections>
                 </viewController>
                 <customObject id="4Jm-oD-EnR" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-781.5" y="541"/>
+            <point key="canvasLocation" x="-781.5" y="552"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">

@@ -84,7 +84,7 @@ class ViewController: NSViewController {
         //print(videoHistory)
         for item in videoHistory {
             let newVideo = YTVideo()
-            newVideo.name = item.key
+            newVideo.title = item.key
             newVideo.url = (item.value.first?.key)!
             newVideo.diskPath = (item.value.first?.value)!
             previousVideos.append(newVideo)
@@ -104,60 +104,60 @@ class ViewController: NSViewController {
         downloader.getTitle(for: YTVideo(name: "", url: URLField.stringValue), completion: { [self](title, error) in
             //if title != nil {
             print("GOT VIDEO TITLE")
-                setControlsPopoverTitle(to: title)
-           // }
+            setControlsPopoverTitle(to: title)
+            // }
         })
     }
     
     @objc func loadVideoFormats() {
         if URLField.stringValue.containsURL() {
-        DispatchQueue.main.async {
-            if !(self.controlsPopover?.isShown ?? false) {
-                self.controlsLoadingIndicator.startAnimation(self)
-                self.controlsButton.isHidden = true
-            } else {
-                //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
-                self.setControlsPopoverState(to: .loading)
-            }
-        }
-            
-        downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: true, completion: {(formats, error) in
-            //print("formats: \(formats)")
             DispatchQueue.main.async {
-                print("controls popover: \(self.controlsPopover)")
                 if !(self.controlsPopover?.isShown ?? false) {
-                    print("controls popover is shown or nil")
-                    if !formats.isEmpty {self.controlsButton.isEnabled = true}
-                    self.controlsLoadingIndicator.stopAnimation(self)
-                    if !self.showingDownloadUI {
-                        self.controlsButton.isHidden = false
-                    }
+                    self.controlsLoadingIndicator.startAnimation(self)
+                    self.controlsButton.isHidden = true
+                } else {
+                    //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
+                    self.setControlsPopoverState(to: .loading)
                 }
+            }
+            
+            downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: true, completion: {(formats, error) in
+                //print("formats: \(formats)")
+                DispatchQueue.main.async {
+                    print("controls popover: \(self.controlsPopover)")
+                    if !(self.controlsPopover?.isShown ?? false) {
+                        print("controls popover is shown or nil")
+                        if !formats.isEmpty {self.controlsButton.isEnabled = true}
+                        self.controlsLoadingIndicator.stopAnimation(self)
+                        if !self.showingDownloadUI {
+                            self.controlsButton.isHidden = false
+                        }
+                    }
                     if formats.isEmpty {
                         print("Found formats is empty")
                         //if self.controlsPopover != nil {
-                            //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
+                        //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
                         self.setControlsPopoverState(to: .waiting)
-                       // }
+                        // }
                     } else {
                         print("Found formats is NOT empty")
                         //if self.controlsPopover != nil {
-                            //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
+                        //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
                         self.setControlsPopoverState(to: .found)
                         //}
                         self.currentRequest.directFormats = formats
                         self.setControlsPopoverFormats(to: formats)
                     }
-                
-            }
-            //let directUsableFormats = formats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
-            print(formats.sorted(by: {($0.size?.height ?? 0)<($1.size?.height ?? 0)}))
-        })
+                    
+                }
+                //let directUsableFormats = formats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
+                print(formats.sorted(by: {($0.size?.height ?? 0)<($1.size?.height ?? 0)}))
+            })
         } else {
             print("No URL detected")
             /*if self.controlsPopover != nil {
-                (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
-            }*/
+             (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
+             }*/
             setControlsPopoverState(to: .waiting)
         }
     }
@@ -208,10 +208,10 @@ class ViewController: NSViewController {
     
     @objc func changeWindowSizeLabel() {
         /*if recentVideosDisclosureTriangle.state == .on {
-            recentVideosDisclosureTriangle.state = .off
-        } else {
-            recentVideosDisclosureTriangle.state = .on
-        }*/
+         recentVideosDisclosureTriangle.state = .off
+         } else {
+         recentVideosDisclosureTriangle.state = .on
+         }*/
         recentVideosDisclosureTriangle.state = (recentVideosDisclosureTriangle.state == .on) ? .off : .on
         toggleWindowSize(recentVideosDisclosureTriangle)
     }
@@ -225,7 +225,7 @@ class ViewController: NSViewController {
     func saveVideoToHistory(video targetVideo: YTVideo) {
         var videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory")) as? [String:[String:String]] ?? [String:[String:String]]()
         //UserDefaults().arr
-        videoHistory.updateValue([targetVideo.url:targetVideo.diskPath], forKey: targetVideo.name)
+        videoHistory.updateValue([targetVideo.url:targetVideo.diskPath], forKey: targetVideo.title)
         UserDefaults().set(videoHistory, forKey: "YTVideoHistory")
         
         previousVideos.insert(targetVideo, at: 0)
@@ -291,11 +291,11 @@ class ViewController: NSViewController {
         } else {
             switch audioBox.integerValue {
             case 1:
-               // currentRequest.fileFormat = .defaultAudio
-               // currentRequest.fileFormat = .
+                // currentRequest.fileFormat = .defaultAudio
+                // currentRequest.fileFormat = .
                 print("set to audio")
             case 0:
-               // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
+                // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
                 print("set to video")
             default:
                 print("audio box error")
@@ -374,67 +374,72 @@ class ViewController: NSViewController {
             
             currentRequest.progressHandler = {(progress, error, videoInfo) in
                 DispatchQueue.main.async {
-                if progress >= 0 {
-                    self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
-                    if progress == 100 && videoInfo != nil {
-                        self.setDownloadInterface(to: false)
+                    if progress >= 0 {
+                        self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
+                        if progress == 100 && videoInfo != nil {
+                            self.setDownloadInterface(to: false)
+                        }
+                    } else if progress != 100 {
+                        DispatchQueue.main.async {self.URLField.stringValue = videoInfo!.title}
                     }
-                } else if progress != 100 {
-                    DispatchQueue.main.async {self.URLField.stringValue = videoInfo!.name}
                 }
-            }
             }
             
             currentRequest.completionHandler = { (video, error) in
                 //print("COMPLETION HANDLER")
+                //print("DOWNLOADED: \(video?.title)")
                 DispatchQueue.main.async {
-                self.URLField.stringValue = ""
-                sender.isEnabled = true
-                
-                let downloadNotification = NSUserNotification()
-                let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
-                var downloadDestination = ""
-                if self.currentRequest.destination == Downloader.desktopFolder {
-                    downloadDestination = "Desktop"
-                } else if self.currentRequest.destination == Downloader.downloadsFolder {
-                    downloadDestination = "Downloads"
-                }
-                
-                var informativeText = ""
-                if !downloadDestination.isEmpty {
-                    informativeText = "Saved \(formatType.lowercased()) to \(downloadDestination)"
-                } else {
-                    informativeText = "Saved \(formatType.lowercased())"
-                }
-                
-                downloadNotification.title = "Downloaded \(formatType)"
-                downloadNotification.informativeText = informativeText
-                downloadNotification.soundName = NSUserNotificationDefaultSoundName
-                
-                if self.downloadButton.isEnabled && (self.currentRequest.error == nil) && (error == nil) {
-                    NSUserNotificationCenter.default.deliver(downloadNotification)
-                    if video != nil {
-                        self.saveVideoToHistory(video: video!)
-                    }
-                } else {
-                    print(self.currentRequest.error)
-                }
+                    self.URLField.stringValue = ""
+                    sender.isEnabled = true
                     
-            
+                    let downloadNotification = NSUserNotification()
+                    let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
+                    var downloadDestination = ""
+                    if self.currentRequest.destination == Downloader.desktopFolder {
+                        downloadDestination = "Desktop"
+                    } else if self.currentRequest.destination == Downloader.downloadsFolder {
+                        downloadDestination = "Downloads"
+                    }
+                    
+                    var informativeText = ""
+                    if UserDefaults.standard.bool(forKey: "shouldShowTitleInNotification") {
+                        informativeText = video?.title ?? ""
+                    } else {
+                        if !downloadDestination.isEmpty {
+                            informativeText = "Saved \(formatType.lowercased()) to \(downloadDestination)"
+                        } else {
+                            informativeText = "Saved \(formatType.lowercased())"
+                        }
+                    }
+                    
+                    downloadNotification.title = "Downloaded \(formatType)"
+                    downloadNotification.informativeText = informativeText
+                    downloadNotification.soundName = NSUserNotificationDefaultSoundName
+                    
+                    if self.downloadButton.isEnabled && (self.currentRequest.error == nil) && (error == nil) {
+                        NSUserNotificationCenter.default.deliver(downloadNotification)
+                        if video != nil {
+                            self.saveVideoToHistory(video: video!)
+                        }
+                    } else {
+                        print(self.currentRequest.error)
+                    }
+                    
+                    
                     if error != nil {
                         if (error! as NSError).code != 499 {
-                        DispatchQueue.main.async {
-                            let alert = NSAlert()
-                            alert.alertStyle = .critical
-                            alert.messageText = "Could not save \(formatType)"
-                            alert.informativeText = error!.localizedDescription
-                            alert.runModal()
-                        }
+                            DispatchQueue.main.async {
+                                let alert = NSAlert()
+                                alert.alertStyle = .critical
+                                alert.messageText = "Could not save \(formatType)"
+                                alert.informativeText = error!.localizedDescription
+                                alert.runModal()
+                            }
                         }
                     }
-                
-                self.setDownloadInterface(to: false)
-                print(previousVideos.first?.name ?? "")
+                    
+                    self.setDownloadInterface(to: false)
+                    print(previousVideos.first?.title ?? "")
                 }
             }
             
@@ -578,13 +583,13 @@ class ViewController: NSViewController {
 
 extension ViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
-            NSObject.cancelPreviousPerformRequests(
-                   withTarget: self,
-                   selector: #selector(ViewController.getBasicVideoInfo),
-                   object: nil)
-            self.perform(
-                    #selector(ViewController.getBasicVideoInfo),
-                    with: nil,
-                    afterDelay: 0.6)
+        NSObject.cancelPreviousPerformRequests(
+            withTarget: self,
+            selector: #selector(ViewController.getBasicVideoInfo),
+            object: nil)
+        self.perform(
+            #selector(ViewController.getBasicVideoInfo),
+            with: nil,
+            afterDelay: 0.6)
     }
 }
