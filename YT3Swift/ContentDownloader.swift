@@ -19,6 +19,7 @@ protocol ContentDownloader {
     var delegate: ContentDownloaderDelegate? { get set }
     
     func download(content: String, with: MediaFormat, to: URL, completion: @escaping (URL) -> Void)
+    func terminateDownload()
     
 }
 

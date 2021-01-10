@@ -34,6 +34,7 @@ class ViewController: NSViewController {
     private var popoverState: FormatControlsVC.URLState?
     private var popoverTitle: String?
     private var popoverFormats: [MediaFormat]?
+    private var showingDownloadUI: Bool = false
     
     private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
     private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue})
@@ -41,7 +42,6 @@ class ViewController: NSViewController {
     
     
     @IBOutlet weak var mainProgressBar: NSProgressIndicator!
-    
     @IBOutlet weak var actionButton: NSButton!
     
     let downloader = Downloader()
@@ -128,7 +128,9 @@ class ViewController: NSViewController {
                     print("controls popover is shown or nil")
                     if !formats.isEmpty {self.controlsButton.isEnabled = true}
                     self.controlsLoadingIndicator.stopAnimation(self)
-                    self.controlsButton.isHidden = false
+                    if !self.showingDownloadUI {
+                        self.controlsButton.isHidden = false
+                    }
                 }
                     if formats.isEmpty {
                         print("Found formats is empty")
@@ -444,15 +446,18 @@ class ViewController: NSViewController {
         
     }
     
-    func setDownloadInterface(to: Bool) {
+    func setDownloadInterface(to isDownloading: Bool) {
+        showingDownloadUI = isDownloading
         DispatchQueue.main.async {
-            switch to {
+            switch isDownloading {
             case true: // Animate showing downloading UI
                 NSAnimationContext.runAnimationGroup({_ in
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
                     self.audioBox.animator().isHidden = true
+                    //self.button
                     self.controlsButton.animator().isHidden = true
+                    self.controlsLoadingIndicator.stopAnimation(self)
                     self.recentVideosLabel.animator().isHidden = true
                     self.recentVideosDisclosureTriangle.animator().isHidden = true
                     self.formatPopup.animator().isHidden = true

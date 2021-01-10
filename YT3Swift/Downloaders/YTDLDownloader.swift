@@ -44,8 +44,19 @@ class YTDLDownloader: ContentDownloader {
             } else {
                 self.downloadTask.launchPath = executablePath
             }
+            //print("USING EXTENSION \(targetFormat.fileExtension)")
             
-            self.downloadTask.arguments = ["-f \(targetFormat.fileExtension)", "-o%(title)s.%(ext)s", targetURL]
+            var requestedExtension = targetFormat.fileExtension.rawValue
+            
+            if targetFormat.fileExtension == .auto {
+                if targetFormat.audioOnly {
+                    requestedExtension = "wav/m4a/mp3/bestaudio"
+                } else {
+                    requestedExtension = "mp4/flv/best"
+                }
+            }
+            
+            self.downloadTask.arguments = ["-f \(requestedExtension)", "-o%(title)s.%(ext)s", targetURL]
             print(downloadDestination.absoluteString)
             self.downloadTask.currentDirectoryPath = downloadDestination.absoluteString.replacingOccurrences(of: "file://", with: "")
             
@@ -90,6 +101,10 @@ class YTDLDownloader: ContentDownloader {
             self.downloadTask.waitUntilExit()
             
         }
+    }
+    
+    func terminateDownload() {
+        downloadTask.terminate()
     }
     
     private func registerOutputHandlers(for task:Process, progressHandler: @escaping (Double) -> Void, errorHandler: @escaping (Error) -> Void/*, infoHandler: @escaping (YTVideo) -> Void*/) {

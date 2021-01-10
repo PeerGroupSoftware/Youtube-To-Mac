@@ -49,6 +49,7 @@ class Downloader: ContentDownloaderDelegate {
     
     func terminateDownload() {
         //downloadTask.terminate()
+        downloader.terminateDownload()
     }
     
     func downloadContent(from targetURL: String, toLocation downloadDestination: URL, audioOnly: Bool, fileFormat: MediaExtension, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {

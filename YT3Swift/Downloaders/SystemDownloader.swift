@@ -15,6 +15,7 @@ class SystemDownloader: NSObject, ContentDownloader {
     private var targetExtension:  MediaExtension!
     private var finalDestination: URL!
     private var completionHandler: ((URL) -> Void)!
+    private var downloadTask: URLSessionDownloadTask!
     
     func download(content: String, with targetFormat: MediaFormat, to targetDestination: URL, completion: @escaping (URL) -> Void) {
         downloadQueue.qualityOfService = .userInitiated
@@ -25,8 +26,12 @@ class SystemDownloader: NSObject, ContentDownloader {
         let urlSession = URLSession(configuration: .default,
                                                  delegate: self,
                                                  delegateQueue: downloadQueue)
-        let downloadTask = urlSession.downloadTask(with: URL(string:content)!)
+        downloadTask = urlSession.downloadTask(with: URL(string:content)!)
         downloadTask.resume()
+    }
+    
+    func terminateDownload() {
+        downloadTask.cancel()
     }
     
     
