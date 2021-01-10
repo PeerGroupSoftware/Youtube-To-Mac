@@ -856,7 +856,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="447" height="286"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bjC-oJ-pVm">
+                            <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjC-oJ-pVm">
                                 <rect key="frame" x="20" y="244" width="346" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="346" id="AfU-nF-hmc"/>
@@ -1196,7 +1196,7 @@ DQ
                                                         </menu>
                                                     </popUpButtonCell>
                                                     <connections>
-                                                        <action selector="selectedExtension:" target="KcT-z3-CVp" id="OIe-hH-93i"/>
+                                                        <action selector="selectedResolution:" target="KcT-z3-CVp" id="OIe-hH-93i"/>
                                                     </connections>
                                                 </popUpButton>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qMU-xI-PuW">
@@ -1216,7 +1216,7 @@ DQ
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bep-Qr-fKi">
-                                                    <rect key="frame" x="18" y="87" width="168" height="16"/>
+                                                    <rect key="frame" x="18" y="86" width="168" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="mTd-Dg-0aY"/>
                                                         <constraint firstAttribute="width" priority="250" constant="164" id="rQF-aw-VHp"/>
@@ -1262,7 +1262,7 @@ DQ
                                                 <constraint firstItem="uM4-tg-Sfb" firstAttribute="leading" secondItem="bep-Qr-fKi" secondAttribute="trailing" constant="8" symbolic="YES" id="ING-GE-xTm"/>
                                                 <constraint firstItem="qMU-xI-PuW" firstAttribute="leading" secondItem="yKg-DM-J2k" secondAttribute="leading" id="L05-w3-FuD"/>
                                                 <constraint firstItem="yKg-DM-J2k" firstAttribute="top" secondItem="qMU-xI-PuW" secondAttribute="bottom" constant="7" id="NYt-Ik-0jk"/>
-                                                <constraint firstItem="bep-Qr-fKi" firstAttribute="top" secondItem="DPx-vP-Wsw" secondAttribute="top" constant="11" id="PbJ-zy-OJM"/>
+                                                <constraint firstItem="bep-Qr-fKi" firstAttribute="top" secondItem="DPx-vP-Wsw" secondAttribute="top" constant="12" id="PbJ-zy-OJM"/>
                                                 <constraint firstAttribute="bottom" secondItem="nGF-K9-nZg" secondAttribute="bottom" constant="20" symbolic="YES" id="bha-xd-S5T"/>
                                                 <constraint firstItem="uM4-tg-Sfb" firstAttribute="top" secondItem="DPx-vP-Wsw" secondAttribute="top" constant="11" id="db8-kc-RXy"/>
                                                 <constraint firstAttribute="bottom" secondItem="yKg-DM-J2k" secondAttribute="bottom" constant="20" symbolic="YES" id="gJ0-BZ-D7C"/>
@@ -1312,6 +1312,7 @@ DQ
                         <outlet property="formatsPopUpButton" destination="yKg-DM-J2k" id="0X5-0z-NAR"/>
                         <outlet property="instructionalLabel" destination="grQ-fL-9oX" id="p5I-Lg-w5p"/>
                         <outlet property="mainTabView" destination="a3c-Wg-hdr" id="n0p-rj-mmP"/>
+                        <outlet property="onButton" destination="uM4-tg-Sfb" id="dog-hf-Co1"/>
                         <outlet property="resolutionPopUpButton" destination="nGF-K9-nZg" id="ir1-Bj-Tqo"/>
                         <outlet property="videoTitleLabel" destination="bep-Qr-fKi" id="BcN-PP-3uX"/>
                     </connections>

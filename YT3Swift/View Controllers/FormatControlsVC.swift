@@ -14,6 +14,7 @@ class FormatControlsVC: NSViewController {
     @IBOutlet weak var formatsLoadingIndicator: NSProgressIndicator!
     @IBOutlet weak var videoTitleLabel: NSTextField!
     @IBOutlet weak var formatsPopUpButton: NSPopUpButton!
+    @IBOutlet weak var onButton: NSButton!
     @IBOutlet weak var resolutionPopUpButton: NSPopUpButton!
     
     var formatList: [MediaFormat]? = []
@@ -21,6 +22,11 @@ class FormatControlsVC: NSViewController {
     var extensionList: [String]?
     var resolutionList: [String]?
     
+    var isOn = false
+    private var selectedFormatVideo = ""
+    private var selectedResolutionVideo = ""
+    private var selectedFormatAudio = ""
+    private var isAudioOnly: Bool = false
     
     
     override func viewDidLoad() {
@@ -29,6 +35,15 @@ class FormatControlsVC: NSViewController {
     }
     
     @IBAction func selectedFormat(_ sender: NSPopUpButton) {
+        isOn = true
+        onButton.state = .on
+        
+        if isAudioOnly {
+            selectedFormatAudio = sender.titleOfSelectedItem ?? ""
+        } else {
+            selectedFormatVideo = sender.titleOfSelectedItem ?? ""
+        }
+        
         let availableResolutions = (formatList?.filter({$0.fileExtension.rawValue == sender.titleOfSelectedItem}).map({$0.sizeString}) ?? []) + ["Auto"]
         
         //print(availableResolutions)
@@ -38,7 +53,12 @@ class FormatControlsVC: NSViewController {
         }
     }
     
-    @IBAction func selectedExtension(_ sender: NSPopUpButton) {
+    @IBAction func selectedResolution(_ sender: NSPopUpButton) {
+        isOn = true
+        onButton.state = .on
+        
+        selectedResolutionVideo = sender.titleOfSelectedItem ?? ""
+        
         let availableExtensions = (formatList?.filter({$0.sizeString == sender.titleOfSelectedItem}).map({$0.fileExtension.rawValue}) ?? []) + ["Auto"]
         
         if !availableExtensions.contains(formatsPopUpButton.titleOfSelectedItem!) {
@@ -71,13 +91,30 @@ class FormatControlsVC: NSViewController {
         display(formats: formatList!, audioOnly: isAudioOnly)
     }
     
+    func loadPreviousSelection() {
+        if isAudioOnly {
+            if !selectedFormatAudio.isEmpty {
+                formatsPopUpButton.selectItem(withTitle: selectedFormatAudio)
+            }
+        } else {
+            if !selectedFormatVideo.isEmpty {
+                //print("SELECTING")
+                formatsPopUpButton.selectItem(withTitle: selectedFormatVideo)
+            }
+            
+            if !selectedResolutionVideo.isEmpty {
+                resolutionPopUpButton.selectItem(withTitle: selectedResolutionVideo)
+            }
+            
+        }
+    }
+    
     func display(formats: [MediaFormat], audioOnly: Bool = false) {
         formatList = formats
-        var tempFormats = formats
+        isAudioOnly = audioOnly
         
-        //if audioOnly {
+        var tempFormats = formats
         tempFormats = tempFormats.filter({$0.audioOnly == audioOnly})
-        //}
         
         extensionList = tempFormats.map({$0.fileExtension.rawValue})
         resolutionList = tempFormats.sorted(by: {$0.size?.height ?? 0 < $1.size?.height ?? 0}).filter({!$0.audioOnly}).map({$0.sizeString ?? ""})
@@ -86,6 +123,15 @@ class FormatControlsVC: NSViewController {
         formatsPopUpButton.addItems(withTitles: ["Auto"] + (extensionList ?? []))
         resolutionPopUpButton.removeAllItems()
         resolutionPopUpButton.addItems(withTitles: ["Auto"] + (resolutionList ?? []))
+        
+        
+        if audioOnly {
+            resolutionPopUpButton?.isEnabled = false
+        } else {
+            resolutionPopUpButton?.isEnabled = true
+        }
+        
+        loadPreviousSelection()
     }
     
     enum URLState {

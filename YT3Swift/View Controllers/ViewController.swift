@@ -243,7 +243,7 @@ class ViewController: NSViewController {
             }, completionHandler:{
             })
             // let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
-            bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
+            //bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
             // print(bottomConstraintConstant)
             //view.window?.setFrame(newWindowFrame, display: true, animate: true)
             NSAnimationContext.runAnimationGroup({_ in
@@ -319,6 +319,8 @@ class ViewController: NSViewController {
         } else {
             (view.window?.windowController as! MainWindowController as MainWindowController).updateTBAudioButton(withState: sender.state)
         }
+        
+        setControlsPopoverAudioOnly(sender.state == .on)
         
         switch sender.integerValue {
         case 1:
@@ -466,6 +468,7 @@ class ViewController: NSViewController {
                     self.audioBox.animator().isHidden = true
                     //self.button
                     self.controlsButton.animator().isHidden = true
+                    self.controlsPopover?.performClose(self)
                     self.controlsLoadingIndicator.stopAnimation(self)
                     self.recentVideosLabel.animator().isHidden = true
                     self.recentVideosDisclosureTriangle.animator().isHidden = true
