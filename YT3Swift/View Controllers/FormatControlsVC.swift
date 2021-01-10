@@ -16,7 +16,7 @@ class FormatControlsVC: NSViewController {
     @IBOutlet weak var formatsPopUpButton: NSPopUpButton!
     @IBOutlet weak var resolutionPopUpButton: NSPopUpButton!
     
-    var formatList: [MediaFormat]?
+    var formatList: [MediaFormat]? = []
     
     var extensionList: [String]?
     var resolutionList: [String]?
@@ -67,10 +67,20 @@ class FormatControlsVC: NSViewController {
         videoTitleLabel.stringValue = newTitle ?? "No Content Selected"
     }
     
-    func display(formats: [MediaFormat]) {
+    func setIsAudioOnly(to isAudioOnly: Bool) {
+        display(formats: formatList!, audioOnly: isAudioOnly)
+    }
+    
+    func display(formats: [MediaFormat], audioOnly: Bool = false) {
         formatList = formats
-        extensionList = formats.map({$0.fileExtension.rawValue})
-        resolutionList = formats.sorted(by: {$0.size?.height ?? 0 < $1.size?.height ?? 0}).filter({!$0.audioOnly}).map({$0.sizeString ?? ""})
+        var tempFormats = formats
+        
+        //if audioOnly {
+        tempFormats = tempFormats.filter({$0.audioOnly == audioOnly})
+        //}
+        
+        extensionList = tempFormats.map({$0.fileExtension.rawValue})
+        resolutionList = tempFormats.sorted(by: {$0.size?.height ?? 0 < $1.size?.height ?? 0}).filter({!$0.audioOnly}).map({$0.sizeString ?? ""})
         
         formatsPopUpButton.removeAllItems()
         formatsPopUpButton.addItems(withTitles: ["Auto"] + (extensionList ?? []))

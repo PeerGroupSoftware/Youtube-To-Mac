@@ -943,18 +943,18 @@ DQ
                                 </connections>
                             </button>
                             <textField toolTip="Show recently downloaded content" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C0x-o8-4go">
-                                <rect key="frame" x="177" y="210" width="79" height="17"/>
+                                <rect key="frame" x="177" y="210" width="80" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cGe-9O-uzl"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Recent Videos" id="gj3-7Y-cwL">
-                                    <font key="font" metaFont="systemLight" size="11"/>
+                                    <font key="font" metaFont="system" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yAQ-wh-GkQ">
-                                <rect key="frame" x="256" y="213" width="13" height="13"/>
+                                <rect key="frame" x="257" y="213" width="13" height="13"/>
                                 <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="only" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jqz-AY-YbG">
                                     <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>

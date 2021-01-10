@@ -116,7 +116,8 @@ class ViewController: NSViewController {
                 self.controlsLoadingIndicator.startAnimation(self)
                 self.controlsButton.isHidden = true
             } else {
-                (self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
+                //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
+                self.setControlsPopoverState(to: .loading)
             }
         }
             
@@ -201,7 +202,7 @@ class ViewController: NSViewController {
             //print(currentRequest.directFormats)
             (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(popoverState ?? .waiting)
             (controlsPopover?.contentViewController as! FormatControlsVC).updateVideoTitle(to: popoverTitle)
-            (controlsPopover?.contentViewController as! FormatControlsVC).display(formats: popoverFormats ?? [])
+            (controlsPopover?.contentViewController as! FormatControlsVC).display(formats: popoverFormats ?? [], audioOnly: (audioBox.state == .on))
         }
     }
     
@@ -300,6 +301,14 @@ class ViewController: NSViewController {
                 print("audio box error")
             }
             
+        }
+    }
+    
+    func setControlsPopoverAudioOnly(_ isAudioOnly: Bool) {
+        //print("Requesting new state \(newState)")
+        //popoverState = newState
+        if self.controlsPopover != nil {
+            (controlsPopover?.contentViewController as! FormatControlsVC).setIsAudioOnly(to: isAudioOnly)
         }
     }
     
