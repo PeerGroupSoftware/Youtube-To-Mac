@@ -38,6 +38,8 @@ class ViewController: NSViewController {
     
     private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
     private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue})
+    private var selectedFormatVideo = "Auto"
+    private var selectedFormatAudio = "Auto"
     
     
     
@@ -121,7 +123,7 @@ class ViewController: NSViewController {
                 }
             }
             
-            downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: true, completion: {(formats, error) in
+            downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: false, completion: {(formats, error) in
                 //print("formats: \(formats)")
                 DispatchQueue.main.async {
                     print("controls popover: \(self.controlsPopover)")
@@ -189,6 +191,7 @@ class ViewController: NSViewController {
     @IBAction func videoControlsPopover(_ sender: NSButton) {
         if controlsPopover == nil {
             let popoverVC = NSStoryboard.main?.instantiateController(withIdentifier: "ContentControlsPopover") as! FormatControlsVC
+            popoverVC.mainVC = self
             let popover = NSPopover()
             popover.contentViewController = popoverVC
             popover.behavior = .semitransient
@@ -220,6 +223,22 @@ class ViewController: NSViewController {
         UserDefaults().set([String:[String:String]](), forKey: "YTVideoHistory")
         previousVideos = []
         previousVideosTableView.reloadData()
+    }
+    
+    func manualControlsStateDidChange(to newState: Bool) {
+        if newState == true {
+            formatPopup.selectItem(withTitle: "Manual")
+        } else {
+            if currentRequest.audioOnly {
+                if !selectedFormatAudio.isEmpty {
+                    formatPopup.selectItem(withTitle: selectedFormatAudio)
+                }
+            } else {
+                if !selectedFormatVideo.isEmpty {
+                    formatPopup.selectItem(withTitle: selectedFormatVideo)
+                }
+            }
+        }
     }
     
     func saveVideoToHistory(video targetVideo: YTVideo) {
@@ -274,6 +293,11 @@ class ViewController: NSViewController {
         locationSelectPanel.canChooseFiles = false
         locationSelectPanel.allowsMultipleSelection = false
         locationSelectPanel.canCreateDirectories = true
+        
+        let newButton = NSButton(title: "Reset Download Location", target: nil, action: nil)
+        newButton.isEnabled = false
+        locationSelectPanel.accessoryView = newButton
+        
         locationSelectPanel.beginSheetModal(for: view.window!, completionHandler: {(result) in
             if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
                 let path = locationSelectPanel.url!.path
@@ -288,20 +312,37 @@ class ViewController: NSViewController {
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
         if  !["Auto", "Manual"].contains(sender.selectedItem?.title) {
             currentRequest.fileFormat = MediaExtension(rawValue:(sender.selectedItem?.title)!)!
-        } else {
+        /*} else {
             switch audioBox.integerValue {
             case 1:
-                // currentRequest.fileFormat = .defaultAudio
-                // currentRequest.fileFormat = .
-                print("set to audio")
+                print("set to \(sender.titleOfSelectedItem ?? "") (audio)")
+                selectedFormatAudio = sender.titleOfSelectedItem ?? ""
             case 0:
                 // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
-                print("set to video")
+                print("set to \(sender.titleOfSelectedItem ?? "") (video)")
+                selectedFormatVideo = sender.titleOfSelectedItem ?? ""
             default:
                 print("audio box error")
-            }
+            }*/
             
         }
+        switch audioBox.integerValue {
+        case 1:
+            print("set to \(sender.titleOfSelectedItem ?? "") (audio)")
+            if sender.titleOfSelectedItem != "Manual" {selectedFormatAudio = sender.titleOfSelectedItem ?? ""}
+        case 0:
+            // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
+            print("set to \(sender.titleOfSelectedItem ?? "") (video)")
+            if sender.titleOfSelectedItem != "Manual" {selectedFormatVideo = sender.titleOfSelectedItem ?? ""}
+        default:
+            print("audio box error")
+        }
+        
+        //if sender.titleOfSelectedItem != "Manual" {
+            if self.controlsPopover != nil {
+                (controlsPopover?.contentViewController as! FormatControlsVC).didChangeManualControlsEnabled(to: sender.titleOfSelectedItem == "Manual")
+            }
+    //  }
     }
     
     func setControlsPopoverAudioOnly(_ isAudioOnly: Bool) {
@@ -321,6 +362,7 @@ class ViewController: NSViewController {
         }
         
         setControlsPopoverAudioOnly(sender.state == .on)
+        currentRequest.audioOnly = sender.state == .on
         
         switch sender.integerValue {
         case 1:

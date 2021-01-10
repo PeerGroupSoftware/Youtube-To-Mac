@@ -21,6 +21,7 @@ class FormatControlsVC: NSViewController {
     
     var extensionList: [String]?
     var resolutionList: [String]?
+    var mainVC: ViewController?
     
     var isOn = false
     private var selectedFormatVideo = ""
@@ -34,8 +35,22 @@ class FormatControlsVC: NSViewController {
         // Do view setup here.
     }
     
+    func setManualControlsEnabled(_ isEnabled: Bool) {
+        isOn = isEnabled
+        if mainVC != nil {
+            mainVC?.manualControlsStateDidChange(to: isEnabled)
+        }
+        
+        formatsPopUpButton.isEnabled = isEnabled
+        resolutionPopUpButton.isEnabled = (isEnabled && !isAudioOnly)
+    }
+    
+    @IBAction func setOnState(_ sender: NSButton) {
+        setManualControlsEnabled(sender.state == .on)
+    }
+    
     @IBAction func selectedFormat(_ sender: NSPopUpButton) {
-        isOn = true
+        setManualControlsEnabled(true)
         onButton.state = .on
         
         if isAudioOnly {
@@ -54,7 +69,7 @@ class FormatControlsVC: NSViewController {
     }
     
     @IBAction func selectedResolution(_ sender: NSPopUpButton) {
-        isOn = true
+        setManualControlsEnabled(true)
         onButton.state = .on
         
         selectedResolutionVideo = sender.titleOfSelectedItem ?? ""
@@ -91,6 +106,14 @@ class FormatControlsVC: NSViewController {
         display(formats: formatList!, audioOnly: isAudioOnly)
     }
     
+    func didChangeManualControlsEnabled(to newState: Bool) {
+        isOn = newState
+        onButton.state = newState ? .on : .off
+        
+        formatsPopUpButton.isEnabled = newState
+        resolutionPopUpButton.isEnabled = (newState && !isAudioOnly)
+    }
+    
     func loadPreviousSelection() {
         if isAudioOnly {
             if !selectedFormatAudio.isEmpty {
@@ -125,7 +148,7 @@ class FormatControlsVC: NSViewController {
         resolutionPopUpButton.addItems(withTitles: ["Auto"] + (resolutionList ?? []))
         
         
-        if audioOnly {
+        if audioOnly || isOn == false {
             resolutionPopUpButton?.isEnabled = false
         } else {
             resolutionPopUpButton?.isEnabled = true

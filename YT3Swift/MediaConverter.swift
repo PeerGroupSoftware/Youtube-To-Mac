@@ -70,11 +70,28 @@ class MediaConverter {
             exportSession.outputURL = outputURL
             exportSession.exportAsynchronously {
                 do {
-                    var outputDestination = fileLocation.deletingLastPathComponent()
+                    var outputDestination: URL!
                     if destination != nil {
-                        outputDestination = destination!
+                        outputDestination = destination!.appendingPathComponent(fileLocation.lastPathComponent).deletingPathExtension().appendingPathExtension(outFileType.rawValue)
+                        print("MC1: \(outputDestination.absoluteString)")
+                    } else {
+                        if !outputDestination.hasDirectoryPath {
+                        outputDestination = fileLocation.deletingPathExtension().appendingPathExtension(outFileType.rawValue)
+                        } else {
+                            print("MC0: \(fileLocation)")
+                            print("MC1: \(fileLocation.lastPathComponent)")
+                            outputDestination = fileLocation.deletingPathExtension().appendingPathExtension(outFileType.rawValue)
+                        }
+                        
                     }
-                    try FileManager.default.moveItem(at: outputURL, to: outputDestination.deletingPathExtension().appendingPathExtension(outFileType.rawValue))
+                    print("MC2: \(outputDestination.absoluteString)")
+                     /*if outputDestination.hasDirectoryPath {
+                         outputDestination.appendPathComponent(fileLocation.lastPathComponent, isDirectory: false)
+                     }
+                    print("MC3: \(outputDestination.absoluteString)")*/
+                    
+                    try FileManager.default.moveItem(at: outputURL, to: outputDestination)
+                    try FileManager.default.removeItem(at: fileLocation)
                     completion(nil)
                 } catch {
                     print(error)

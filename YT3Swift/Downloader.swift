@@ -70,7 +70,7 @@ class Downloader: ContentDownloaderDelegate {
         downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: downloadFormat), to: downloadDestination, completion: {video, downloadedFile in
             
             if fileFormat == .mov {
-                self.mediaConverter.convert(videoAt: downloadedFile, withID: "12345", to: .mov, destination: nil, completion: {(error) in
+                self.mediaConverter.convert(videoAt: downloadedFile, withID: "12345", to: .mov, destination: downloadDestination, completion: {(error) in
                     print(error)
                })
            } else {

@@ -786,7 +786,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-2x-oWv">
                                 <rect key="frame" x="18" y="99" width="229" height="19"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Default Download Destination" id="tu6-Db-wg0">
-                                    <font key="font" metaFont="systemSemibold" size="16"/>
+                                    <font key="font" metaFont="systemSemibold" size="15"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -964,7 +964,7 @@ DQ
                                     <constraint firstAttribute="height" constant="17" id="cGe-9O-uzl"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Recent Videos" id="gj3-7Y-cwL">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1200,7 +1200,7 @@ DQ
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="47s-gG-e2b"/>
                                                     </constraints>
-                                                    <popUpButtonCell key="cell" type="push" title="Auto" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="6ay-RY-C7T" id="EEZ-MR-zad">
+                                                    <popUpButtonCell key="cell" type="push" title="Auto" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="6ay-RY-C7T" id="EEZ-MR-zad">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
                                                         <menu key="menu" id="TpT-cy-xfU">
@@ -1252,10 +1252,13 @@ DQ
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <connections>
+                                                        <action selector="setOnState:" target="KcT-z3-CVp" id="Meq-bu-3jJ"/>
+                                                    </connections>
                                                 </button>
                                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yKg-DM-J2k">
                                                     <rect key="frame" x="17" y="16" width="78" height="25"/>
-                                                    <popUpButtonCell key="cell" type="push" title="Auto" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="0fg-42-cOP" id="Oth-1g-UaY">
+                                                    <popUpButtonCell key="cell" type="push" title="Auto" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="0fg-42-cOP" id="Oth-1g-UaY">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
                                                         <menu key="menu" id="p3b-pY-bG2">
