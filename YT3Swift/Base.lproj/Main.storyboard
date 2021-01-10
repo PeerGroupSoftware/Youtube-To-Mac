@@ -1195,6 +1195,9 @@ DQ
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <connections>
+                                                        <action selector="selectedExtension:" target="KcT-z3-CVp" id="OIe-hH-93i"/>
+                                                    </connections>
                                                 </popUpButton>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qMU-xI-PuW">
                                                     <rect key="frame" x="18" y="47" width="47" height="16"/>
@@ -1247,6 +1250,9 @@ DQ
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <connections>
+                                                        <action selector="selectedFormat:" target="KcT-z3-CVp" id="WkA-qI-ECS"/>
+                                                    </connections>
                                                 </popUpButton>
                                             </subviews>
                                             <constraints>
