@@ -40,14 +40,22 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         setIsAudioOnly(to: newState)
     }
     
-    func setManualControlsEnabled(_ isEnabled: Bool) {
-        isOn = isEnabled
-        if mainVC != nil {
-            mainVC?.manualControlsStateDidChange(to: isEnabled)
-        }
+    func appStateDidEnableManualControls(_ newState: Bool) {
+        formatsPopUpButton.isEnabled = newState
+        resolutionPopUpButton.isEnabled = (newState && !isAudioOnly)
         
-        formatsPopUpButton.isEnabled = isEnabled
-        resolutionPopUpButton.isEnabled = (isEnabled && !isAudioOnly)
+        onButton.state = newState ? .on : .off
+    }
+    
+    func setManualControlsEnabled(_ isEnabled: Bool) {
+        //isOn = isEnabled
+        /*if mainVC != nil {
+            mainVC?.manualControlsStateDidChange(to: isEnabled)
+        }*/
+        AppStateManager.shared.setManualControls(enabled: isEnabled)
+        
+        //formatsPopUpButton.isEnabled = isEnabled
+        //resolutionPopUpButton.isEnabled = (isEnabled && !isAudioOnly)
     }
     
     @IBAction func setOnState(_ sender: NSButton) {
@@ -60,8 +68,10 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         
         if isAudioOnly {
             selectedFormatAudio = sender.titleOfSelectedItem ?? ""
+            AppStateManager.shared.setSelectedAudioFormat(to: sender.titleOfSelectedItem ?? "")
         } else {
             selectedFormatVideo = sender.titleOfSelectedItem ?? ""
+            AppStateManager.shared.setSelectedVideoFormat(to: sender.titleOfSelectedItem ?? "", resolution: resolutionPopUpButton.titleOfSelectedItem, FPS: nil)
         }
         
         let availableResolutions = (formatList?.filter({$0.fileExtension.rawValue == sender.titleOfSelectedItem}).map({$0.sizeString}) ?? []) + ["Auto"]
@@ -78,6 +88,7 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         onButton.state = .on
         
         selectedResolutionVideo = sender.titleOfSelectedItem ?? ""
+        AppStateManager.shared.setSelectedVideoFormat(to: formatsPopUpButton.titleOfSelectedItem ?? "", resolution: sender.titleOfSelectedItem, FPS: nil)
         
         let availableExtensions = (formatList?.filter({$0.sizeString == sender.titleOfSelectedItem}).map({$0.fileExtension.rawValue}) ?? []) + ["Auto"]
         

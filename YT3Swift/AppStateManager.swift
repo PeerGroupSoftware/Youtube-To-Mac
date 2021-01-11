@@ -11,11 +11,16 @@ import Foundation
 protocol AppStateDelegate {
     func appStateDidToggleAudioOnly(to newState: Bool)
     func appStateDidSelectFormat(_ newFormat: MediaFormat)
+    func appStateDidEnableManualControls(_ newState: Bool)
 }
 
 extension AppStateDelegate {
     func appStateDidSelectFormat(_ newFormat: MediaFormat) {
         print("selected \(newFormat.fileExtension) at \(newFormat.sizeString)")
+    }
+    
+    func appStateDidEnableManualControls(_ newState: Bool) {
+        print("Manual controls enabled: \(newState)")
     }
 }
 
@@ -24,8 +29,9 @@ class AppStateManager {
     private var eventReceivers: [AppStateDelegate] = []
     
     var currentRequest = YTDownloadRequest()
-    var selectedAudioFormat = ""
-    var selectedVideoFormat = ""
+    var manualControlsEnabled = false
+    var selectedAudioFormat: MediaFormat?
+    var selectedVideoFormat: MediaFormat?
     
     func registerForEvents(_ newDelegate: AppStateDelegate) {
         eventReceivers.append(newDelegate)
@@ -38,15 +44,22 @@ class AppStateManager {
         }
     }
     
-    func setSelectedVideoFormat(to newFormat: String) {
-        selectedVideoFormat = newFormat
+    func setSelectedVideoFormat(to newFormat: String, resolution: String?, FPS: Int?) {
+        var tempResolution: String?
+        if resolution != "Auto" {
+            tempResolution = resolution
+        }
+        selectedVideoFormat = MediaFormat(fileExtension: MediaExtension(rawValue: newFormat)!, sizeString: tempResolution, fps: FPS)
     }
     
     func setSelectedAudioFormat(to newFormat: String){
-        selectedAudioFormat = newFormat
+        selectedAudioFormat = MediaFormat(fileExtension: MediaExtension(rawValue: newFormat)!)
     }
     
     func setManualControls(enabled isEnabled: Bool) {
-        
+        manualControlsEnabled = isEnabled
+        for receiver in eventReceivers {
+            receiver.appStateDidEnableManualControls(isEnabled)
+        }
     }
 }

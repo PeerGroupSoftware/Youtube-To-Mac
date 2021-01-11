@@ -82,6 +82,22 @@ class ViewController: NSViewController, AppStateDelegate {
         }
     }
     
+    func appStateDidEnableManualControls(_ newState: Bool) {
+        if newState == true {
+            formatPopup.selectItem(withTitle: "Manual")
+        } else {
+            if AppStateManager.shared.currentRequest.audioOnly {
+                if !selectedFormatAudio.isEmpty {
+                    formatPopup.selectItem(withTitle: selectedFormatAudio)
+                }
+            } else {
+                if !selectedFormatVideo.isEmpty {
+                    formatPopup.selectItem(withTitle: selectedFormatVideo)
+                }
+            }
+        }
+    }
+    
     override func viewWillAppear() {
         //let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
         //view.window?.setFrame(newWindowFrame, display: true, animate: true)
@@ -255,22 +271,6 @@ class ViewController: NSViewController, AppStateDelegate {
         previousVideosTableView.reloadData()
     }
     
-    func manualControlsStateDidChange(to newState: Bool) {
-        if newState == true {
-            formatPopup.selectItem(withTitle: "Manual")
-        } else {
-            if AppStateManager.shared.currentRequest.audioOnly {
-                if !selectedFormatAudio.isEmpty {
-                    formatPopup.selectItem(withTitle: selectedFormatAudio)
-                }
-            } else {
-                if !selectedFormatVideo.isEmpty {
-                    formatPopup.selectItem(withTitle: selectedFormatVideo)
-                }
-            }
-        }
-    }
-    
     func saveVideoToHistory(video targetVideo: YTVideo) {
         var videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory")) as? [String:[String:String]] ?? [String:[String:String]]()
         //UserDefaults().arr
@@ -370,7 +370,8 @@ class ViewController: NSViewController, AppStateDelegate {
         
         //if sender.titleOfSelectedItem != "Manual" {
             if self.controlsPopover != nil {
-                (controlsPopover?.contentViewController as! FormatControlsVC).didChangeManualControlsEnabled(to: sender.titleOfSelectedItem == "Manual")
+                //(controlsPopover?.contentViewController as! FormatControlsVC).didChangeManualControlsEnabled(to: sender.titleOfSelectedItem == "Manual")
+                AppStateManager.shared.setManualControls(enabled: sender.titleOfSelectedItem == "Manual")
             }
     //  }
     }
