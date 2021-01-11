@@ -10,6 +10,7 @@ import Cocoa
 
 class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDelegate {
     var audioOnlyButton: NSButton?
+    var manualControlsButton: NSButton?
     var downloadContentButton: NSButton?
     
     override func windowDidLoad() {
@@ -33,6 +34,12 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDele
         }
     }
     
+    func appStateDidEnableManualControls(_ newState: Bool) {
+        if manualControlsButton != nil {
+            manualControlsButton!.state = newState ? .on : .off
+        }
+    }
+    
     /*func updateTBAudioButton(withState state: NSButton.StateValue) {
         if audioOnlyButton != nil {
             audioOnlyButton!.state = state
@@ -51,7 +58,7 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDele
         touchBar.delegate = self
         touchBar.principalItemIdentifier = NSTouchBarItem.Identifier(rawValue: "downloadButton")
         touchBar.customizationIdentifier = "com.youtubetomac.touchbarbar"
-        touchBar.defaultItemIdentifiers = [NSTouchBarItem.Identifier("audioButton"), NSTouchBarItem.Identifier("downloadButton")/*NSTouchBarItem.Identifier("group")*/]
+        touchBar.defaultItemIdentifiers = [NSTouchBarItem.Identifier("audioButton"),NSTouchBarItem.Identifier("manualControlsButton"), NSTouchBarItem.Identifier("downloadButton")/*NSTouchBarItem.Identifier("group")*/]
         
         return touchBar
     }
@@ -61,6 +68,8 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDele
         case NSUserInterfaceItemIdentifier("audioTBButton"):
             //(contentViewController as! ViewController).audioToggle(sender)
             AppStateManager.shared.setAudioOnly(to: sender.state == .on)
+        case NSUserInterfaceItemIdentifier("manualControlsTBButton"):
+            AppStateManager.shared.setManualControls(enabled: sender.state == .on)
         case NSUserInterfaceItemIdentifier("downloadTBButton"):
             (contentViewController as! ViewController).startTasks(sender)
             sender.isEnabled = false
@@ -84,6 +93,15 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDele
             audioButton.view = button
             
             touchBarButton = audioButton
+        case NSTouchBarItem.Identifier("manualControlsButton"):
+            let manualControlsButton = NSCustomTouchBarItem(identifier:NSTouchBarItem.Identifier(rawValue: "manualControlsButton"))
+            let newButton = NSButton(image: NSImage(named: "sliders")!, target: self, action: #selector(handleButtonPress))
+            self.manualControlsButton = newButton
+            newButton.setButtonType(.pushOnPushOff)
+            newButton.identifier = NSUserInterfaceItemIdentifier(rawValue: "manualControlsTBButton")
+            manualControlsButton.view = newButton
+            
+            touchBarButton = manualControlsButton
         case NSTouchBarItem.Identifier("downloadButton"):
             let downloadTBButton = NSCustomTouchBarItem(identifier:NSTouchBarItem.Identifier(rawValue: "downloadButton"))
             let downloadButton = NSButton(title: "Download", target: self, action: #selector(handleButtonPress))
