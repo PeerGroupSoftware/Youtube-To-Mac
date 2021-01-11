@@ -19,6 +19,7 @@
 		23875D492559E533008D19AE /* youtube-dl-2020-11-01.sh in Resources */ = {isa = PBXBuildFile; fileRef = 23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */; };
 		23F92A41256041250056F5C8 /* MediaConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F92A40256041250056F5C8 /* MediaConverter.swift */; };
 		23F92A4325604AD60056F5C8 /* DownloadHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F92A4225604AD60056F5C8 /* DownloadHistoryManager.swift */; };
+		23FB738B25ABD2BC00138FBB /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FB738A25ABD2B900138FBB /* AppStateManager.swift */; };
 		B7058DB822B6D392001E818D /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB722B6D392001E818D /* Downloader.swift */; };
 		B7058DBA22B6DB20001E818D /* YTDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */; };
 		B77E6A651E9BCEFC001CFE77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */; };
@@ -57,6 +58,7 @@
 		23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-11-01.sh"; sourceTree = "<group>"; };
 		23F92A40256041250056F5C8 /* MediaConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaConverter.swift; sourceTree = "<group>"; };
 		23F92A4225604AD60056F5C8 /* DownloadHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryManager.swift; sourceTree = "<group>"; };
+		23FB738A25ABD2B900138FBB /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		B7058DB722B6D392001E818D /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		B7058DB922B6DB20001E818D /* YTDownloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTDownloadRequest.swift; sourceTree = "<group>"; };
 		B77E6A611E9BCEFC001CFE77 /* YoutubeToMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeToMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 				B78D7FA122CAA561009170F8 /* Window Controllers */,
 				B78D7FA422CAA695009170F8 /* View Controllers */,
 				B77E6A641E9BCEFC001CFE77 /* AppDelegate.swift */,
+				23FB738A25ABD2B900138FBB /* AppStateManager.swift */,
 				B7058DB722B6D392001E818D /* Downloader.swift */,
 				23F92A40256041250056F5C8 /* MediaConverter.swift */,
 				23F92A4225604AD60056F5C8 /* DownloadHistoryManager.swift */,
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23F92A4325604AD60056F5C8 /* DownloadHistoryManager.swift in Sources */,
+				23FB738B25ABD2BC00138FBB /* AppStateManager.swift in Sources */,
 				B7EC8035200576860059C8C8 /* PreviousTableViewController.swift in Sources */,
 				230D7EFF2560A83400894714 /* YTVideo.swift in Sources */,
 				B77E6A671E9BCEFC001CFE77 /* ViewController.swift in Sources */,
@@ -419,7 +423,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -447,7 +451,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = 9W7546BN3K;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (

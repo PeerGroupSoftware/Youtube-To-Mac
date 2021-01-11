@@ -8,8 +8,7 @@
 
 import Cocoa
 
-class MainWindowController: NSWindowController, NSTouchBarDelegate {
-    
+class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDelegate {
     var audioOnlyButton: NSButton?
     var downloadContentButton: NSButton?
     
@@ -24,13 +23,21 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate {
         
         window?.isMovableByWindowBackground = true
         window?.titlebarAppearsTransparent = true
+        
+        AppStateManager.shared.registerForEvents(self)
     }
     
-    func updateTBAudioButton(withState state: NSButton.StateValue) {
+    func appStateDidToggleAudioOnly(to newState: Bool) {
+        if audioOnlyButton != nil {
+            audioOnlyButton!.state = newState ? .on : .off
+        }
+    }
+    
+    /*func updateTBAudioButton(withState state: NSButton.StateValue) {
         if audioOnlyButton != nil {
             audioOnlyButton!.state = state
         }
-    }
+    }*/
     
     func updateTBDownloadButton(withState state: NSButton.StateValue) {
         if downloadContentButton != nil {
@@ -52,7 +59,8 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate {
     @objc func handleButtonPress(sender: NSButton) {
         switch sender.identifier {
         case NSUserInterfaceItemIdentifier("audioTBButton"):
-            (contentViewController as! ViewController).audioToggle(sender)
+            //(contentViewController as! ViewController).audioToggle(sender)
+            AppStateManager.shared.setAudioOnly(to: sender.state == .on)
         case NSUserInterfaceItemIdentifier("downloadTBButton"):
             (contentViewController as! ViewController).startTasks(sender)
             sender.isEnabled = false

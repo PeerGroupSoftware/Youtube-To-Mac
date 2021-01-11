@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class FormatControlsVC: NSViewController {
+class FormatControlsVC: NSViewController, AppStateDelegate {
     @IBOutlet weak var mainTabView: NSTabView!
     @IBOutlet weak var instructionalLabel: NSTextField!
     @IBOutlet weak var formatsLoadingIndicator: NSProgressIndicator!
@@ -32,7 +32,12 @@ class FormatControlsVC: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        AppStateManager.shared.registerForEvents(self)
+    }
+    
+    func appStateDidToggleAudioOnly(to newState: Bool) {
+        //print("FCVC: audioOnly was set to \(newState)")
+        setIsAudioOnly(to: newState)
     }
     
     func setManualControlsEnabled(_ isEnabled: Bool) {

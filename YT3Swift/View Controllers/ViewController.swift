@@ -11,7 +11,7 @@ import Cocoa
 let previousVideosTableController = PreviousTableViewController()
 var mainViewController = ViewController()
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, AppStateDelegate {
     @IBOutlet weak var URLField: NSTextField!
     //@IBOutlet weak var nameLabel: NSTextField!
     @IBOutlet weak var audioBox: NSButton!
@@ -54,6 +54,34 @@ class ViewController: NSViewController {
         
     }
     
+    func appStateDidToggleAudioOnly(to newState: Bool) {
+        //print("VC: audioOnly set to \(newState)")
+        audioBox.state = newState ? .on : .off
+        
+        switch newState {
+        case true:
+            //print("set audio formats")
+            formatPopup.removeAllItems()
+            formatPopup.addItems(withTitles: audioFormatsList/*["Auto"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue})*/)
+        case false:
+            // print("set video formats")
+            formatPopup.removeAllItems()
+            formatPopup.addItems(withTitles: videoFormatsList/*["Auto"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})*/)
+        }
+        
+        if formatPopup.selectedItem?.title == "Auto" {
+            switch newState {
+            case true:
+                currentRequest.fileFormat = .auto//"wav/m4a/mp3/bestaudio"
+                print("set to audio")
+            case false:
+                currentRequest.fileFormat = .auto//"mp4/flv/best"
+                print("set to video")
+            }
+            
+        }
+    }
+    
     override func viewWillAppear() {
         //let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
         //view.window?.setFrame(newWindowFrame, display: true, animate: true)
@@ -81,6 +109,8 @@ class ViewController: NSViewController {
         
         previousVideosTableView.delegate = previousVideosTableController
         previousVideosTableView.dataSource = previousVideosTableController
+        
+        AppStateManager.shared.registerForEvents(self)
         
         let videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory") as? [String:[String:String]] ?? [String:[String:String]]()).reversed()
         //print(videoHistory)
@@ -229,7 +259,7 @@ class ViewController: NSViewController {
         if newState == true {
             formatPopup.selectItem(withTitle: "Manual")
         } else {
-            if currentRequest.audioOnly {
+            if AppStateManager.shared.currentRequest.audioOnly {
                 if !selectedFormatAudio.isEmpty {
                     formatPopup.selectItem(withTitle: selectedFormatAudio)
                 }
@@ -355,41 +385,16 @@ class ViewController: NSViewController {
     
     @IBAction func audioToggle(_ sender: NSButton) {
         
-        if sender.identifier?.rawValue == "audioTBButton" {
+        AppStateManager.shared.setAudioOnly(to: sender.state == .on)
+        
+       /* if sender.identifier?.rawValue == "audioTBButton" {
             audioBox.state = sender.state
         } else {
             (view.window?.windowController as! MainWindowController as MainWindowController).updateTBAudioButton(withState: sender.state)
-        }
+        }*/
         
-        setControlsPopoverAudioOnly(sender.state == .on)
-        currentRequest.audioOnly = sender.state == .on
-        
-        switch sender.integerValue {
-        case 1:
-            //print("set audio formats")
-            formatPopup.removeAllItems()
-            formatPopup.addItems(withTitles: audioFormatsList/*["Auto"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue})*/)
-        case 0:
-            // print("set video formats")
-            formatPopup.removeAllItems()
-            formatPopup.addItems(withTitles: videoFormatsList/*["Auto"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})*/)
-        default:
-            print("Audio button error")
-        }
-        
-        if formatPopup.selectedItem?.title == "Auto" {
-            switch sender.integerValue {
-            case 1:
-                currentRequest.fileFormat = .auto//"wav/m4a/mp3/bestaudio"
-                print("set to audio")
-            case 0:
-                currentRequest.fileFormat = .auto//"mp4/flv/best"
-                print("set to video")
-            default:
-                print("audio box error")
-            }
-            
-        }
+        //setControlsPopoverAudioOnly(sender.state == .on)
+        //currentRequest.audioOnly = sender.state == .on
     }
     
     
@@ -399,7 +404,7 @@ class ViewController: NSViewController {
     
     @IBAction func startTasks(_ sender: NSButton) {
         currentRequest.contentURL = URLField.stringValue
-        currentRequest.audioOnly = (audioBox.state == .on)
+        currentRequest.audioOnly = AppStateManager.shared.currentRequest.audioOnly
         currentRequest.error = nil
         
         //print("destination: \(currentRequest.destination)")
