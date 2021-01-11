@@ -11,6 +11,7 @@ import Foundation
 protocol AppStateDelegate {
     func appStateDidToggleAudioOnly(to newState: Bool)
     func appStateDidSelectFormat(_ newFormat: MediaFormat)
+    func appStateDidChange(to newState: AppState)
     func appStateDidEnableManualControls(_ newState: Bool)
 }
 
@@ -27,6 +28,7 @@ extension AppStateDelegate {
 class AppStateManager {
     static let shared = AppStateManager()
     private var eventReceivers: [AppStateDelegate] = []
+    private(set) var state: AppState = .waitingForURL
     
     var currentRequest = YTDownloadRequest()
     var manualControlsEnabled = false
@@ -41,6 +43,13 @@ class AppStateManager {
         currentRequest.audioOnly = isAudioOnly
         for receiver in eventReceivers {
             receiver.appStateDidToggleAudioOnly(to: isAudioOnly)
+        }
+    }
+    
+    func setAppState(to newState: AppState) {
+        state = newState
+        for receiver in eventReceivers {
+            receiver.appStateDidChange(to: newState)
         }
     }
     
@@ -62,4 +71,10 @@ class AppStateManager {
             receiver.appStateDidEnableManualControls(isEnabled)
         }
     }
+}
+
+enum AppState {
+    case waitingForURL
+    case ready
+    case downloading
 }

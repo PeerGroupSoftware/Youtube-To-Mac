@@ -9,6 +9,7 @@
 import Cocoa
 
 class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDelegate {
+    
     var audioOnlyButton: NSButton?
     var manualControlsButton: NSButton?
     var downloadContentButton: NSButton?
@@ -38,6 +39,42 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDele
         if manualControlsButton != nil {
             manualControlsButton!.state = newState ? .on : .off
         }
+    }
+    
+    func appStateDidChange(to newState: AppState) {
+        if newState == .downloading {
+            if downloadContentButton != nil {
+                downloadContentButton!.isEnabled = false
+            }
+            
+            if audioOnlyButton != nil {
+                audioOnlyButton!.isEnabled = false
+            }
+            
+            if manualControlsButton != nil {
+                manualControlsButton!.isEnabled = false
+            }
+        } else if newState == .waitingForURL {
+            if downloadContentButton != nil {
+                downloadContentButton!.isEnabled = true
+            }
+            
+            if audioOnlyButton != nil {
+                audioOnlyButton!.isEnabled = true
+            }
+        } else if newState == .ready {
+            if downloadContentButton != nil {
+                downloadContentButton!.isEnabled = true
+            }
+            
+            if audioOnlyButton != nil {
+                audioOnlyButton!.isEnabled = true
+            }
+            
+            if manualControlsButton != nil {
+                manualControlsButton!.isEnabled = true
+            }
+    }
     }
     
     /*func updateTBAudioButton(withState state: NSButton.StateValue) {

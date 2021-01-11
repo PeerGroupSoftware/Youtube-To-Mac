@@ -47,6 +47,17 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         onButton.state = newState ? .on : .off
     }
     
+    func appStateDidChange(to newState: AppState) {
+        switch newState {
+        case .waitingForURL:
+            setURLState(.waiting)
+        case .ready:
+            setURLState(.found)
+        default:
+            break
+        }
+    }
+    
     func setManualControlsEnabled(_ isEnabled: Bool) {
         //isOn = isEnabled
         /*if mainVC != nil {

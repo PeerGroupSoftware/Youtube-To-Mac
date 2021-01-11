@@ -44,7 +44,7 @@ class ViewController: NSViewController, AppStateDelegate {
     
     
     @IBOutlet weak var mainProgressBar: NSProgressIndicator!
-    @IBOutlet weak var actionButton: NSButton!
+    //@IBOutlet weak var actionButton: NSButton!
     
     let downloader = Downloader()
     var currentRequest = YTDownloadRequest()
@@ -95,6 +95,18 @@ class ViewController: NSViewController, AppStateDelegate {
                     formatPopup.selectItem(withTitle: selectedFormatVideo)
                 }
             }
+        }
+    }
+    
+    func appStateDidChange(to newState: AppState) {
+        switch newState {
+        case .waitingForURL:
+            self.setDownloadInterface(to: false)
+            //controlsButton.isEnabled = false
+        case .downloading:
+            setDownloadInterface(to: true)
+        default:
+            break
         }
     }
     
@@ -161,7 +173,9 @@ class ViewController: NSViewController, AppStateDelegate {
         if URLField.stringValue.containsURL() {
             DispatchQueue.main.async {
                 if !(self.controlsPopover?.isShown ?? false) {
-                    self.controlsLoadingIndicator.startAnimation(self)
+                    if AppStateManager.shared.state != .downloading {
+                        self.controlsLoadingIndicator.startAnimation(self)
+                    }
                     self.controlsButton.isHidden = true
                 } else {
                     //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.loading)
@@ -418,14 +432,16 @@ class ViewController: NSViewController, AppStateDelegate {
         }
         
         if !currentRequest.contentURL.isEmpty {
-            setDownloadInterface(to: true)
+            //setDownloadInterface(to: true)
+            AppStateManager.shared.setAppState(to: .downloading)
             
             currentRequest.progressHandler = {(progress, error, videoInfo) in
                 DispatchQueue.main.async {
                     if progress >= 0 {
                         self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
                         if progress == 100 && videoInfo != nil {
-                            self.setDownloadInterface(to: false)
+                            //self.setDownloadInterface(to: false)
+                            AppStateManager.shared.setAppState(to: .waitingForURL)
                         }
                     } else if progress != 100 {
                         DispatchQueue.main.async {self.URLField.stringValue = videoInfo!.title}
@@ -486,7 +502,8 @@ class ViewController: NSViewController, AppStateDelegate {
                         }
                     }
                     
-                    self.setDownloadInterface(to: false)
+                    //self.setDownloadInterface(to: false)
+                    AppStateManager.shared.setAppState(to: .waitingForURL)
                     print(previousVideos.first?.title ?? "")
                 }
             }
@@ -503,7 +520,8 @@ class ViewController: NSViewController, AppStateDelegate {
     
     @IBAction func stopButton(_ sender: NSButton) {
         downloader.terminateDownload()
-        setDownloadInterface(to: false)
+        //setDownloadInterface(to: false)
+        AppStateManager.shared.setAppState(to: .waitingForURL)
     }
     
     func setDownloadTitleStatus(to downloadName: String) {
