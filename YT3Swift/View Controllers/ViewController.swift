@@ -47,7 +47,7 @@ class ViewController: NSViewController, AppStateDelegate {
     //@IBOutlet weak var actionButton: NSButton!
     
     let downloader = Downloader()
-    var currentRequest = YTDownloadRequest()
+    //var currentRequest = YTDownloadRequest()
     
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -72,10 +72,10 @@ class ViewController: NSViewController, AppStateDelegate {
         if formatPopup.selectedItem?.title == "Auto" {
             switch newState {
             case true:
-                currentRequest.fileFormat = .auto//"wav/m4a/mp3/bestaudio"
+                AppStateManager.shared.currentRequest.fileFormat = MediaFormat(fileExtension: .auto) //.auto//"wav/m4a/mp3/bestaudio"
                 print("set to audio")
             case false:
-                currentRequest.fileFormat = .auto//"mp4/flv/best"
+                AppStateManager.shared.currentRequest.fileFormat = MediaFormat(fileExtension: .auto)//.auto//"mp4/flv/best"
                 print("set to video")
             }
             
@@ -103,8 +103,11 @@ class ViewController: NSViewController, AppStateDelegate {
         case .waitingForURL:
             self.setDownloadInterface(to: false)
             //controlsButton.isEnabled = false
+            AppStateManager.shared.setManualControls(enabled: false)
         case .downloading:
             setDownloadInterface(to: true)
+        case .ready:
+            controlsButton.isEnabled = true
         default:
             break
         }
@@ -184,7 +187,8 @@ class ViewController: NSViewController, AppStateDelegate {
             }
             
             downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), formatType: .compatibleAndConvertable, completion: {(formats, error) in
-                //print("formats: \(formats)")
+                print("formats: \(formats)")
+                
                 DispatchQueue.main.async {
                     //print("controls popover: \(self.controlsPopover)")
                     if !(self.controlsPopover?.isShown ?? false) {
@@ -200,20 +204,22 @@ class ViewController: NSViewController, AppStateDelegate {
                         //if self.controlsPopover != nil {
                         //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.waiting)
                         self.setControlsPopoverState(to: .waiting)
+                        AppStateManager.shared.setAppState(to: .waitingForURL)
                         // }
                     } else {
                         print("Found formats is NOT empty")
                         //if self.controlsPopover != nil {
                         //(self.controlsPopover?.contentViewController as! FormatControlsVC).setURLState(.found)
                         self.setControlsPopoverState(to: .found)
+                        AppStateManager.shared.setAppState(to: .ready)
                         //}
-                        self.currentRequest.directFormats = formats
+                        AppStateManager.shared.currentRequest.directFormats = formats
                         self.setControlsPopoverFormats(to: formats)
                     }
                     
                 }
                 //let directUsableFormats = formats.filter({[YTCodec.mp4a, YTCodec.avc1].contains($0.codec)})
-                print(formats.sorted(by: {($0.size?.height ?? 0)<($1.size?.height ?? 0)}))
+                //print(formats.sorted(by: {($0.size?.height ?? 0)<($1.size?.height ?? 0)}))
             })
         } else {
             print("No URL detected")
@@ -262,7 +268,6 @@ class ViewController: NSViewController, AppStateDelegate {
             controlsPopover?.performClose(self)
         } else {
             controlsPopover!.show(relativeTo: sender.frame, of: view, preferredEdge: .minY)
-            //print(currentRequest.directFormats)
             (controlsPopover?.contentViewController as! FormatControlsVC).setURLState(popoverState ?? .waiting)
             (controlsPopover?.contentViewController as! FormatControlsVC).updateVideoTitle(to: popoverTitle)
             (controlsPopover?.contentViewController as! FormatControlsVC).display(formats: popoverFormats ?? [], audioOnly: (audioBox.state == .on))
@@ -299,11 +304,12 @@ class ViewController: NSViewController, AppStateDelegate {
     @IBAction func toggleWindowSize(_ sender: NSButton) {
         
         switch (sender.state) {
+        //Expand window
         case .on:
+            previousVideosTableView.isHidden = false //This should stay outside of animation
             NSAnimationContext.runAnimationGroup({_ in
                 NSAnimationContext.current.duration = 0.5
                 if previousVideosTableView.numberOfRows != 0 {clearTableViewButton.animator().isHidden = false}
-            }, completionHandler:{
             })
             // let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
             //bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
@@ -315,6 +321,7 @@ class ViewController: NSViewController, AppStateDelegate {
                 bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
             }, completionHandler:{
             })
+            //Collapse window
         case .off:
             //let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
             
@@ -322,6 +329,7 @@ class ViewController: NSViewController, AppStateDelegate {
             NSAnimationContext.runAnimationGroup({_ in
                 NSAnimationContext.current.duration = 0.2
                 clearTableViewButton.animator().isHidden = true
+                previousVideosTableView.animator().isHidden = true
                 bigConstraint.animator().constant = CGFloat(defaultBottomConstant)
             }, completionHandler:{
             })
@@ -346,7 +354,7 @@ class ViewController: NSViewController, AppStateDelegate {
             if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
                 let path = locationSelectPanel.url!.path
                 print("selected folder is \(path)")
-                self.currentRequest.destination = URL(fileURLWithPath: path)
+                AppStateManager.shared.currentRequest.destination = URL(fileURLWithPath: path)
             }
         })
         
@@ -355,14 +363,14 @@ class ViewController: NSViewController, AppStateDelegate {
     
     @IBAction func formatSelectionChanged(_ sender: NSPopUpButton) {
         if  !["Auto", "Manual"].contains(sender.selectedItem?.title) {
-            currentRequest.fileFormat = MediaExtension(rawValue:(sender.selectedItem?.title)!)!
+            AppStateManager.shared.currentRequest.fileFormat = MediaFormat(fileExtension: MediaExtension(rawValue:(sender.selectedItem?.title)!)!)
         /*} else {
             switch audioBox.integerValue {
             case 1:
                 print("set to \(sender.titleOfSelectedItem ?? "") (audio)")
                 selectedFormatAudio = sender.titleOfSelectedItem ?? ""
             case 0:
-                // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
+                // AppStateManager.shared.currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
                 print("set to \(sender.titleOfSelectedItem ?? "") (video)")
                 selectedFormatVideo = sender.titleOfSelectedItem ?? ""
             default:
@@ -375,7 +383,7 @@ class ViewController: NSViewController, AppStateDelegate {
             print("set to \(sender.titleOfSelectedItem ?? "") (audio)")
             if sender.titleOfSelectedItem != "Manual" {selectedFormatAudio = sender.titleOfSelectedItem ?? ""}
         case 0:
-            // currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
+            // AppStateManager.shared.currentRequest.fileFormat = .defaultVideo//"mp4/flv/best"
             print("set to \(sender.titleOfSelectedItem ?? "") (video)")
             if sender.titleOfSelectedItem != "Manual" {selectedFormatVideo = sender.titleOfSelectedItem ?? ""}
         default:
@@ -418,30 +426,37 @@ class ViewController: NSViewController, AppStateDelegate {
     }
     
     @IBAction func startTasks(_ sender: NSButton) {
-        currentRequest.contentURL = URLField.stringValue
-        currentRequest.audioOnly = AppStateManager.shared.currentRequest.audioOnly
-        currentRequest.error = nil
+        AppStateManager.shared.currentRequest.contentURL = URLField.stringValue
+        //currentRequest.audioOnly = AppStateManager.shared.currentRequest.audioOnly
+        AppStateManager.shared.currentRequest.error = nil
+        
+        /*if AppStateManager.shared.manualControlsEnabled {
+            AppStateManager.shared.currentRequest.fileFormat =
+        }*/
+        
+        //currentRequest.fileFormat = AppStateManager.shared.currentRequest.fileFormat
+        print("CRFF: \(AppStateManager.shared.currentRequest.fileFormat)")
         
         //print("destination: \(currentRequest.destination)")
-        if currentRequest.destination == Downloader.desktopFolder || currentRequest.destination == Downloader.downloadsFolder {
+        if AppStateManager.shared.currentRequest.destination == Downloader.desktopFolder || AppStateManager.shared.currentRequest.destination == Downloader.downloadsFolder {
             if (UserDefaults.standard.string(forKey: "DownloadDestination") ?? "") == "downloads" {
-                currentRequest.destination = Downloader.downloadsFolder//"~/Downloads"
+                AppStateManager.shared.currentRequest.destination = Downloader.downloadsFolder//"~/Downloads"
             } else {
-                currentRequest.destination = Downloader.desktopFolder
+                AppStateManager.shared.currentRequest.destination = Downloader.desktopFolder
             }
         }
         
-        if !currentRequest.contentURL.isEmpty {
+        if !AppStateManager.shared.currentRequest.contentURL.isEmpty {
             //setDownloadInterface(to: true)
             AppStateManager.shared.setAppState(to: .downloading)
             
-            currentRequest.progressHandler = {(progress, error, videoInfo) in
+            AppStateManager.shared.currentRequest.progressHandler = {(progress, error, videoInfo) in
                 DispatchQueue.main.async {
                     if progress >= 0 {
                         self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
                         if progress == 100 && videoInfo != nil {
                             //self.setDownloadInterface(to: false)
-                            AppStateManager.shared.setAppState(to: .waitingForURL)
+                            //AppStateManager.shared.setAppState(to: .waitingForURL)
                         }
                     } else if progress != 100 {
                         DispatchQueue.main.async {self.URLField.stringValue = videoInfo!.title}
@@ -449,7 +464,7 @@ class ViewController: NSViewController, AppStateDelegate {
                 }
             }
             
-            currentRequest.completionHandler = { (video, error) in
+            AppStateManager.shared.currentRequest.completionHandler = { (video, error) in
                 //print("COMPLETION HANDLER")
                 //print("DOWNLOADED: \(video?.title)")
                 DispatchQueue.main.async {
@@ -459,9 +474,9 @@ class ViewController: NSViewController, AppStateDelegate {
                     let downloadNotification = NSUserNotification()
                     let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
                     var downloadDestination = ""
-                    if self.currentRequest.destination == Downloader.desktopFolder {
+                    if AppStateManager.shared.currentRequest.destination == Downloader.desktopFolder {
                         downloadDestination = "Desktop"
-                    } else if self.currentRequest.destination == Downloader.downloadsFolder {
+                    } else if AppStateManager.shared.currentRequest.destination == Downloader.downloadsFolder {
                         downloadDestination = "Downloads"
                     }
                     
@@ -480,13 +495,13 @@ class ViewController: NSViewController, AppStateDelegate {
                     downloadNotification.informativeText = informativeText
                     downloadNotification.soundName = NSUserNotificationDefaultSoundName
                     
-                    if self.downloadButton.isEnabled && (self.currentRequest.error == nil) && (error == nil) {
+                    if self.downloadButton.isEnabled && (AppStateManager.shared.currentRequest.error == nil) && (error == nil) {
                         NSUserNotificationCenter.default.deliver(downloadNotification)
                         if video != nil {
                             self.saveVideoToHistory(video: video!)
                         }
                     } else {
-                        print(self.currentRequest.error)
+                        print(AppStateManager.shared.currentRequest.error)
                     }
                     
                     
@@ -508,7 +523,7 @@ class ViewController: NSViewController, AppStateDelegate {
                 }
             }
             
-            downloader.downloadContent(with: currentRequest)
+            downloader.downloadContent(with: AppStateManager.shared.currentRequest)
             //URLField.selec
         } else {
             if (sender.identifier?.rawValue) ?? "" == "downloadTBButton" {

@@ -53,16 +53,24 @@ class AppStateManager {
         }
     }
     
-    func setSelectedVideoFormat(to newFormat: String, resolution: String?, FPS: Int?) {
+    func setSelectedVideoFormat(to newFormat: MediaFormat, resolution: String?) {
         var tempResolution: String?
         if resolution != "Auto" {
             tempResolution = resolution
         }
-        selectedVideoFormat = MediaFormat(fileExtension: MediaExtension(rawValue: newFormat)!, sizeString: tempResolution, fps: FPS)
+        selectedVideoFormat = newFormat//MediaFormat(fileExtension: MediaExtension(rawValue: newFormat) ?? .auto, sizeString: tempResolution, fps: newFormat.fps)
+        
+        currentRequest.fileFormat = newFormat//.fileExtension = MediaExtension(rawValue: newFormat) ?? .auto
+        /*currentRequest.fileFormat.sizeString = tempResolution
+        currentRequest.fileFormat.fps = FPS*/
+        
+        for receiver in eventReceivers {
+            receiver.appStateDidSelectFormat(newFormat)
+        }
     }
     
-    func setSelectedAudioFormat(to newFormat: String){
-        selectedAudioFormat = MediaFormat(fileExtension: MediaExtension(rawValue: newFormat)!)
+    func setSelectedAudioFormat(to newFormat: MediaFormat){
+        selectedAudioFormat = newFormat//MediaFormat(fileExtension: MediaExtension(rawValue: newFormat)!)
     }
     
     func setManualControls(enabled isEnabled: Bool) {

@@ -51,13 +51,32 @@ class YTDLDownloader: ContentDownloader {
             
             if targetFormat.fileExtension == .auto {
                 if targetFormat.audioOnly {
-                    requestedExtension = "wav/m4a/mp3/bestaudio"
+                    requestedExtension = "bestaudio"//"wav/m4a/mp3/bestaudio"
                 } else {
                     requestedExtension = "mp4/flv/best"
                 }
             }
+            print("TF: \(targetFormat)")
+            if !(targetFormat.sizeString?.isEmpty ?? true) {
+                if targetFormat.fileExtension == .auto {
+                    requestedExtension = "bestvideo"
+                }
+                requestedExtension += "[height=\(targetFormat.sizeString?.dropLast() ?? "720")]"
+            }
+            if targetFormat.videoOnly {
+                print("Video only, will need to merge audio+video")
+                requestedExtension += "+bestaudio[ext=m4a]"
+            }
             
-            self.downloadTask.arguments = ["-f \(requestedExtension)", "-o%(title)s.%(ext)s", targetURL]
+            print("RequestedFormat: \(requestedExtension)")
+            
+            var videoNameString = "%(title)s"
+            
+            if !(AppStateManager.shared.currentRequest.videoTitle?.isEmpty ?? true) && (AppStateManager.shared.currentRequest.contentURL == targetURL) {
+                videoNameString = AppStateManager.shared.currentRequest.videoTitle!
+            }
+            
+            self.downloadTask.arguments = ["-f \(requestedExtension)", "-o\(videoNameString).%(ext)s", targetURL]
             print(downloadDestination.absoluteString)
             self.downloadTask.currentDirectoryPath = downloadDestination.absoluteString.replacingOccurrences(of: "file://", with: "")
             

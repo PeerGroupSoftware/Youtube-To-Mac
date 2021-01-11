@@ -12,8 +12,9 @@ class YTDownloadRequest {
     var destination: URL = Downloader.desktopFolder //"~/Desktop"
     var contentURL = ""
     var audioOnly: Bool = false
-    var fileFormat = MediaExtension.auto // Default video file format
+    var fileFormat = MediaFormat(fileExtension: .auto) // Default video file format
     var directFormats: [MediaFormat] = []
+    var videoTitle: String?
     var progressHandler: ((Double, Error?, YTVideo?) -> Void)!
     var completionHandler: ((YTVideo?, Error?) -> Void)!
     var error: Error?

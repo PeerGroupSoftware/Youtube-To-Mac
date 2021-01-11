@@ -759,12 +759,27 @@
                                     <action selector="toggleAutoUpdates:" target="9Qq-ZI-MuQ" id="Cja-tl-sSD"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" toolTip="Check for updates at launch" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cce-H0-DtA">
+                                <rect key="frame" x="18" y="59" width="225" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="223" id="GDh-Cg-oRf"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Check for Pre-release Updates" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="elh-ty-XPd">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleAutoUpdates:" target="9Qq-ZI-MuQ" id="VCw-Op-Mzj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="jm9-8x-pJW" secondAttribute="bottom" constant="82" id="9SE-JX-gAt"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="top" secondItem="SVD-hY-Ayz" secondAttribute="top" constant="20" symbolic="YES" id="QX5-uU-bQp"/>
+                            <constraint firstItem="Cce-H0-DtA" firstAttribute="top" secondItem="jm9-8x-pJW" secondAttribute="bottom" constant="6" symbolic="YES" id="Qix-uD-Opz"/>
                             <constraint firstAttribute="trailing" secondItem="jm9-8x-pJW" secondAttribute="trailing" constant="44" id="aXY-0Z-oMe"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" symbolic="YES" id="jsn-nV-Ycn"/>
+                            <constraint firstItem="Cce-H0-DtA" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" symbolic="YES" id="vwY-eV-Ojn"/>
                         </constraints>
                     </view>
                     <connections>
@@ -932,7 +947,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Start download" translatesAutoresizingMaskIntoConstraints="NO" id="Px7-yg-8H1">
-                                <rect key="frame" x="393" y="238" width="34" height="32"/>
+                                <rect key="frame" x="393" y="239" width="34" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="Oda-77-Nvd"/>
                                     <constraint firstAttribute="width" constant="34" id="Sl8-jA-aB2"/>
@@ -1123,13 +1138,13 @@ DQ
                         <constraints>
                             <constraint firstItem="9jL-rL-s9k" firstAttribute="top" secondItem="tDR-8e-DwU" secondAttribute="bottom" constant="-15" id="4cj-Ok-Qtg"/>
                             <constraint firstItem="fPs-0d-v9U" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="6Yt-xD-fYD"/>
-                            <constraint firstItem="Px7-yg-8H1" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="16" id="6ZT-dx-aVP"/>
+                            <constraint firstItem="Px7-yg-8H1" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="15" id="6ZT-dx-aVP"/>
                             <constraint firstItem="2fg-fv-edg" firstAttribute="top" secondItem="XHB-NN-yC5" secondAttribute="bottom" constant="5" id="7iV-13-thA"/>
                             <constraint firstItem="7S9-0c-Hjk" firstAttribute="centerY" secondItem="XHB-NN-yC5" secondAttribute="centerY" id="9N3-w1-R19"/>
                             <constraint firstItem="C0x-o8-4go" firstAttribute="top" secondItem="yAQ-wh-GkQ" secondAttribute="bottom" constant="-14" id="AZk-87-QnZ"/>
                             <constraint firstAttribute="trailing" secondItem="9jL-rL-s9k" secondAttribute="trailing" constant="48" id="COx-k0-UCY"/>
                             <constraint firstAttribute="bottom" secondItem="C0x-o8-4go" secondAttribute="bottom" constant="210" id="Gc6-ei-owe"/>
-                            <constraint firstItem="XHB-NN-yC5" firstAttribute="top" secondItem="Px7-yg-8H1" secondAttribute="bottom" constant="6" id="HnT-HH-Fwo"/>
+                            <constraint firstItem="XHB-NN-yC5" firstAttribute="top" secondItem="Px7-yg-8H1" secondAttribute="bottom" constant="7" id="HnT-HH-Fwo"/>
                             <constraint firstItem="Px7-yg-8H1" firstAttribute="leading" secondItem="OBh-TZ-Kob" secondAttribute="trailing" constant="8" id="IZb-Zp-8Ff"/>
                             <constraint firstItem="bjC-oJ-pVm" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="LEt-Oq-6rW"/>
                             <constraint firstItem="vEp-yc-ryh" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="S4V-tg-6gm"/>

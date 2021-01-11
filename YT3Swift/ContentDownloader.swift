@@ -29,8 +29,10 @@ struct MediaFormat {
     var videoCodec: YTCodec?
     var audioCodec: YTCodec?
     var audioOnly: Bool = false
+    var videoOnly: Bool = false
     var sizeString: String?
     var fps: Int?
+    var id: Int?
 }
 
 enum YTCodec: String, CaseIterable {

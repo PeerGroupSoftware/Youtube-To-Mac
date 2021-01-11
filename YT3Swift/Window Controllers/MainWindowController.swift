@@ -135,6 +135,7 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDele
             let newButton = NSButton(image: NSImage(named: "sliders")!, target: self, action: #selector(handleButtonPress))
             self.manualControlsButton = newButton
             newButton.setButtonType(.pushOnPushOff)
+            newButton.isEnabled = false
             newButton.identifier = NSUserInterfaceItemIdentifier(rawValue: "manualControlsTBButton")
             manualControlsButton.view = newButton
             

@@ -60,7 +60,7 @@ class Downloader: ContentDownloaderDelegate {
         downloader.terminateDownload()
     }
     
-    func downloadContent(from targetURL: String, toLocation downloadDestination: URL, audioOnly: Bool, fileFormat: MediaExtension, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
+    func downloadContent(from targetURL: String, toLocation downloadDestination: URL, audioOnly: Bool, fileFormat: MediaFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
         
         downloader.delegate = self
         self.progressHandler = progressHandler
@@ -69,17 +69,25 @@ class Downloader: ContentDownloaderDelegate {
         currentVideo.url = targetURL
         currentVideo.isAudioOnly = audioOnly
         
-        var downloadFormat = fileFormat
+        let convertibleFormats: [MediaExtension:MediaExtension] = [.mov:.mp4, .m4v:.mp4]
         
-        if fileFormat == .mov {
+        var downloadFormat = fileFormat//convertibleFormats[fileFormat.fileExtension] ?? fileFormat.fileExtension
+        downloadFormat.fileExtension = convertibleFormats[fileFormat.fileExtension] ?? fileFormat.fileExtension
+        
+        /*if fileFormat == .mov {
             downloadFormat = .mp4
-        }
+        } else if fileFormat == .m4v {
+            downloadFormat = .mp4
+        }*/
+        
         //print("Starting download for \(fileFormat)")
-        downloader.download(content: targetURL, with: MediaFormat.init(fileExtension: downloadFormat, audioOnly: audioOnly), to: downloadDestination, completion: {video, downloadedFile in
+        downloader.download(content: targetURL, with: downloadFormat, to: downloadDestination, completion: {video, downloadedFile in
             
-            if fileFormat == .mov {
-                self.mediaConverter.convert(videoAt: downloadedFile, withID: "12345", to: .mov, destination: downloadDestination, completion: {(error) in
+            if convertibleFormats.keys.contains(fileFormat.fileExtension) {
+                self.mediaConverter.convert(videoAt: downloadedFile, withID: video!.id, to: fileFormat.fileExtension, destination: downloadDestination, completion: {(error) in
                     print(error)
+                    //print("FINISHED CONVERSION")
+                    completionHandler(video, nil)
                })
            } else {
                 completionHandler(video, nil)
@@ -163,9 +171,9 @@ class Downloader: ContentDownloaderDelegate {
     
     func didCompleteDownload(error: Int?) {
         print("COMPLETED: \(error)")
-        if completionHandler != nil {
+        /*if completionHandler != nil {
             completionHandler!(currentVideo, (error == nil ? nil : NSError(domain: "", code: error!, userInfo: [NSLocalizedDescriptionKey:downloadErrors[error!]])))
-        }
+        }*/
     }
     
     func downloadDidProgress(to downloadProgress: Double) {
@@ -388,13 +396,20 @@ class Downloader: ContentDownloaderDelegate {
             do {
                 let dataResponse = retreivedJSONString.data(using: .utf8)!
                 //print(dataResponse)
-                //print(retreivedJSONString)
+                print(retreivedJSONString)
                     let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: []) as? [String : Any]
                 var foundTitle = (jsonResponse!["title"]) as! String?
                 if foundTitle != nil {
                     //self.didGetVideoName(foundTitle!)
                     self.currentVideo.title = foundTitle!
                 }
+                
+                var foundID = (jsonResponse!["id"]) as! String?
+                if foundID != nil {
+                    //self.didGetVideoName(foundTitle!)
+                    self.currentVideo.id = foundID!
+                }
+                
                 let retreivedFormats = (jsonResponse!["formats"] as! [[String: Any]])
                 //print(retreivedFormats)
                 for format in retreivedFormats {
@@ -410,12 +425,18 @@ class Downloader: ContentDownloaderDelegate {
                         newFormat.sizeString = (format["format_note"] as! String)
                     }
                     
+                    newFormat.id = Int(format["format_id"] as? String ?? "0")
+                    
                     for codec in YTCodec.allCases {
                         if ((format["acodec"] as? String) ?? "unknown").contains(codec.rawValue) {
                             newFormat.audioCodec = codec
                         } else if ((format["vcodec"] as? String) ?? "unknown").contains(codec.rawValue) {
                             newFormat.videoCodec = codec
                         }
+                    }
+                    //print((format["acodec"] as? String), (format["vcodec"] as? String))
+                    if ((format["acodec"] as? String) ?? "none") == "none" && ((format["vcodec"] as? String) ?? "none") != "none" {
+                        newFormat.videoOnly = true
                     }
                     
                     newFormat.fps = (format["fps"] as? Int)

@@ -19,8 +19,8 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
     
     var formatList: [MediaFormat]? = []
     
-    var extensionList: [String]?
-    var resolutionList: [String]?
+    var extensionList: [MediaFormat]?
+    var resolutionList: [MediaFormat]?
     var mainVC: ViewController?
     
     var isOn = false
@@ -77,12 +77,14 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         setManualControlsEnabled(true)
         onButton.state = .on
         
+        print(sender.selectedTag())
+        
         if isAudioOnly {
             selectedFormatAudio = sender.titleOfSelectedItem ?? ""
-            AppStateManager.shared.setSelectedAudioFormat(to: sender.titleOfSelectedItem ?? "")
+            AppStateManager.shared.setSelectedAudioFormat(to: (formatList?.first(where: {$0.fileExtension.rawValue == sender.titleOfSelectedItem})) ?? .init(fileExtension: .auto))
         } else {
             selectedFormatVideo = sender.titleOfSelectedItem ?? ""
-            AppStateManager.shared.setSelectedVideoFormat(to: sender.titleOfSelectedItem ?? "", resolution: resolutionPopUpButton.titleOfSelectedItem, FPS: nil)
+            AppStateManager.shared.setSelectedVideoFormat(to: (formatList?.first(where: {$0.fileExtension.rawValue == sender.titleOfSelectedItem})) ?? .init(fileExtension: .auto), resolution: resolutionPopUpButton.titleOfSelectedItem)
         }
         
         let availableResolutions = (formatList?.filter({$0.fileExtension.rawValue == sender.titleOfSelectedItem}).map({$0.sizeString}) ?? []) + ["Auto"]
@@ -98,8 +100,10 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         setManualControlsEnabled(true)
         onButton.state = .on
         
+        print(sender.selectedTag())
+        
         selectedResolutionVideo = sender.titleOfSelectedItem ?? ""
-        AppStateManager.shared.setSelectedVideoFormat(to: formatsPopUpButton.titleOfSelectedItem ?? "", resolution: sender.titleOfSelectedItem, FPS: nil)
+        AppStateManager.shared.setSelectedVideoFormat(to: (formatList?.first(where: {$0.sizeString == sender.titleOfSelectedItem})) ?? .init(fileExtension: .auto), resolution: sender.titleOfSelectedItem)
         
         let availableExtensions = (formatList?.filter({$0.sizeString == sender.titleOfSelectedItem}).map({$0.fileExtension.rawValue}) ?? []) + ["Auto"]
         
@@ -166,13 +170,25 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         var tempFormats = formats
         tempFormats = tempFormats.filter({$0.audioOnly == audioOnly})
         
-        extensionList = tempFormats.map({$0.fileExtension.rawValue})
-        resolutionList = tempFormats.sorted(by: {$0.size?.height ?? 0 < $1.size?.height ?? 0}).filter({!$0.audioOnly}).map({$0.sizeString ?? ""})
+        extensionList = tempFormats//.map({$0.fileExtension.rawValue})
+        resolutionList = tempFormats.sorted(by: {$0.size?.height ?? 0 < $1.size?.height ?? 0}).filter({!$0.audioOnly})//.map({$0.sizeString ?? ""})
         
         formatsPopUpButton.removeAllItems()
-        formatsPopUpButton.addItems(withTitles: ["Auto"] + (extensionList ?? []))
+        formatsPopUpButton.addItem(withTitle: "Auto")
+        formatsPopUpButton.lastItem?.tag = -1
+        for item in (extensionList ?? []) {
+            formatsPopUpButton.addItem(withTitle: item.fileExtension.rawValue)
+            formatsPopUpButton.lastItem!.tag = item.id ?? 0
+        }
+        //formatsPopUpButton.addItems(withTitles: ["Auto"] + (tempFormats ?? []))
         resolutionPopUpButton.removeAllItems()
-        resolutionPopUpButton.addItems(withTitles: ["Auto"] + (resolutionList ?? []))
+        resolutionPopUpButton.addItem(withTitle: "Auto")
+        resolutionPopUpButton.lastItem?.tag = -1
+        for item in (resolutionList ?? []) {
+            resolutionPopUpButton.addItem(withTitle: item.sizeString ?? "Unknown size")
+            resolutionPopUpButton.lastItem!.tag = item.id ?? 0
+        }
+        //resolutionPopUpButton.addItems(withTitles: ["Auto"] + (resolutionList ?? []))
         
         
         if audioOnly || isOn == false {

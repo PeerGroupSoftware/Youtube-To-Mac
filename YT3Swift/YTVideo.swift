@@ -11,6 +11,7 @@ import Foundation
 class YTVideo {
     var title = ""
     var url = ""
+    var id = ""
     var diskPath = ""
     var isAudioOnly = false
     var availableFormats: [MediaExtension] = []

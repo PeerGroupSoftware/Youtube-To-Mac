@@ -101,6 +101,10 @@ class MediaConverter {
         }
     }
     
+    func merge(audio: URL, video: URL) {
+        
+    }
+    
 }
 
 enum FormatType {
