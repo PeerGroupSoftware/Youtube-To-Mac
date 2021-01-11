@@ -40,6 +40,14 @@ enum YTCodec: String, CaseIterable {
     case avc1 = "avc1"
     case av01 = "av01"
 }
+
+enum FormatsType {
+    case compatible
+    case convertable
+    case incompatible
+    case compatibleAndConvertable
+    case all
+}
 /*enum MediaExtension {
     case mp4
     case wav

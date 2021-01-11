@@ -36,8 +36,8 @@ class ViewController: NSViewController {
     private var popoverFormats: [MediaFormat]?
     private var showingDownloadUI: Bool = false
     
-    private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video).compactMap({$0.rawValue})
-    private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .audio).compactMap({$0.rawValue})
+    private let videoFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .video, compatbility: .compatibleAndConvertable).compactMap({$0.rawValue})
+    private let audioFormatsList = ["Auto", "Manual"] + Downloader.allFormats(for: .audio, compatbility: .compatibleAndConvertable).compactMap({$0.rawValue})
     private var selectedFormatVideo = "Auto"
     private var selectedFormatAudio = "Auto"
     
@@ -123,10 +123,10 @@ class ViewController: NSViewController {
                 }
             }
             
-            downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), useableOnly: false, completion: {(formats, error) in
+            downloader.getFormats(for: YTVideo(name: "", url: URLField.stringValue), formatType: .compatibleAndConvertable, completion: {(formats, error) in
                 //print("formats: \(formats)")
                 DispatchQueue.main.async {
-                    print("controls popover: \(self.controlsPopover)")
+                    //print("controls popover: \(self.controlsPopover)")
                     if !(self.controlsPopover?.isShown ?? false) {
                         print("controls popover is shown or nil")
                         if !formats.isEmpty {self.controlsButton.isEnabled = true}

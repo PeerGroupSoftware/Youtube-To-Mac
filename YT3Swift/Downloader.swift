@@ -32,12 +32,20 @@ class Downloader: ContentDownloaderDelegate {
     var downloader: ContentDownloader = YTDLDownloader()
     private let mediaConverter = MediaConverter()
     
-    static func allFormats(for contentType: FormatType) -> [MediaExtension] {
+    static func allFormats(for contentType: FormatType, compatbility: FormatsType = .all) -> [MediaExtension] {
         switch contentType {
         case .video:
-            return [.mp4, .flv, .webm, .mov, .m4v]
+            if compatbility == .compatible || compatbility == .compatibleAndConvertable  {
+                return [.mp4, .mov, .m4v]
+            } else {
+                return [.mp4, .flv, .webm, .mov, .m4v]
+            }
         case .audio:
-            return [.m4a, .mp3, .wav, .aac, .aiff, .caf]
+            if compatbility == .compatible || compatbility == .compatibleAndConvertable  {
+                return [.wav, .m4a, .mp3, .aiff, .caf]
+            } else {
+                return [.m4a, .mp3, .wav, .aac, .aiff, .caf]
+            }
         }
     }
     
@@ -349,7 +357,7 @@ class Downloader: ContentDownloaderDelegate {
         try! fetchInfoTask.run()
     }
     
-    func getFormats(for targetVideo: YTVideo, useableOnly: Bool = false, completion: @escaping ([MediaFormat], Error?) -> Void) {
+    func getFormats(for targetVideo: YTVideo, formatType: FormatsType = .all, completion: @escaping ([MediaFormat], Error?) -> Void) {
         let executablePath = Bundle.main.path(forResource: YTDLDownloader.executableName, ofType: "sh")
         
         let outputPipe = Pipe()
@@ -426,7 +434,7 @@ class Downloader: ContentDownloaderDelegate {
                 completion([], error)
             }
             
-            if useableOnly {
+            if formatType == .compatible || formatType == .compatibleAndConvertable {
                 foundFormats = foundFormats.filter({$0.audioCodec == .mp4a || $0.videoCodec == .avc1})
             }
             
