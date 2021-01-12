@@ -33,6 +33,7 @@ struct MediaFormat {
     var sizeString: String?
     var fps: Int?
     var id: Int?
+    var secondaryFormatID: Int?
 }
 
 enum YTCodec: String, CaseIterable {

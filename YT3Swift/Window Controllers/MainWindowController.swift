@@ -108,7 +108,7 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate, AppStateDele
         case NSUserInterfaceItemIdentifier("manualControlsTBButton"):
             AppStateManager.shared.setManualControls(enabled: sender.state == .on)
         case NSUserInterfaceItemIdentifier("downloadTBButton"):
-            (contentViewController as! ViewController).startTasks(sender)
+            (contentViewController as! ViewController).startDownload(sender)
             sender.isEnabled = false
         default:
             break

@@ -3,11 +3,12 @@
 //  YoutubeToMac
 //
 //  Created by Jake Spann on 11/14/20.
-//  Copyright © 2020 Peer Group Software. All rights reserved.
+//  Copyright © 2021 Peer Group Software. All rights reserved.
 //
 
 import Foundation
 import AVFoundation
+import AVKit
 
 class MediaConverter {
     private let temporaryFolder = FileManager.default.temporaryDirectory
@@ -101,8 +102,73 @@ class MediaConverter {
         }
     }
     
-    func merge(audio: URL, video: URL) {
-        
+    func merge(audioURL: URL, videoURL: URL, withFormat targetFormat: MediaFormat?, completion: @escaping (URL?, Error?) -> Void) {
+        let mixComposition : AVMutableComposition = AVMutableComposition()
+        var mutableCompositionVideoTrack : [AVMutableCompositionTrack] = []
+        var mutableCompositionAudioTrack : [AVMutableCompositionTrack] = []
+        let totalVideoCompositionInstruction : AVMutableVideoCompositionInstruction = AVMutableVideoCompositionInstruction()
+
+
+        //start merge
+
+        let aVideoAsset : AVAsset = AVAsset(url: videoURL)
+        let aAudioAsset : AVAsset = AVAsset(url: audioURL)
+
+        mutableCompositionVideoTrack.append(mixComposition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)!)
+        mutableCompositionAudioTrack.append( mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!)
+
+        let aVideoAssetTrack : AVAssetTrack = aVideoAsset.tracks(withMediaType: AVMediaType.video)[0]
+        let aAudioAssetTrack : AVAssetTrack = aAudioAsset.tracks(withMediaType: AVMediaType.audio)[0]
+
+
+
+        do{
+            try mutableCompositionVideoTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: aVideoAssetTrack.timeRange.duration), of: aVideoAssetTrack, at: CMTime.zero)
+
+            try mutableCompositionAudioTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: aVideoAssetTrack.timeRange.duration), of: aAudioAssetTrack, at: CMTime.zero)
+
+        } catch {
+            print(error)
+        }
+
+        totalVideoCompositionInstruction.timeRange = CMTimeRangeMake(start: CMTime.zero,duration: aVideoAssetTrack.timeRange.duration )
+
+        let mutableVideoComposition : AVMutableVideoComposition = AVMutableVideoComposition()
+        mutableVideoComposition.frameDuration = CMTimeMake(value: 1, timescale: Int32(targetFormat?.fps ?? 60))
+
+        //print("TF2: \(targetFormat)")
+        mutableVideoComposition.renderSize = CGSize(width: targetFormat?.size?.width ?? 1280 ,height: targetFormat?.size?.height ?? 720)
+
+        let savePathUrl = videoURL.deletingPathExtension().deletingPathExtension().appendingPathExtension(videoURL.pathExtension)
+        //print("SavePathURL: \(savePathUrl)")
+
+        let assetExport: AVAssetExportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)!
+        assetExport.outputFileType = AVFileType.mp4
+        assetExport.outputURL = savePathUrl
+        assetExport.shouldOptimizeForNetworkUse = true
+
+        assetExport.exportAsynchronously { () -> Void in
+            switch assetExport.status {
+
+            case AVAssetExportSessionStatus.completed:
+                print("success")
+                completion(videoURL, nil)
+                do {
+                    try FileManager.default.removeItem(at: videoURL)
+                    try FileManager.default.removeItem(at: audioURL)
+                } catch {
+                    print(error)
+                }
+            case  AVAssetExportSessionStatus.failed:
+                print("failed \(assetExport.error)")
+                completion(nil, assetExport.error)
+            case AVAssetExportSessionStatus.cancelled:
+                print("cancelled \(assetExport.error)")
+                completion(nil, assetExport.error)
+            default:
+                print("complete")
+            }
+        }
     }
     
 }

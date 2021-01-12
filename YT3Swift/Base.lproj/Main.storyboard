@@ -960,7 +960,7 @@ DQ
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="startTasks:" target="XfG-lQ-9wD" id="rn2-i3-Bam"/>
+                                    <action selector="startDownload:" target="XfG-lQ-9wD" id="rn2-i3-Bam"/>
                                 </connections>
                             </button>
                             <button toolTip="Downlad only audio" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-8e-DwU">

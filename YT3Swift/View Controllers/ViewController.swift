@@ -425,10 +425,15 @@ class ViewController: NSViewController, AppStateDelegate {
         // Insert code here to tear down your application
     }
     
-    @IBAction func startTasks(_ sender: NSButton) {
+    @IBAction func startDownload(_ sender: NSButton) {
         AppStateManager.shared.currentRequest.contentURL = URLField.stringValue
         //currentRequest.audioOnly = AppStateManager.shared.currentRequest.audioOnly
         AppStateManager.shared.currentRequest.error = nil
+        
+        if AppStateManager.shared.currentRequest.fileFormat.videoOnly {
+            AppStateManager.shared.currentRequest.fileFormat.secondaryFormatID = AppStateManager.shared.currentRequest.directFormats.first(where: {$0.audioOnly == true && $0.fileExtension == .m4a})?.id
+            print("Got secondary format id \(AppStateManager.shared.currentRequest.fileFormat.secondaryFormatID)")
+        }
         
         /*if AppStateManager.shared.manualControlsEnabled {
             AppStateManager.shared.currentRequest.fileFormat =

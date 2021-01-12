@@ -34,6 +34,7 @@ class YTDLDownloader: ContentDownloader {
     
     func download(content targetURL: String, with targetFormat: MediaFormat, to downloadDestination: URL, completion: @escaping (YTVideo?, URL) -> Void) {
         let downloadQueue = DispatchQueue.global(qos: downloadQOS)
+        var needsToMerge = false
         
         downloadQueue.async {
             
@@ -65,25 +66,40 @@ class YTDLDownloader: ContentDownloader {
             }
             if targetFormat.videoOnly {
                 print("Video only, will need to merge audio+video")
+                needsToMerge = true
                 requestedExtension += "+bestaudio[ext=m4a]"
             }
             
             print("RequestedFormat: \(requestedExtension)")
             
-            var videoNameString = "%(title)s"
+           /* var videoNameString = "%(title)s"
             
             if !(AppStateManager.shared.currentRequest.videoTitle?.isEmpty ?? true) && (AppStateManager.shared.currentRequest.contentURL == targetURL) {
                 videoNameString = AppStateManager.shared.currentRequest.videoTitle!
-            }
+            }*/
             
-            self.downloadTask.arguments = ["-f \(requestedExtension)", "-o\(videoNameString).%(ext)s", targetURL]
+            self.downloadTask.arguments = ["-f \(requestedExtension)", "-o%(title)s.%(ext)s", targetURL]
             print(downloadDestination.absoluteString)
             self.downloadTask.currentDirectoryPath = downloadDestination.absoluteString.replacingOccurrences(of: "file://", with: "")
             
             self.downloadTask.terminationHandler = { task in
                 DispatchQueue.main.async(execute: {
                     self.isRunning = false
-                    completion(YTVideo(name: self.videoName, url: targetURL), downloadDestination.appendingPathComponent(self.videoName, isDirectory: false).appendingPathExtension(targetFormat.fileExtension.rawValue))
+                    
+                    if needsToMerge {
+                        let videoFile = downloadDestination.appendingPathComponent(self.videoName).appendingPathExtension(targetFormat.fileExtension.rawValue)
+                        let audioFile =  downloadDestination.appendingPathComponent(self.videoName.replacingOccurrences(of: ".f" + String(targetFormat.id ?? 0), with: "")).appendingPathExtension("f" + String(targetFormat.secondaryFormatID ?? 0)).appendingPathExtension("m4a")
+                        
+                        print(videoFile)
+                        print(audioFile)
+                        
+                        MediaConverter().merge(audioURL: audioFile, videoURL: videoFile, withFormat: targetFormat) { (fileLocation, error) in
+                            completion(YTVideo(name: self.videoName, url: targetURL), downloadDestination.appendingPathComponent(self.videoName, isDirectory: false).appendingPathExtension(targetFormat.fileExtension.rawValue))
+                        }
+                    } else {
+                    
+                        completion(YTVideo(name: self.videoName, url: targetURL), downloadDestination.appendingPathComponent(self.videoName, isDirectory: false).appendingPathExtension(targetFormat.fileExtension.rawValue))
+                    }
                 })
                 
             }
