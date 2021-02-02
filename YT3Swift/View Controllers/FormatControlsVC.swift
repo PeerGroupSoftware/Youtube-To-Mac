@@ -171,7 +171,7 @@ class FormatControlsVC: NSViewController, AppStateDelegate {
         tempFormats = tempFormats.filter({$0.audioOnly == audioOnly})
         
         extensionList = tempFormats//.map({$0.fileExtension.rawValue})
-        resolutionList = tempFormats.sorted(by: {$0.size?.height ?? 0 < $1.size?.height ?? 0}).filter({!$0.audioOnly})//.map({$0.sizeString ?? ""})
+        resolutionList = tempFormats.sorted(by: {$0.size?.height ?? 0 < $1.size?.height ?? 0}).sorted(by: {!$0.videoOnly && $1.videoOnly}).filter({!$0.audioOnly})//.map({$0.sizeString ?? ""})
         
         formatsPopUpButton.removeAllItems()
         formatsPopUpButton.addItem(withTitle: "Auto")

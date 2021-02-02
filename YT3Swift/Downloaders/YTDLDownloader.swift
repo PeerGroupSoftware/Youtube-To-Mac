@@ -14,7 +14,7 @@ class YTDLDownloader: ContentDownloader {
     private var errorPipe:Pipe!
     private var downloadTask:Process!
     private let downloadQOS: DispatchQoS.QoSClass  = .userInitiated
-    static let executableName = "youtube-dl-2021-01-08"
+    static let executableName = "youtube-dl-2021-01-24-1"
     
     private var videoName = ""
     //private var cachedVideo = YTVideo()
@@ -64,6 +64,7 @@ class YTDLDownloader: ContentDownloader {
                 }
                 requestedExtension += "[height=\(targetFormat.sizeString?.dropLast() ?? "720")]"
             }
+            
             if targetFormat.videoOnly {
                 print("Video only, will need to merge audio+video")
                 needsToMerge = true
@@ -90,8 +91,8 @@ class YTDLDownloader: ContentDownloader {
                         let videoFile = downloadDestination.appendingPathComponent(self.videoName).appendingPathExtension(targetFormat.fileExtension.rawValue)
                         let audioFile =  downloadDestination.appendingPathComponent(self.videoName.replacingOccurrences(of: ".f" + String(targetFormat.id ?? 0), with: "")).appendingPathExtension("f" + String(targetFormat.secondaryFormatID ?? 0)).appendingPathExtension("m4a")
                         
-                        print(videoFile)
-                        print(audioFile)
+                        print(videoFile, targetFormat.id)
+                        print(audioFile, targetFormat.secondaryFormatID)
                         
                         MediaConverter().merge(audioURL: audioFile, videoURL: videoFile, withFormat: targetFormat) { (fileLocation, error) in
                             completion(YTVideo(name: self.videoName, url: targetURL), downloadDestination.appendingPathComponent(self.videoName, isDirectory: false).appendingPathExtension(targetFormat.fileExtension.rawValue))

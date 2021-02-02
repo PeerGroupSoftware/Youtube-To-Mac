@@ -69,6 +69,8 @@ class Downloader: ContentDownloaderDelegate {
         currentVideo.url = targetURL
         currentVideo.isAudioOnly = audioOnly
         
+       // FileManager.default.fileExists(atPath: downloadDestination)
+        
         let convertibleFormats: [MediaExtension:MediaExtension] = [.mov:.mp4, .m4v:.mp4]
         
         var downloadFormat = fileFormat//convertibleFormats[fileFormat.fileExtension] ?? fileFormat.fileExtension
@@ -80,7 +82,7 @@ class Downloader: ContentDownloaderDelegate {
             downloadFormat = .mp4
         }*/
         
-        //print("Starting download for \(fileFormat)")
+        print("Starting download for \(downloadFormat), could be using \(fileFormat)")
         downloader.download(content: targetURL, with: downloadFormat, to: downloadDestination, completion: {video, downloadedFile in
             
             if convertibleFormats.keys.contains(fileFormat.fileExtension) {
@@ -438,6 +440,8 @@ class Downloader: ContentDownloaderDelegate {
                     if ((format["acodec"] as? String) ?? "none") == "none" && ((format["vcodec"] as? String) ?? "none") != "none" {
                         newFormat.videoOnly = true
                     }
+                    
+                    print("Found new format \(newFormat.fileExtension.rawValue) at \(newFormat.sizeString) with id \(newFormat.id) isAudioOnly: \(newFormat.audioOnly), videoOnly: \(newFormat.videoOnly)")
                     
                     newFormat.fps = (format["fps"] as? Int)
                     

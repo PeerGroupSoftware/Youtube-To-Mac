@@ -1,6 +1,16 @@
 {
   "images" : [
     {
+      "filename" : "DownloadButton2-Light.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
       "filename" : "DownloadButton2.svg",
       "idiom" : "universal"
     }

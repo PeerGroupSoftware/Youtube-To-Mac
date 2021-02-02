@@ -346,9 +346,10 @@ class ViewController: NSViewController, AppStateDelegate {
         locationSelectPanel.allowsMultipleSelection = false
         locationSelectPanel.canCreateDirectories = true
         
-        let newButton = NSButton(title: "Reset Download Location", target: nil, action: nil)
+        let newButton = NSButton(title: "Reset to Default", target: nil, action: nil)
         newButton.isEnabled = false
         locationSelectPanel.accessoryView = newButton
+        locationSelectPanel.isAccessoryViewDisclosed = true
         
         locationSelectPanel.beginSheetModal(for: view.window!, completionHandler: {(result) in
             if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){

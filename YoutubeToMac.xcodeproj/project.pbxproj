@@ -13,6 +13,7 @@
 		2353916E2565D7330020C509 /* SystemDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2353916D2565D7330020C509 /* SystemDownloader.swift */; };
 		2354AF9A25AA651000A1F7A7 /* youtube-dl-2021-01-08.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2354AF9925AA651000A1F7A7 /* youtube-dl-2021-01-08.sh */; };
 		2355D1312560A9F400DAA19E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2355D1302560A9F400DAA19E /* Helpers.swift */; };
+		2358501C25C79DDC00338EA6 /* youtube-dl-2021-01-24-1.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2358501B25C79DDC00338EA6 /* youtube-dl-2021-01-24-1.sh */; };
 		237AD174251EB9020017F257 /* youtube-dl-2020-09-20.sh in Resources */ = {isa = PBXBuildFile; fileRef = 237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */; };
 		23856E652560640A005162A2 /* ContentDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23856E642560640A005162A2 /* ContentDownloader.swift */; };
 		23856E672560641F005162A2 /* YTDLDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23856E662560641F005162A2 /* YTDLDownloader.swift */; };
@@ -52,6 +53,7 @@
 		2353916D2565D7330020C509 /* SystemDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDownloader.swift; sourceTree = "<group>"; };
 		2354AF9925AA651000A1F7A7 /* youtube-dl-2021-01-08.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2021-01-08.sh"; sourceTree = "<group>"; };
 		2355D1302560A9F400DAA19E /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		2358501B25C79DDC00338EA6 /* youtube-dl-2021-01-24-1.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2021-01-24-1.sh"; sourceTree = "<group>"; };
 		237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "youtube-dl-2020-09-20.sh"; sourceTree = "<group>"; };
 		23856E642560640A005162A2 /* ContentDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDownloader.swift; sourceTree = "<group>"; };
 		23856E662560641F005162A2 /* YTDLDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTDLDownloader.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		B773BB5D2263E4AB00F24E37 /* YoutubeDL */ = {
 			isa = PBXGroup;
 			children = (
+				2358501B25C79DDC00338EA6 /* youtube-dl-2021-01-24-1.sh */,
 				2354AF9925AA651000A1F7A7 /* youtube-dl-2021-01-08.sh */,
 				237AD173251EB9020017F257 /* youtube-dl-2020-09-20.sh */,
 				23875D482559E533008D19AE /* youtube-dl-2020-11-01.sh */,
@@ -256,6 +259,7 @@
 				2354AF9A25AA651000A1F7A7 /* youtube-dl-2021-01-08.sh in Resources */,
 				237AD174251EB9020017F257 /* youtube-dl-2020-09-20.sh in Resources */,
 				23875D492559E533008D19AE /* youtube-dl-2020-11-01.sh in Resources */,
+				2358501C25C79DDC00338EA6 /* youtube-dl-2021-01-24-1.sh in Resources */,
 				B77E6A6C1E9BCEFC001CFE77 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

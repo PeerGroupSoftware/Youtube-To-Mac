@@ -113,6 +113,20 @@ class MediaConverter {
 
         let aVideoAsset : AVAsset = AVAsset(url: videoURL)
         let aAudioAsset : AVAsset = AVAsset(url: audioURL)
+        
+        if aVideoAsset.tracks.isEmpty || aAudioAsset.tracks.isEmpty {
+            
+            if aVideoAsset.tracks.isEmpty {
+                print("Video tracks is empty")
+            }
+            if aAudioAsset.tracks.isEmpty {
+                print("Audio tracks is empty")
+            }
+            
+            print("Either video or audio tracks is empty")
+            completion(nil, NSError())
+            return
+        }
 
         mutableCompositionVideoTrack.append(mixComposition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)!)
         mutableCompositionAudioTrack.append( mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!)

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -938,9 +939,10 @@
                                     <constraint firstAttribute="height" constant="25" id="76o-1d-12h"/>
                                     <constraint firstAttribute="width" constant="19" id="mAg-Qc-8lH"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SFFolder" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qqU-od-VLy">
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qqU-od-VLy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <imageReference key="image" image="SFFolder" symbolScale="large" renderingMode="template"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="changeDownloadLocation:" target="XfG-lQ-9wD" id="AU2-9j-0bZ"/>
