@@ -9,8 +9,6 @@
 import Foundation
 import Cocoa
 
-
-
 extension NSButton {
     
     func setAsFolderButton() {

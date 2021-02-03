@@ -3,7 +3,7 @@
 //  YoutubeToMac
 //
 //  Created by Jake Spann on 6/16/19.
-//  Copyright © 2019 Peer Group Software. All rights reserved.
+//  Copyright © 2021 Peer Group Software. All rights reserved.
 //
 
 import Foundation

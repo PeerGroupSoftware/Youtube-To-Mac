@@ -3,7 +3,7 @@
 //  YT3Swift
 //
 //  Created by Jake Spann on 4/10/17.
-//  Copyright © 2017 Peer Group. All rights reserved.
+//  Copyright © 2021 Peer Group. All rights reserved.
 //
 
 import Cocoa
@@ -52,8 +52,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         let releaseURL = URL(string: "https://api.github.com/repos/\(repoLocation)/releases/latest")!
         
-        var updateStatus = -1
+        var appVersionStatus = -1
         
+        //Piggyback on the Downloder's implementation of fetchJSON()
         Downloader().fetchJSON(from: releaseURL, completion: {(json, error) in
             DispatchQueue.main.async {
                 
@@ -61,23 +62,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     let newestVersion = (json!["tag_name"] as! String)
                     let newestURL = URL(string: (json!["html_url"] as! String))!
                     
-                    let versionCompare = currentVersion.compare(newestVersion, options: .numeric)
+                    let versionComparison = currentVersion.compare(newestVersion, options: .numeric)
                     
-                    if versionCompare == .orderedSame { // Local version is current
-                        updateStatus = 0
-                    } else if versionCompare == .orderedAscending { // Update available
-                        updateStatus = 1
-                    } else if versionCompare == .orderedDescending { // Local app version is newer
-                        updateStatus = 2
+                    if versionComparison == .orderedSame { // Local version is current
+                        appVersionStatus = 0
+                    } else if versionComparison == .orderedAscending { // Update available
+                        appVersionStatus = 1
+                    } else if versionComparison == .orderedDescending { // Local app version is newer
+                        appVersionStatus = 2
                     }
                     
                     let alert = NSAlert()
                     alert.alertStyle = .informational
                     
-                    if updateStatus == -1 || updateStatus == 0 || updateStatus == 2 {
+                    if appVersionStatus == -1 || appVersionStatus == 0 || appVersionStatus == 2 {
                         alert.messageText = "Up to Date"
                         alert.informativeText = "You're using the latest version of \(Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "YoutubeToMac")."
-                    } else if updateStatus == 1 {
+                    } else if appVersionStatus == 1 {
                         alert.messageText = "Update Available"
                         alert.informativeText = "\(Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "YoutubeToMac") (\(newestVersion)) is available on GitHub."
                         alert.addButton(withTitle: "View on GitHub")
@@ -85,7 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     }
                     
                     var shouldAlert = true
-                    if sender == self && updateStatus != 1 {shouldAlert = false}
+                    if sender == self && appVersionStatus != 1 {shouldAlert = false}
                     
                     if shouldAlert {
                         let clickedButton = alert.runModal()
@@ -107,8 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     }
                     
                     var shouldAlert = true
-                    if sender == self && updateStatus != 1 {shouldAlert = false}
-                    
+                    if sender == self && appVersionStatus != 1 {shouldAlert = false}
                     if shouldAlert {alert.runModal()}
                 }
             }

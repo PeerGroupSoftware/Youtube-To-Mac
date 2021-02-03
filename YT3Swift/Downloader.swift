@@ -3,12 +3,11 @@
 //  YoutubeToMac
 //
 //  Created by Jake Spann on 6/16/19.
-//  Copyright © 2020 Peer Group Software. All rights reserved.
+//  Copyright © 2021 Peer Group Software. All rights reserved.
 //
 
 import Foundation
 import Cocoa
-//import XCDYouTubeKit
 
 class Downloader {
     
@@ -65,38 +64,26 @@ class Downloader {
             self.downloadTask.terminationHandler = {
                 
                 task in
-               // DispatchQueue.main.async(execute: {
-                    print("Stopped")
-                    let terminationReason = self.downloadTask.terminationReason.rawValue
-                //DispatchQueue.main.async {
-                    progressHandler(100, nil, nil)
-             //   }
-                    //print(terminationReason)
-                    if terminationReason == 2 {
-                       // completionHandler(self.currentVideo, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
-                        //progressHandler(100, NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]), self.currentVideo)
-                       // DispatchQueue.main.async {
-                            completionHandler(self.currentVideo,NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
-                      //  }
-                    } else {
-                     //   DispatchQueue.main.async {
-                            completionHandler(self.currentVideo, nil)
-                      //  }
-                    }
-                    self.currentVideo = YTVideo()
+                print("Stopped")
+                let terminationReason = self.downloadTask.terminationReason.rawValue
+                progressHandler(100, nil, nil)
+                if terminationReason == 2 {
+                    completionHandler(self.currentVideo,NSError(domain: "", code: 499, userInfo: [NSLocalizedDescriptionKey: "Cancelled Task"]))
+                } else {
+                    completionHandler(self.currentVideo, nil)
+                }
+                self.currentVideo = YTVideo()
                 if self.outputPipe != nil {
                     if self.outputPipe.description.contains("must provide") {
                         print("error")
                     }
                 }
                 
-                    self.isRunning = false
-              //  })
-                
+                self.isRunning = false
             }
             
             //if !audioOnly {
-                //print("GETTING STANDARD OUTPUT")
+            //print("GETTING STANDARD OUTPUT")
             self.captureStandardOutput(self.downloadTask, progressHandler: {(percent) in
                 progressHandler(percent, nil, nil)
             }, errorHandler: {(error) in
@@ -109,20 +96,19 @@ class Downloader {
                 progressHandler(-1, nil, videoInfo)
                 //print("SENT \"\(videoInfo.name)\"")
             })
-           // }
             
-           // if !audioOnly {
-                //print("GETTING ERROR")
+            // if !audioOnly {
+            //print("GETTING ERROR")
             self.readError(self.downloadTask, errorHandler: {(error) in
                 progressHandler(100, error, self.currentVideo)
             })
-           // }
+            // }
             
             if #available(OSX 10.13, *) {
                 try! self.downloadTask.run()
-            } else {
+            } /*else {
                 self.downloadTask.launch()
-            }
+            }*/
             //Thread.current.name = "DOWNLOAD: \(targetURL)"
             
             //print("THREAD: \(Thread.current.name)")
@@ -141,7 +127,7 @@ class Downloader {
         errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
         
         
-        print ("ERROR FUNC 2")
+        //print ("ERROR FUNC 2")
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable, object: errorPipe.fileHandleForReading , queue: nil) {
             notification in
@@ -176,7 +162,7 @@ class Downloader {
                     //errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
                 }
                 
-                    self.errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
+                self.errorPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
                 
             }
         }
@@ -208,11 +194,6 @@ class Downloader {
             //print("got output")
             //print(outputString)
             
-            /*if outputString.contains("fulltitle") {
-             for i in (outputString.split(separator: ":")) {
-             (i.split(separator: ",").first?.replacingOccurrences(of: "\"", with: ""))
-             }
-             }*/
             if outputString.range(of:"100%: Done") != nil {
                 self.downloadTask.qualityOfService = .background
                 
@@ -229,9 +210,6 @@ class Downloader {
                     var videonameString = (outputString.components(separatedBy: "\n").first! .replacingOccurrences(of: "[download] Destination: ", with: ""))
                     videonameString.removeLast(4) // Remove extension
                     // print(videonameString)
-                    
-                    //print(videonameString.distance(from: (videonameString.range(of: ("-" + self.videoID))?.lowerBound)!, to: videonameString.endIndex))
-                    //videonameString.removeSubrange((videonameString.range(of: ("-" + self.videoID))?.lowerBound)!..<videonameString.endIndex)
                     self.currentVideo.name = videonameString
                     print(videonameString)
                     infoHandler(self.currentVideo)
@@ -281,8 +259,8 @@ class Downloader {
 }
 
 enum YoutubeDLVersion: String {
-    @available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
-    @available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
+    //@available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
+    //@available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
     //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2020-12-05"
+    case latest = "youtube-dl-2021-01-24-1"
 }
