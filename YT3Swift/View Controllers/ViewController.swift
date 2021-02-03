@@ -44,15 +44,11 @@ class ViewController: NSViewController {
     }
     
     override func viewWillAppear() {
-        //let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
-        //view.window?.setFrame(newWindowFrame, display: true, animate: true)
-        
+
         if bottomConstraintConstant == 0 {
             bottomConstraintConstant = Int(bigConstraint.constant)
             bigConstraint.constant = CGFloat(defaultBottomConstant)
         }
-        
-        // bottomSpaceConstraint.constant = -previousVideosTableView.frame.size.height
     }
     
     override func viewDidLoad() {
@@ -119,20 +115,14 @@ class ViewController: NSViewController {
                 if previousVideosTableView.numberOfRows != 0 {clearTableViewButton.animator().isHidden = false}
             }, completionHandler:{
             })
-            // let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!-106, width: 422, height: 309)
+            
             bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
-            // print(bottomConstraintConstant)
-            //view.window?.setFrame(newWindowFrame, display: true, animate: true)
             NSAnimationContext.runAnimationGroup({_ in
                 NSAnimationContext.current.duration = 0.2
-                //clearTableViewButton.animator().isHidden = true
                 bigConstraint.animator().constant = CGFloat(bottomConstraintConstant)
             }, completionHandler:{
             })
         case 0:
-            //let newWindowFrame = NSRect(x: (view.window?.frame.minX)!, y: (view.window?.frame.minY)!+106, width: 422, height: 106)
-            
-            // view.window?.setFrame(newWindowFrame, display: true, animate: true)
             NSAnimationContext.runAnimationGroup({_ in
                 NSAnimationContext.current.duration = 0.2
                 clearTableViewButton.animator().isHidden = true
@@ -217,9 +207,9 @@ class ViewController: NSViewController {
     }
     
     
-    func applicationWillTerminate(_ aNotification: Notification) {
+    /*func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-    }
+    }*/
     
     @IBAction func startTasks(_ sender: NSButton) {
         currentRequest.contentURL = URLField.stringValue
@@ -266,7 +256,6 @@ class ViewController: NSViewController {
             
             currentRequest.completionHandler = { (video, error) in
                 DispatchQueue.main.async {
-                    //Thread.current.name = "COMPLETION: \(video?.name)"
                 self.URLField.stringValue = ""
                 sender.isEnabled = true
                 
@@ -363,61 +352,6 @@ class ViewController: NSViewController {
             }
         }
     }
-    
-    /*func downloadFinished(errorOccured: Bool) {
-     let downloadNotification = NSUserNotification()
-     let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
-     /* switch self.audioBox.integerValue {
-     case 1:
-     formatType = "Audio"
-     case 0:
-     formatType = "Video"
-     default:
-     break
-     }*/
-     var downloadDestination = ""
-     if currentRequest.destination == "~/Desktop" {
-     downloadDestination = "Desktop"
-     } else if currentRequest.destination == "~/Downloads" {
-     downloadDestination = "Downloads"
-     }
-     
-     var informativeText = ""
-     if !downloadDestination.isEmpty {
-     informativeText = "Saved \(formatType) to \(downloadDestination)"
-     } else {
-     informativeText = "Saved \(formatType)"
-     }
-     
-     downloadNotification.title = "Downloaded \(formatType)"
-     downloadNotification.informativeText = informativeText
-     downloadNotification.soundName = NSUserNotificationDefaultSoundName
-     
-     if self.downloadButton.isEnabled && !errorOccured {
-     NSUserNotificationCenter.default.deliver(downloadNotification)
-     URLField.stringValue = ""
-     }
-     
-     self.setDownloadInterface(to: false)
-     print(previousVideos.first?.name ?? "")
-     //print(self.currentVideo.name)
-     
-     /*if (previousVideos.first?.name ?? "" != self.currentVideo.name) && self.currentVideo.name != "" {
-     print("adding to list")
-     //print(self.currentVideo.name)
-     self.saveVideoToHistory(video: self.currentVideo)
-     previousVideos.insert(self.currentVideo, at: 0)
-     self.previousVideosTableView.insertRows(at: IndexSet(integer: 0), withAnimation: NSTableView.AnimationOptions.slideDown)
-     //print("wfh: \(self.view.window?.frame.height)")
-     if self.view.window?.frame.height != 106 {
-     NSAnimationContext.runAnimationGroup({_ in
-     NSAnimationContext.current.duration = 0.5
-     if self.previousVideosTableView.numberOfRows != 0 {self.clearTableViewButton.animator().isHidden = false}
-     }, completionHandler: {
-     })
-     }
-     }*/
-     }*/
     
     func updateDownloadProgressBar(progress: Double, errorOccured: Bool) {
         print("progress update \(progress)")

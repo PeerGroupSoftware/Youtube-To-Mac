@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -737,13 +737,13 @@
             <objects>
                 <viewController id="9Qq-ZI-MuQ" customClass="PreferencesViewController" customModule="YoutubeToMac" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="SVD-hY-Ayz">
-                        <rect key="frame" x="0.0" y="0.0" width="287" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="287" height="118"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button toolTip="Check for updates at launch" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jm9-8x-pJW">
-                                <rect key="frame" x="18" y="80" width="221" height="18"/>
+                                <rect key="frame" x="18" y="81" width="225" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="217" id="dJm-h4-vQv"/>
+                                    <constraint firstAttribute="width" constant="223" id="dJm-h4-vQv"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Automatically Check for Updates" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Osc-MY-oXn">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -757,7 +757,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="jm9-8x-pJW" secondAttribute="bottom" constant="82" id="9SE-JX-gAt"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="top" secondItem="SVD-hY-Ayz" secondAttribute="top" constant="20" symbolic="YES" id="QX5-uU-bQp"/>
-                            <constraint firstAttribute="trailing" secondItem="jm9-8x-pJW" secondAttribute="trailing" constant="50" id="aXY-0Z-oMe"/>
+                            <constraint firstAttribute="trailing" secondItem="jm9-8x-pJW" secondAttribute="trailing" constant="44" id="aXY-0Z-oMe"/>
                             <constraint firstItem="jm9-8x-pJW" firstAttribute="leading" secondItem="SVD-hY-Ayz" secondAttribute="leading" constant="20" symbolic="YES" id="jsn-nV-Ycn"/>
                         </constraints>
                     </view>
@@ -786,7 +786,7 @@
                                 </textFieldCell>
                             </textField>
                             <button identifier="DownloadsRadio" toolTip="User Downloads folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Jj-oqU">
-                                <rect key="frame" x="19" y="54" width="89" height="18"/>
+                                <rect key="frame" x="18" y="54" width="93" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Downloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YST-Kq-Su7">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -796,7 +796,7 @@
                                 </connections>
                             </button>
                             <button identifier="DesktopRadio" toolTip="User Desktop folder" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SRg-UB-6zM">
-                                <rect key="frame" x="19" y="32" width="73" height="18"/>
+                                <rect key="frame" x="18" y="32" width="77" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4zx-p4-9Kw">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -863,7 +863,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton toolTip="Request format" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XHB-NN-yC5">
-                                <rect key="frame" x="353" y="207" width="76" height="26"/>
+                                <rect key="frame" x="352" y="206" width="78" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="71" id="W3K-VH-vkz"/>
                                 </constraints>
@@ -886,7 +886,7 @@
                                 <rect key="frame" x="20" y="210" width="379" height="20"/>
                             </progressIndicator>
                             <button hidden="YES" toolTip="Stop download" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FpU-ta-yxo">
-                                <rect key="frame" x="407" y="209" width="18" height="24"/>
+                                <rect key="frame" x="407" y="209" width="18" height="24.5"/>
                                 <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="AE6-zX-I37">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -927,7 +927,7 @@ DQ
                                 </connections>
                             </button>
                             <button toolTip="Downlad only audio" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-8e-DwU">
-                                <rect key="frame" x="18" y="212" width="88" height="18"/>
+                                <rect key="frame" x="18" y="213" width="92" height="18"/>
                                 <buttonCell key="cell" type="check" title="Audio Only" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1YS-tE-Edt">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -937,7 +937,7 @@ DQ
                                 </connections>
                             </button>
                             <textField toolTip="Show recently downloaded content" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C0x-o8-4go">
-                                <rect key="frame" x="171" y="210" width="79" height="17"/>
+                                <rect key="frame" x="177" y="210" width="79" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="cGe-9O-uzl"/>
                                 </constraints>
@@ -948,7 +948,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yAQ-wh-GkQ">
-                                <rect key="frame" x="250" y="213" width="13" height="13"/>
+                                <rect key="frame" x="256" y="213" width="13" height="13"/>
                                 <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" imagePosition="only" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jqz-AY-YbG">
                                     <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -983,7 +983,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView misplaced="YES" id="VJ8-HU-EXo" customClass="previousVideoCellView" customModule="YoutubeToMac" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="1" width="353" height="40"/>
+                                                            <rect key="frame" x="11" y="1" width="362" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EEb-cm-utk">
@@ -998,7 +998,7 @@ DQ
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKt-px-QHx">
-                                                                    <rect key="frame" x="342" y="11" width="18" height="18"/>
+                                                                    <rect key="frame" x="342" y="8" width="18.5" height="26"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="18" id="8hi-DZ-kym"/>
                                                                     </constraints>
@@ -1012,7 +1012,7 @@ DQ
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="OrangeDot" id="3XU-5T-7a7"/>
                                                                 </imageView>
                                                                 <button toolTip="Open in Web Browser" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RaQ-9x-MdW">
-                                                                    <rect key="frame" x="359" y="10" width="26" height="20"/>
+                                                                    <rect key="frame" x="359" y="7" width="26" height="26"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="1Tp-6i-1HE"/>
                                                                         <constraint firstAttribute="width" constant="26" id="M9b-Rx-nad"/>
@@ -1027,7 +1027,7 @@ DQ
                                                                     </connections>
                                                                 </button>
                                                                 <button hidden="YES" toolTip="Open Save Location" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDs-6V-a3V">
-                                                                    <rect key="frame" x="288" y="9" width="28" height="22"/>
+                                                                    <rect key="frame" x="288" y="9" width="28.5" height="22"/>
                                                                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSTouchBarFolderTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="UaY-Gf-jDQ">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -1139,10 +1139,10 @@ DQ
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
-        <image name="NSShareTemplate" width="11" height="16"/>
-        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
-        <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
-        <image name="NSTouchBarOpenInBrowserTemplate" width="18" height="30"/>
+        <image name="NSShareTemplate" width="15" height="17"/>
+        <image name="NSStopProgressFreestandingTemplate" width="15" height="15"/>
+        <image name="NSTouchBarFolderTemplate" width="18" height="14"/>
+        <image name="NSTouchBarOpenInBrowserTemplate" width="15" height="15"/>
         <image name="OrangeDot" width="180" height="180"/>
         <image name="PlayButton" width="2400" height="1675"/>
         <image name="SFFolder" width="113" height="93"/>
