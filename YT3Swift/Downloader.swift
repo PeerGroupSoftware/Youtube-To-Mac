@@ -107,8 +107,8 @@ class Downloader {
             if #available(OSX 10.13, *) {
                 try! self.downloadTask.run()
             } /*else {
-                self.downloadTask.launch()
-            }*/
+             self.downloadTask.launch()
+             }*/
             //Thread.current.name = "DOWNLOAD: \(targetURL)"
             
             //print("THREAD: \(Thread.current.name)")
@@ -259,8 +259,5 @@ class Downloader {
 }
 
 enum YoutubeDLVersion: String {
-    //@available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
-    //@available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
-    //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2021-01-24-1"
+    case latest = "youtube-dl-2021-06-06"
 }
