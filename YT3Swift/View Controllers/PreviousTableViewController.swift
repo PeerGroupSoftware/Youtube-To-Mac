@@ -28,10 +28,6 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
         return newCell
     }
     
-    func insert(video: YTVideo) {
-        
-    }
-    
 }
 
 class previousVideoCellView: NSTableCellView {
