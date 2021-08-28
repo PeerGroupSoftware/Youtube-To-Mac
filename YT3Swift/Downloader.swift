@@ -30,15 +30,12 @@ class Downloader {
         cachedRequest = downloadRequest
     }
     
-    func terminateDownload() -> Bool {
+    func terminateDownload() {
         downloadTask.terminate()
-        return downloadTask.isRunning
     }
     
     func downloadContent(from targetURL: String, toLocation downloadDestination: String, audioOnly: Bool, fileFormat: FileFormat, progress progressHandler: @escaping (Double, Error?, YTVideo?) -> Void, completionHandler: @escaping (YTVideo?, Error?) -> Void) {
-        
-        //if !(downloadTask.isRunning ?? false) {
-        //DispatchQueue
+
         let downloaderVersion = YoutubeDLVersion.latest
         currentVideo.URL = targetURL
         currentVideo.isAudioOnly = audioOnly

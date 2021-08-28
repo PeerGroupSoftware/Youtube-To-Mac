@@ -13,7 +13,6 @@ var mainViewController = ViewController()
 
 class ViewController: NSViewController {
     @IBOutlet weak var URLField: NSTextField!
-    //@IBOutlet weak var nameLabel: NSTextField!
     @IBOutlet weak var audioBox: NSButton!
     @IBOutlet weak var formatPopup: NSPopUpButton!
     @IBOutlet weak var downloadButton: NSButton!
@@ -32,7 +31,6 @@ class ViewController: NSViewController {
     
     
     @IBOutlet weak var mainProgressBar: NSProgressIndicator!
-    
     @IBOutlet weak var actionButton: NSButton!
     
     let downloader = Downloader()
@@ -201,11 +199,6 @@ class ViewController: NSViewController {
         }
     }
     
-    
-    /*func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }*/
-    
     @IBAction func startTasks(_ sender: NSButton) {
         currentRequest.contentURL = URLField.stringValue
         currentRequest.audioOnly = (audioBox.state == .on)
@@ -235,13 +228,13 @@ class ViewController: NSViewController {
                     
                     if error != nil {
                         if (error! as NSError).code != 499 {
-                        DispatchQueue.main.async {
-                            let alert = NSAlert()
-                            alert.alertStyle = .critical
-                            alert.messageText = "Could not save \(videoInfo!.isAudioOnly ? "audio" : "video")"
-                            alert.informativeText = error!.localizedDescription
-                            alert.runModal()
-                        }
+                            DispatchQueue.main.async {
+                                let alert = NSAlert()
+                                alert.alertStyle = .critical
+                                alert.messageText = "Could not save \(videoInfo!.isAudioOnly ? "audio" : "video")"
+                                alert.informativeText = error!.localizedDescription
+                                alert.runModal()
+                            }
                         }
                     }
                 } else {
@@ -251,42 +244,41 @@ class ViewController: NSViewController {
             
             currentRequest.completionHandler = { (video, error) in
                 DispatchQueue.main.async {
-                self.URLField.stringValue = ""
-                sender.isEnabled = true
-                
-                let downloadNotification = NSUserNotification()
-                let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
-                var downloadDestination = ""
-                if self.currentRequest.destination == "~/Desktop" {
-                    downloadDestination = "Desktop"
-                } else if self.currentRequest.destination == "~/Downloads" {
-                    downloadDestination = "Downloads"
+                    self.URLField.stringValue = ""
+                    sender.isEnabled = true
+                    
+                    let downloadNotification = NSUserNotification()
+                    let formatType = (self.audioBox.state == .on) ? "Audio" : "Video"
+                    var downloadDestination = ""
+                    if self.currentRequest.destination == "~/Desktop" {
+                        downloadDestination = "Desktop"
+                    } else if self.currentRequest.destination == "~/Downloads" {
+                        downloadDestination = "Downloads"
+                    }
+                    
+                    var informativeText = ""
+                    if !downloadDestination.isEmpty {
+                        informativeText = "Saved \(formatType.lowercased()) to \(downloadDestination)"
+                    } else {
+                        informativeText = "Saved \(formatType.lowercased())"
+                    }
+                    
+                    downloadNotification.title = "Downloaded \(formatType)"
+                    downloadNotification.informativeText = informativeText
+                    downloadNotification.soundName = NSUserNotificationDefaultSoundName
+                    
+                    if self.downloadButton.isEnabled && (self.currentRequest.error == nil) && (error == nil) {
+                        NSUserNotificationCenter.default.deliver(downloadNotification)
+                        self.saveVideoToHistory(video: video!)
+                    } else {
+                        print(self.currentRequest.error)
+                    }
+                    
+                    self.setDownloadInterface(to: false)
+                    
                 }
-                
-                var informativeText = ""
-                if !downloadDestination.isEmpty {
-                    informativeText = "Saved \(formatType.lowercased()) to \(downloadDestination)"
-                } else {
-                    informativeText = "Saved \(formatType.lowercased())"
-                }
-                
-                downloadNotification.title = "Downloaded \(formatType)"
-                downloadNotification.informativeText = informativeText
-                downloadNotification.soundName = NSUserNotificationDefaultSoundName
-                
-                if self.downloadButton.isEnabled && (self.currentRequest.error == nil) && (error == nil) {
-                    NSUserNotificationCenter.default.deliver(downloadNotification)
-                    self.saveVideoToHistory(video: video!)
-                } else {
-                    print(self.currentRequest.error)
-                }
-                
-                self.setDownloadInterface(to: false)
-                print(previousVideos.first?.name ?? "")
-                
             }
-            }
-                self.downloader.downloadContent(with: self.currentRequest)
+            self.downloader.downloadContent(with: self.currentRequest)
             
         } else {
             if (sender.identifier?.rawValue) ?? "" == "downloadTBButton" {
