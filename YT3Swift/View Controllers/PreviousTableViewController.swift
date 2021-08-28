@@ -25,8 +25,6 @@ class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDat
         newCell.video = newVideo
         newCell.videoNameLabel.stringValue = previousVideos[row].name
         
-//        if previousVideos[row].isAudioOnly {
-//        }
         return newCell
     }
     
@@ -43,7 +41,9 @@ class previousVideoCellView: NSTableCellView {
     
     @IBAction func openVideoLink(_ sender: NSButton) {
         NSWorkspace.shared.open(URL(string: self.video.URL)!)
-            //print("default browser was successfully opened")
+        #if DEBUG
+            print("default browser was successfully opened")
+        #endif
         
     }
     
