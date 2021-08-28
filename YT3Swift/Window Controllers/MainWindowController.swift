@@ -88,22 +88,6 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate {
             break
         }
         return touchBarButton
-        
-        /*let audioButton = NSCustomTouchBarItem(identifier:NSTouchBarItem.Identifier(rawValue: "audioButton"))
-         let button = NSButton(title: "Audio Only", target: self, action: #selector(handleButtonPress))
-         audioOnlyButton = button
-         button.setButtonType(.pushOnPushOff)
-         button.identifier = NSUserInterfaceItemIdentifier(rawValue: "audioTBButton")
-         audioButton.view = button
-         
-         let downloadTBButton = NSCustomTouchBarItem(identifier:NSTouchBarItem.Identifier(rawValue: "downloadButton"))
-         let downloadButton = NSButton(title: "Download", target: self, action: #selector(handleButtonPress))
-         downloadButton.bezelColor = .red
-         downloadButton.identifier = NSUserInterfaceItemIdentifier(rawValue: "downloadTBButton")
-         downloadTBButton.view = downloadButton
-         
-         let itemGroup = NSGroupTouchBarItem(identifier: NSTouchBarItem.Identifier(rawValue: "group"), items: [audioButton ,downloadTBButton])
-         return itemGroup*/
     }
     
 }

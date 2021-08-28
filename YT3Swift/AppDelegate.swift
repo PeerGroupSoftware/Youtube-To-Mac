@@ -22,7 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        //print(flag)
         if !flag {
             for window: AnyObject in NSApplication.shared.windows {
                 window.makeKeyAndOrderFront(self)

@@ -38,13 +38,7 @@ class ViewController: NSViewController {
     let downloader = Downloader()
     var currentRequest = YTDownloadRequest()
     
-    
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
-    }
-    
     override func viewWillAppear() {
-
         if bottomConstraintConstant == 0 {
             bottomConstraintConstant = Int(bigConstraint.constant)
             bigConstraint.constant = CGFloat(defaultBottomConstant)
@@ -53,6 +47,7 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         
+        // Configure main text field
         URLField.focusRingType = .none
         URLField.underlined()
         mainViewController = self
@@ -61,13 +56,13 @@ class ViewController: NSViewController {
         formatPopup.removeAllItems()
         formatPopup.addItems(withTitles: Downloader.videoFormats)
         
+        // Configure folder button with custom style
         downloadLocationButton.setAsFolderButton()
         
         previousVideosTableView.delegate = previousVideosTableController
         previousVideosTableView.dataSource = previousVideosTableController
         
         let videoHistory = (UserDefaults().dictionary(forKey: "YTVideoHistory") as? [String:[String:String]] ?? [String:[String:String]]()).reversed()
-        //print(videoHistory)
         for item in videoHistory {
             let newVideo = YTVideo()
             newVideo.name = item.key
@@ -292,7 +287,6 @@ class ViewController: NSViewController {
             }
             }
                 self.downloader.downloadContent(with: self.currentRequest)
-            //URLField.selec
             
         } else {
             if (sender.identifier?.rawValue) ?? "" == "downloadTBButton" {
@@ -325,7 +319,6 @@ class ViewController: NSViewController {
                     self.downloadButton.isEnabled = false
                     (self.view.window?.windowController as! MainWindowController as MainWindowController).updateTBDownloadButton(withState: .off)
                     self.downloadLocationButton.isEnabled = false
-                    //self.nameLabel.animator().isHidden = false
                     
                     self.mainProgressBar.animator().isHidden = false
                     self.stopButton.animator().isHidden = false
@@ -346,7 +339,6 @@ class ViewController: NSViewController {
                     
                     self.mainProgressBar.animator().isHidden = true
                     self.stopButton.animator().isHidden = true
-                    // self.nameLabel.animator().isHidden = true
                 }, completionHandler:{
                 })
             }
