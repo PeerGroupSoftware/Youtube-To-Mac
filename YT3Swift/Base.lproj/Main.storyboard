@@ -1178,6 +1178,7 @@ DQ
                         <outlet property="controlsLoadingIndicator" destination="4mZ-zb-aRK" id="wfh-Yd-XI0"/>
                         <outlet property="downloadButton" destination="Px7-yg-8H1" id="BQJ-ac-dUz"/>
                         <outlet property="downloadLocationButton" destination="OBh-TZ-Kob" id="BTc-YN-euz"/>
+                        <outlet property="downloadsButton" destination="cLy-en-zIK" id="lgB-Co-M55"/>
                         <outlet property="formatPopup" destination="XHB-NN-yC5" id="mCQ-LV-4Gz"/>
                         <outlet property="mainProgressBar" destination="9jL-rL-s9k" id="qGx-5u-uoU"/>
                         <outlet property="previousVideosTableView" destination="D2B-YN-MLg" id="Na0-Dv-E2F"/>
