@@ -103,6 +103,9 @@ class MediaConverter {
     }
     
     func merge(audioURL: URL, videoURL: URL, withFormat targetFormat: MediaFormat?, completion: @escaping (URL?, Error?) -> Void) {
+        
+        print("USING AV MERGING")
+        
         let mixComposition : AVMutableComposition = AVMutableComposition()
         var mutableCompositionVideoTrack : [AVMutableCompositionTrack] = []
         var mutableCompositionAudioTrack : [AVMutableCompositionTrack] = []

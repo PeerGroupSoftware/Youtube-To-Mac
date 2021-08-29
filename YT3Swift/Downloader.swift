@@ -315,7 +315,7 @@ class Downloader: ContentDownloaderDelegate {
         }
         
         fetchInfoTask.arguments = ["--dump-json", targetVideo.url]
-        fetchInfoTask.qualityOfService = .default
+        fetchInfoTask.qualityOfService = .utility
         fetchInfoTask.standardOutput = outputPipe
         fetchInfoTask.standardError = errorPipe
         outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
@@ -385,7 +385,7 @@ class Downloader: ContentDownloaderDelegate {
         }
         
         fetchInfoTask.arguments = ["--dump-json", targetVideo.url]
-        fetchInfoTask.qualityOfService = .default
+        fetchInfoTask.qualityOfService = .utility
         
         fetchInfoTask.standardOutput = outputPipe
         fetchInfoTask.standardError = errorPipe
@@ -519,8 +519,5 @@ class Downloader: ContentDownloaderDelegate {
 }
 
 enum YoutubeDLVersion: String {
-    @available(*, deprecated) case version9 = "youtube-dl-2019-05-20"
-    @available(*, deprecated) case version10 = "youtube-dl-2019-06-08"
-    //case version11 = "youtube-dl-2019-06-08"
-    case latest = "youtube-dl-2021-01-08"
+    case latest = "youtube-dl-2021-06-06"
 }

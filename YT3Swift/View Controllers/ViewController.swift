@@ -13,7 +13,6 @@ var mainViewController = ViewController()
 
 class ViewController: NSViewController, AppStateDelegate {
     @IBOutlet weak var URLField: NSTextField!
-    //@IBOutlet weak var nameLabel: NSTextField!
     @IBOutlet weak var audioBox: NSButton!
     @IBOutlet weak var formatPopup: NSPopUpButton!
     @IBOutlet weak var downloadButton: NSButton!
@@ -21,11 +20,10 @@ class ViewController: NSViewController, AppStateDelegate {
     @IBOutlet weak var clearTableViewButton: NSButton!
     @IBOutlet weak var downloadLocationButton: NSButton!
     @IBOutlet weak var previousVideosTableView: NSTableView!
-    @IBOutlet weak var recentVideosLabel: NSTextField!
     @IBOutlet weak var bigConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomSpaceConstraint: NSLayoutConstraint!
-    @IBOutlet weak var recentVideosDisclosureTriangle: NSButton!
     @IBOutlet weak var controlsButton: NSButton!
+    @IBOutlet weak var downloadsButton: NSButton!
     @IBOutlet weak var controlsLoadingIndicator: NSProgressIndicator!
     
     var bottomConstraintConstant: Int = 0
@@ -151,9 +149,6 @@ class ViewController: NSViewController, AppStateDelegate {
             previousVideos.append(newVideo)
         }
         previousVideosTableView.reloadData()
-        
-        let recentVideosLabelGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(changeWindowSizeLabel))
-        recentVideosLabel.addGestureRecognizer(recentVideosLabelGestureRecognizer)
     }
     
     @objc func getBasicVideoInfo() {
@@ -238,7 +233,7 @@ class ViewController: NSViewController, AppStateDelegate {
     
     func setControlsPopoverTitle(to newTitle: String?) {
         print("Requesting new popover title \(newTitle)")
-        popoverTitle = newTitle
+        popoverTitle = newTitle ?? "Content Title"
         if self.controlsPopover != nil {
             DispatchQueue.main.async {(self.controlsPopover?.contentViewController as! FormatControlsVC).updateVideoTitle(to: newTitle)}
         }
@@ -278,8 +273,7 @@ class ViewController: NSViewController, AppStateDelegate {
          } else {
          recentVideosDisclosureTriangle.state = .on
          }*/
-        recentVideosDisclosureTriangle.state = (recentVideosDisclosureTriangle.state == .on) ? .off : .on
-        toggleWindowSize(recentVideosDisclosureTriangle)
+        toggleWindowSize(NSButton())
     }
     
     @IBAction func clearRecentVideos(_ sender: NSButton) {
@@ -556,17 +550,14 @@ class ViewController: NSViewController, AppStateDelegate {
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
                     self.audioBox.animator().isHidden = true
-                    //self.button
                     self.controlsButton.animator().isHidden = true
                     self.controlsPopover?.performClose(self)
                     self.controlsLoadingIndicator.stopAnimation(self)
-                    self.recentVideosLabel.animator().isHidden = true
-                    self.recentVideosDisclosureTriangle.animator().isHidden = true
+                    self.downloadsButton.animator().isHidden = true
                     self.formatPopup.animator().isHidden = true
                     self.downloadButton.isEnabled = false
                     (self.view.window?.windowController as! MainWindowController as MainWindowController).updateTBDownloadButton(withState: .off)
                     self.downloadLocationButton.isEnabled = false
-                    //self.nameLabel.animator().isHidden = false
                     
                     self.mainProgressBar.animator().isHidden = false
                     self.stopButton.animator().isHidden = false
@@ -579,8 +570,7 @@ class ViewController: NSViewController, AppStateDelegate {
                     self.audioBox.animator().isHidden = false
                     self.controlsButton.animator().isHidden = false
                     self.downloadLocationButton.isEnabled = true
-                    self.recentVideosLabel.animator().isHidden = false
-                    self.recentVideosDisclosureTriangle.animator().isHidden = false
+                    self.downloadsButton.animator().isHidden = false
                     self.formatPopup.animator().isHidden = false
                     self.downloadButton.isEnabled = true
                     (self.view.window?.windowController as! MainWindowController as MainWindowController).updateTBDownloadButton(withState: .on)
