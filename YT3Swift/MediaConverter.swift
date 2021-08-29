@@ -164,7 +164,7 @@ class MediaConverter {
         assetExport.exportAsynchronously { () -> Void in
             switch assetExport.status {
 
-            case AVAssetExportSessionStatus.completed:
+            case AVAssetExportSession.Status.completed:
                 print("success")
                 completion(videoURL, nil)
                 do {
@@ -173,10 +173,10 @@ class MediaConverter {
                 } catch {
                     print(error)
                 }
-            case  AVAssetExportSessionStatus.failed:
+            case  AVAssetExportSession.Status.failed:
                 print("failed \(assetExport.error)")
                 completion(nil, assetExport.error)
-            case AVAssetExportSessionStatus.cancelled:
+            case AVAssetExportSession.Status.cancelled:
                 print("cancelled \(assetExport.error)")
                 completion(nil, assetExport.error)
             default:

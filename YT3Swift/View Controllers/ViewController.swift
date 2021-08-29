@@ -108,8 +108,6 @@ class ViewController: NSViewController, AppStateDelegate {
             setDownloadInterface(to: true)
         case .ready:
             controlsButton.isEnabled = true
-        default:
-            break
         }
     }
     
