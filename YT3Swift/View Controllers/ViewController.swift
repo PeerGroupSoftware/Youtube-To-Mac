@@ -204,7 +204,6 @@ class ViewController: NSViewController {
         currentRequest.audioOnly = (audioBox.state == .on)
         currentRequest.error = nil
         
-        //print("destination: \(currentRequest.destination)")
         if currentRequest.destination == "~/Desktop" || currentRequest.destination == "~/Downloads" {
             if (UserDefaults.standard.string(forKey: "DownloadDestination") ?? "") == "downloads" {
                 currentRequest.destination = "~/Downloads"
@@ -217,7 +216,6 @@ class ViewController: NSViewController {
             setDownloadInterface(to: true)
             
             currentRequest.progressHandler = {(progress, error, videoInfo) in
-                //print("PROGRESS HANDLER")
                 if progress >= 0 {
                     self.updateDownloadProgressBar(progress: progress, errorOccured: (error != nil))
                     if progress == 100 && videoInfo != nil {
@@ -301,6 +299,8 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             switch to {
             case true: // Animate showing downloading UI
+                (self.view.window?.windowController as! MainWindowController as MainWindowController).setIsDownloading(downloading: true)
+                
                 NSAnimationContext.runAnimationGroup({_ in
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = false
@@ -317,6 +317,8 @@ class ViewController: NSViewController {
                 }, completionHandler:{
                 })
             case false: // Animate showing normal UI
+                (self.view.window?.windowController as! MainWindowController as MainWindowController).setIsDownloading(downloading: false)
+                
                 NSAnimationContext.runAnimationGroup({_ in
                     NSAnimationContext.current.duration = 0.25
                     self.URLField.isEditable = true

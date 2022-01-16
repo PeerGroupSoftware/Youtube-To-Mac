@@ -32,6 +32,10 @@ class MainWindowController: NSWindowController, NSTouchBarDelegate {
         }
     }
     
+    func setIsDownloading(downloading: Bool) {
+        audioOnlyButton?.isEnabled = !downloading
+    }
+    
     func updateTBDownloadButton(withState state: NSButton.StateValue) {
         if downloadContentButton != nil {
             downloadContentButton!.isEnabled = (state == .on)

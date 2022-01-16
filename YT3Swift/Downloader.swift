@@ -103,11 +103,7 @@ class Downloader {
             
             if #available(OSX 10.13, *) {
                 try! self.downloadTask.run()
-            } /*else {
-             self.downloadTask.launch()
-             }*/
-            //Thread.current.name = "DOWNLOAD: \(targetURL)"
-            
+            }
             //print("THREAD: \(Thread.current.name)")
             self.downloadTask.waitUntilExit()
             
@@ -203,10 +199,8 @@ class Downloader {
                 
             } else if outputString.contains("[download]") {
                 if outputString.contains("Destination:") {
-                    //print("OUT: \"\(outputString)\"")
                     var videonameString = (outputString.components(separatedBy: "\n").first! .replacingOccurrences(of: "[download] Destination: ", with: ""))
                     videonameString.removeLast(4) // Remove extension
-                    // print(videonameString)
                     self.currentVideo.name = videonameString
                     print(videonameString)
                     infoHandler(self.currentVideo)
@@ -256,5 +250,5 @@ class Downloader {
 }
 
 enum YoutubeDLVersion: String {
-    case latest = "youtube-dl-2021-06-06"
+    case latest = "youtube-dl-2021-12-17"
 }
