@@ -49,6 +49,7 @@ class Downloader {
             
             let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
             self.downloadTask = Process()
+            //self.downloadTask.environment?["python"] = "/usr/bin/python3"
             if #available(OSX 10.13, *) {
                 self.downloadTask.executableURL = URL(fileURLWithPath: path!)
             } else {
@@ -151,6 +152,8 @@ class Downloader {
                     
                 } else if errorString.contains("Unable to extract video data") {
                     self.sendFatalError(error: NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "The provided URL is invalid."]), handler: errorHandler)
+                } else if errorString.contains("env: python: No such file or directory") {
+                    self.sendFatalError(error: NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey: "The python installation could not be found"]), handler: errorHandler)
                 } else if !errorString.isEmpty {
                     //errorHandler(NSError(domain: "", code: 520, userInfo: [NSLocalizedDescriptionKey: "An unknown error occured. Please file a bug report."]))
                 }
