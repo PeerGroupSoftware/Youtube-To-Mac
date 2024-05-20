@@ -47,9 +47,9 @@ class Downloader {
         
         taskQueue.async {
             
-            let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "sh")
+            let path = Bundle.main.path(forResource: downloaderVersion.rawValue, ofType: "")
             self.downloadTask = Process()
-            //self.downloadTask.environment?["python"] = "/usr/bin/python3"
+
             if #available(OSX 10.13, *) {
                 self.downloadTask.executableURL = URL(fileURLWithPath: path!)
             } else {
@@ -79,9 +79,7 @@ class Downloader {
                 
                 self.isRunning = false
             }
-            
-            //if !audioOnly {
-            //print("GETTING STANDARD OUTPUT")
+
             self.captureStandardOutput(self.downloadTask, progressHandler: {(percent) in
                 progressHandler(percent, nil, nil)
             }, errorHandler: {(error) in
@@ -92,27 +90,18 @@ class Downloader {
                 progressHandler(100, error, self.currentVideo)
             }, infoHandler: {(videoInfo) in
                 progressHandler(-1, nil, videoInfo)
-                //print("SENT \"\(videoInfo.name)\"")
             })
             
-            // if !audioOnly {
-            //print("GETTING ERROR")
             self.readError(self.downloadTask, errorHandler: {(error) in
                 progressHandler(100, error, self.currentVideo)
             })
-            // }
-            
+
             if #available(OSX 10.13, *) {
                 try! self.downloadTask.run()
             }
-            //print("THREAD: \(Thread.current.name)")
             self.downloadTask.waitUntilExit()
             
         }
-        
-        /*  } else {
-         print("Can't start download, task is already running")
-         }*/
     }
     
     private func readError(_ task:Process, errorHandler: @escaping (Error) -> Void) {
@@ -253,5 +242,5 @@ class Downloader {
 }
 
 enum YoutubeDLVersion: String {
-    case latest = "youtube-dl-2021-12-17"
+    case latest = "yt-dlp_macos"
 }
