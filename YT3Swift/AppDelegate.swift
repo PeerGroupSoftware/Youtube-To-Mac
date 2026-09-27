@@ -3,27 +3,33 @@
 //  YT3Swift
 //
 //  Created by Jake Spann on 4/10/17.
-//  Copyright © 2021 Peer Group. All rights reserved.
+//  Copyright © 2026 Peer Group. All rights reserved.
 //
 
 import Cocoa
+import UserNotifications
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
-    
+@main
+class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
+
     let repoLocation = "PeerGroupSoftware/Youtube-To-Mac"
-      
-    
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        NSUserNotificationCenter.default.delegate = self
-        if UserDefaults.standard.bool(forKey: "automaticUpdateCheck") != false || UserDefaults.standard.object(forKey: "automaticUpdateCheck") == nil {
+        if #available(macOS 10.14, *) {
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.alert, .sound]) { _, _ in }
+        }
+
+        if UserDefaults.standard.object(forKey: "automaticUpdateCheck") == nil
+            || UserDefaults.standard.bool(forKey: "automaticUpdateCheck") {
             checkForUpdates(sender: self)
         }
     }
-    
+
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         if !flag {
-            for window: AnyObject in NSApplication.shared.windows {
+            for window in NSApplication.shared.windows {
                 window.makeKeyAndOrderFront(self)
             }
         }
@@ -31,89 +37,95 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        // Tear down handled by process lifetime.
     }
-    
-    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
-        return true
+
+    @available(macOS 10.14, *)
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        if #available(macOS 11.0, *) {
+            completionHandler([.banner, .sound])
+        } else {
+            completionHandler([.alert, .sound])
+        }
     }
-    
+
     @IBAction func checkForUpdates(_ sender: NSMenuItem) {
-        checkForUpdates(sender: sender)
+        checkForUpdates(sender: sender as NSObject)
     }
-    
+
     @IBAction func submitFeedback(_ sender: NSMenuItem) {
-        NSWorkspace.shared.open(URL(string: "https://github.com/\(repoLocation)/issues")!)
+        if let url = URL(string: "https://github.com/\(repoLocation)/issues") {
+            NSWorkspace.shared.open(url)
+        }
     }
-    
+
     func checkForUpdates(sender: NSObject) {
-        print("Checking for updates...")
-        let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
-        let releaseURL = URL(string: "https://api.github.com/repos/\(repoLocation)/releases/latest")!
-        
+        guard let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+            return
+        }
+        guard let releaseURL = URL(string: "https://api.github.com/repos/\(repoLocation)/releases/latest") else {
+            return
+        }
+
         var appVersionStatus = -1
-        
-        //Piggyback on the Downloder's implementation of fetchJSON()
-        Downloader().fetchJSON(from: releaseURL, completion: {(json, error) in
+        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "YoutubeToMac"
+
+        Downloader().fetchJSON(from: releaseURL) { json, error in
             DispatchQueue.main.async {
-                
-                if error == nil && json != nil && json!["message"] == nil {
-                    let newestVersion = (json!["tag_name"] as! String)
-                    let newestURL = URL(string: (json!["html_url"] as! String))!
-                    
+                if error == nil, let json = json, json["message"] == nil,
+                   let newestVersion = json["tag_name"] as? String,
+                   let htmlURL = json["html_url"] as? String,
+                   let newestURL = URL(string: htmlURL) {
+
                     let versionComparison = currentVersion.compare(newestVersion, options: .numeric)
-                    
-                    if versionComparison == .orderedSame { // Local version is current
+                    if versionComparison == .orderedSame {
                         appVersionStatus = 0
-                    } else if versionComparison == .orderedAscending { // Update available
+                    } else if versionComparison == .orderedAscending {
                         appVersionStatus = 1
-                    } else if versionComparison == .orderedDescending { // Local app version is newer
+                    } else {
                         appVersionStatus = 2
                     }
-                    
+
                     let alert = NSAlert()
                     alert.alertStyle = .informational
-                    
-                    if appVersionStatus == -1 || appVersionStatus == 0 || appVersionStatus == 2 {
-                        alert.messageText = "Up to Date"
-                        alert.informativeText = "You're using the latest version of \(Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "YoutubeToMac")."
-                    } else if appVersionStatus == 1 {
+
+                    if appVersionStatus == 1 {
                         alert.messageText = "Update Available"
-                        alert.informativeText = "\(Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "YoutubeToMac") (\(newestVersion)) is available on GitHub."
+                        alert.informativeText = "\(appName) (\(newestVersion)) is available on GitHub."
                         alert.addButton(withTitle: "View on GitHub")
-                        alert.addButton(withTitle: "Ok")
+                        alert.addButton(withTitle: "OK")
+                    } else {
+                        alert.messageText = "Up to Date"
+                        alert.informativeText = "You're using the latest version of \(appName)."
                     }
-                    
-                    var shouldAlert = true
-                    if sender == self && appVersionStatus != 1 {shouldAlert = false}
-                    
+
+                    let shouldAlert = !(sender === self && appVersionStatus != 1)
                     if shouldAlert {
                         let clickedButton = alert.runModal()
-                        
-                        if clickedButton == .alertFirstButtonReturn {
+                        if appVersionStatus == 1 && clickedButton == .alertFirstButtonReturn {
                             NSWorkspace.shared.open(newestURL)
                         }
                     }
-                    
-                    
                 } else {
-                    print("Could not check for updates: \(String(describing: error))")
-                    
                     let alert = NSAlert()
                     alert.alertStyle = .warning
                     alert.messageText = "Unable to Check for Updates"
-                    if error != nil && (error! as NSError).code == -1009 {
+                    if let error = error as NSError?, error.code == NSURLErrorNotConnectedToInternet {
                         alert.informativeText = "There is no Internet connection."
+                    } else {
+                        alert.informativeText = "GitHub releases could not be reached. Try again later."
                     }
-                    
-                    var shouldAlert = true
-                    if sender == self && appVersionStatus != 1 {shouldAlert = false}
-                    if shouldAlert {alert.runModal()}
+
+                    let shouldAlert = !(sender === self)
+                    if shouldAlert {
+                        alert.runModal()
+                    }
                 }
             }
-        })
+        }
     }
-    
-
 }
-
