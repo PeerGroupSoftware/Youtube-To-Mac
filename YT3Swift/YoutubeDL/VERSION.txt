@@ -1,0 +1,3 @@
+yt-dlp 2026.08.19
+Source: https://github.com/yt-dlp/yt-dlp/releases/tag/2026.08.19
+Binary: yt-dlp_macos (universal)

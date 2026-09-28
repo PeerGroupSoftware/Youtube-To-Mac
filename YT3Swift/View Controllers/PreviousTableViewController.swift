@@ -3,7 +3,7 @@
 //  YoutubeToMac
 //
 //  Created by Jake Spann on 1/9/18.
-//  Copyright © 2018 Peer Group. All rights reserved.
+//  Copyright © 2026 Peer Group. All rights reserved.
 //
 
 import Foundation
@@ -12,37 +12,41 @@ import Cocoa
 var previousVideos = [YTVideo]()
 
 class PreviousTableViewController: NSObject, NSTableViewDelegate, NSTableViewDataSource {
-    
+
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return previousVideos.count
+        previousVideos.count
     }
-    
+
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let newCell = tableView.makeView(withIdentifier: (tableColumn?.identifier)!, owner: self) as! previousVideoCellView
+        guard let column = tableColumn,
+              let newCell = tableView.makeView(withIdentifier: column.identifier, owner: self) as? PreviousVideoCellView,
+              row < previousVideos.count else {
+            return nil
+        }
+
+        let source = previousVideos[row]
         let newVideo = YTVideo()
-        newVideo.name = (previousVideos[row].name)
-        newVideo.URL = (previousVideos[row].URL)
+        newVideo.name = source.name
+        newVideo.URL = source.URL
+        newVideo.diskPath = source.diskPath
+        newVideo.isAudioOnly = source.isAudioOnly
         newCell.video = newVideo
-        newCell.videoNameLabel.stringValue = previousVideos[row].name
-        
+        newCell.videoNameLabel.stringValue = source.name
+        newCell.microphoneIcon?.isHidden = !source.isAudioOnly
         return newCell
     }
-    
 }
 
-class previousVideoCellView: NSTableCellView {
+@objc(previousVideoCellView)
+class PreviousVideoCellView: NSTableCellView {
     var video = YTVideo()
     @IBOutlet weak var videoNameLabel: NSTextField!
     @IBOutlet weak var microphoneIcon: NSImageView!
-    
+
     @IBAction func openVideoLink(_ sender: NSButton) {
-        NSWorkspace.shared.open(URL(string: self.video.URL)!)
-        #if DEBUG
-            print("default browser was successfully opened")
-        #endif
-        
+        guard let url = URL(string: video.URL) else { return }
+        NSWorkspace.shared.open(url)
     }
-    
 }
 
 class YTVideo {
@@ -50,7 +54,7 @@ class YTVideo {
     var URL = ""
     var diskPath = ""
     var isAudioOnly = false
-    
+
     convenience init(name: String) {
         self.init()
         self.name = name

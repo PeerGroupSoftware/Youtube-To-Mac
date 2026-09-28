@@ -3,7 +3,7 @@
 //  YoutubeToMac
 //
 //  Created by Jake Spann on 8/12/20.
-//  Copyright © 2020 Peer Group Software. All rights reserved.
+//  Copyright © 2026 Peer Group Software. All rights reserved.
 //
 
 import Cocoa
@@ -12,28 +12,31 @@ class DownloadingPreferencesViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-         let defaults = UserDefaults.standard
-               //print(defaults.string(forKey: "DownloadDestination")!)
-               
-               switch defaults.string(forKey: "DownloadDestination") ?? "" {
-               case "downloads":
-                   (view.subviews.first(where: {($0.identifier ?? NSUserInterfaceItemIdentifier(rawValue: "")).rawValue == "DownloadsRadio"}) as! NSButton).state = .on
-               default:
-                   (view.subviews.first(where: {($0.identifier ?? NSUserInterfaceItemIdentifier(rawValue: "")).rawValue == "DesktopRadio"}) as! NSButton).state = .on
-               }
-    }
-    
-    @IBAction func setDownloadDestination(_ sender: NSButton) {
         let defaults = UserDefaults.standard
-        
-        switch sender.identifier!.rawValue {
-        case "DownloadsRadio":
-            defaults.set("downloads", forKey: "DownloadDestination")
-        case "DesktopRadio":
-            defaults.set("desktop", forKey: "DownloadDestination")
-        default:
-            defaults.set("desktop", forKey: "DownloadDestination")
+        let destination = defaults.string(forKey: "DownloadDestination") ?? "desktop"
+
+        let downloadsButton = view.subviews.first {
+            ($0.identifier ?? NSUserInterfaceItemIdentifier("")).rawValue == "DownloadsRadio"
+        } as? NSButton
+        let desktopButton = view.subviews.first {
+            ($0.identifier ?? NSUserInterfaceItemIdentifier("")).rawValue == "DesktopRadio"
+        } as? NSButton
+
+        if destination == "downloads" {
+            downloadsButton?.state = .on
+            desktopButton?.state = .off
+        } else {
+            desktopButton?.state = .on
+            downloadsButton?.state = .off
         }
     }
-    
+
+    @IBAction func setDownloadDestination(_ sender: NSButton) {
+        switch sender.identifier?.rawValue {
+        case "DownloadsRadio":
+            UserDefaults.standard.set("downloads", forKey: "DownloadDestination")
+        default:
+            UserDefaults.standard.set("desktop", forKey: "DownloadDestination")
+        }
+    }
 }
